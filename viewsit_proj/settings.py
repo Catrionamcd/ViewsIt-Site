@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 # if development == 'True':
-#     ALLOWED_HOSTS = ['localhost']
+# ALLOWED_HOSTS = ['localhost']
 # else:
 #     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
 
@@ -88,13 +88,13 @@ WSGI_APPLICATION = 'viewsit_proj.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # if development == 'True':
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
-# else:
+# }
+# # else:
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
