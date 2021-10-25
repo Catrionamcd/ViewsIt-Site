@@ -1,0 +1,1 @@
+web: gunicorn viewsit_proj.wsgi
