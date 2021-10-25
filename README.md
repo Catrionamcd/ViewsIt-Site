@@ -1,108 +1,164 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# ViewsIt Site
 
-Welcome USER_NAME,
+The ViewsIt site is a discussion website. Users can login to view posts. Users can also sign up to create channels of interest. Users can also comment on other channel posts.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+## Multi Screen mock-up of the site
+![alt text]()
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+## Design of the site
+### Flowchart
+![alt text]()
 
-## Gitpod Reminders
+## Features/Functions
+### Existing Features
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+* The user is presented with a 
+![alt text]()
 
-`python3 -m http.server`
 
-A blue button should appear to click: _Make Public_,
+### Future Features 
+* The site could be extended to 
 
-Another blue button should appear to click: _Open Browser_.
+## Data Model
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
 
-A blue button should appear to click: _Make Public_,
+![alt text]()
 
-Another blue button should appear to click: _Open Browser_.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Development of Data Model
 
-To log into the Heroku toolbelt CLI:
+When I first approached this project 
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+## Technology
+### Language Used
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+* [Python](https://www.python.org) - Python is an interpreted high-level general-purpose programming language. I used Python to access the data in Google Sheets and run the game.
 
-------
+### Other Technologies and Libraries
 
-## Release History
+* [GitPod](https://gitpod.io) - Gitpod is an online cloud based IDE. I developed and tested my project using Gitpod. I added and commited changes with messages and pushed to GitHub.
+* [GitHub](https://github.com) - GitHub is a provider of Internet hosting for software development and version control using Git.
+* [Heroku](https://heroku.com) - Heroku is a cloud platform as a service supporting several programming languages. I used Heroku to deploy and run the project.
+* [Google Chrome Browser](https://www.google.com/intl/en_ie/chrome/) - was used to view the game.
+* [Google Cloud Platform](https://cloud.google.com) - was used to set up the API's for the project.
+* [Google Sheets](https://www.google.com/sheets/about/) - used to store the story flow, the story content, story prompts and the next steps for the game. 
+* [Diagrams](https://wwww.diagrams.net) - used to create the flowchart for the project.
+## API
+Set up API to access the data in the Google Sheets
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+* Go to the [Google Cloud Platform](https://cloud.google.com) page.
+* Click on 'Select a Project' button.
+* Select 'New Project' and enter project name, 'AdventuresOfAlice' and click 'Create'
+* Select project to bring you to the project page.
+* Select the 'APIs & Services' option from the side menu.
+* Select 'Library' to enable two APIs, Google Drive to get credentials to access the Google files and the second API will be to Google Sheets.
+* In the search bar enter 'Google Drive' and select it from the list.
+* Click the 'Enable' button.
+* From the "Which API are you using?" choose Google Drive API.
+* For the "What data will you be accessing?" select Application Data.
+* For the "Are you planning to use this API with Compute Engine, Kubernetes Engine, App Engine, or Cloud Functions?" select No, I'm not using them.
+* Click Next
+* Enter Service Account details, 'AdventuresOfAlice' and click 'Create.
+* For Role click 'Editor' and click 'Continue'.
+* On the next page click on the Service Account that was created.
+* On the next page click on 'KEYS' tab.
+* Click on 'Add' key and 'Create New Key'
+* Select 'JSON' and click 'Create'
+* To select the Google Sheets API, go back to the 'Library' and search for 'Google Sheets'.
+* Select 'Google Sheets API' and click 'Enable'.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+## CREDS.JSON
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+* Copy the credentials file created into my gitpod repository and rename it to 'creds.json'
+* Ensure the 'creds.json' file is added to the 'gitigore' file as it should not be pushed to GitHub.
+* Take a copy the email address generated from the creds.json file.
+* In the Google Sheets click 'Share' button and paste in the email address.
+* Select 'Editor' and untick 'Notify People, then click 'Share'.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+## Testing
+### Manual Testing
+* Ensure that API is working and that my code is able to access the data in the google sheets. I initially tested this by putting two rows of data in the google sheet and printing the data to screen.
+* Test the validation of a player name entered. If the player name is not entered, an error message should appear and the user will be prompted for a name again.
+* Test validation against the reponses in the data model. If a response is entered by the player other than the responses in the google sheet an error message should display and the player is prompted again with the same question.
+* Test that the correct story content and prompt is appearing for the current step of the game.
+* Make sure that the correct value in the next step is moved into the current step when the player has entered a valid response for that step.
+* If there is data in the output column ensure that the correct output content is printing.
+* If the next step is a 'Win' or 'Lose' step make sure that the correct ouptut is printed to the screen. Also test that the correct accummulated tallies of wins and losses are printed.
+* Ensure that the player is promted to play again if the next step is 'Win' or 'Lose'.
+* If the data in the data structure is not setup properly, ensure that an informative error message should appear with the current step of the game printed on screen.
+* Test that the flow of the story makes sense, that for each step the next step is a valid, realistic move.
+* Used the Google Sheets data as a checklist to test that all of the next steps and outputs were correct and the flow of the game was correct.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+### Validator Testing
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+PEP8 online check
+http://pep8online.com
+![alt text](assets/images/PEP8-Checker.png)
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+* No errors were found in the code 
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+## Bug Fixes
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+* 
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+## Deployment
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+The application uses Heroku for deployement
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+### Create the application
+1. Create the requirements file the Heroku will use to import the dependencies required for deployment: type pip3 freeze > requirements.txt. 
 
-------
+2. Navigate to the [Heroku](https://heroku.com) website
+3. Create an account by entering your email address and a password
+4. Activate the account through the authentication email sent to your email account
+5. Click the new button and select create a new app from the dropdown menu
+6. Enter a name for the application which must be unique, in this case the app name is adventures-of-alice
+7. Select a region, in this case Europe
+8. Click create app
+## Heroku settings
+1. From the horizontal menu bar select 'Settings'.
+2. In the buildpacks section, where further necessary dependencies are installed, click 'add buildpack'. Select 'Python' first and click 'save changes'. Next click 'node.js' and then click 'save changes' again. The 'Python' buildpack must be above the 'node.js' buildpack'. They can be clicked on and dragged to change the order if necessary.
+### Deployment
+1. In the top menu bar select 'Deploy'.
+2. In the 'Deployment method' section select 'Github' and click the connect to Github button to confirm.
+3. In the 'search' box enter the Github repository name for the project. Click search and then click connect to link the heroku app with the Github repository. The box will confirm that heroku is connected to the repository which in this case is [Adventures of Alice](https://github.com/catrionamcd/adventures-of-alice).
+4. Scroll down to select either automatic or manual deployment. For this project automatic deployment was selected. If you wish to select automatic deployment select the button 'Enable Automatic Deploys'. This will rebuild the app every time a change is pushed to Github. If you wish to manually deploy click the button 'Deploy Branch'. The default 'Master' option in the dropdown menu should be selected in both cases.
+5. When the app is deployed a message 'Your app was successfully deployed' will be shown. Click 'view' to see the deployed app in the browser. The live deployment of the project can be seen here
+6. The app starts automatically and can be restarted by pressing the 'Run Program' button.
 
-## FAQ about the uptime script
+## Forking the Repository
+If you wish to fork the repository to make changes without affecting the original you can fork the repository
 
-**Why have you added this script?**
+1. Navigate to the [Adventures of Alice](https://github.com/catrionamcd/adventures-of-alice) repository
+2. Click the 'Fork' button at the top right of the page.
+3. A forked copy of the repository will appear in your Repositories page.
+## Cloning the Repository
+1. On [GitHub](https://github.com) navigate to the main page of the  [Adventures of Alice](https://github.com/catrionamcd/adventures-of-alice) repository.
+2. Above the list of files click the dropdown code menu.
+3. Select the https option and copy the link.
+4. Open the terminal.
+5. Change the current working directory to the desired destination location.
+6. Type the git clone command with the copied URL: git clone https://github.com/catrionamcd/adventures-of-alice.git.
+7. Press enter to create the local clone.
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+Press enter to create the local clone.
 
-**How will this affect me?**
+## Credits
+### Content
+* Adventures of Alice in Wonderland by Lewis Carroll
+* Through the looking glass by Lewis Carroll
+* Disney movies - Alice in Wonderland 1951 & 2010
+### Code
+* [w3schools] - https://www.w3schools.com
+* [stackoverflow] - https://www.stackoverflow.com
+* [pythontutorials] - https://www.pythontutorial.net
+* [analyticsvidhya] - https://www.analyticsvidhya.com
+* [geeksforgeeks] - https://www.geekforgeek.org
+* [python] - https://docs.python.org
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+* I would like to credit
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
