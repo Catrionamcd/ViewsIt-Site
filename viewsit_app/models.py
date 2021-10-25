@@ -21,3 +21,28 @@ class Channel(models.Model):
 
     def __str__(self):
         return self.topic
+
+
+class ChannelPosts(models.Model):
+    title = models.CharField(max_length=200, unique=True)
+    slug_url = models.SlugField(max_length=200, unique=True)
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, 
+                                related_name='channelposts')
+    channel_post = models.CharField(max_length=200)
+    post_image = CloudinaryField('image')
+    post_url = models.URLField(max_length=250)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, 
+                               related_name="authorposts")
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    status = models.IntegerField(choices=STATUS, default=0)
+    likes = models.ManyToManyField(User, related_name='post_likes', blank=True)
+
+    class Meta:
+        ordering = ['-updated_on']
+
+    def __str__(self):
+        return self.title
+
+    def number_of_likes(self):
+        return self.likes.count()
