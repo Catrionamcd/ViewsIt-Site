@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 
-
+{% load crispy_forms_tags %}
 
 
 <div class="container-fluid">
@@ -15,7 +15,7 @@
                 {% else %}  
                     <form method="post" style="margin-top: 1.3em;">
                     <table>
-                        {{ channel_form  }}
+                        {{ channel_form | crispy }}
                         <tr>
                         <button type="submit" class="btn btn-signup btn-lg">Submit</button>
                         </tr>
