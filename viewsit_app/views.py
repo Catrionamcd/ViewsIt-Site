@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.views import generic, View
 from .models import Channel, ChannelPosts
 from cloudinary.forms import cl_init_js_callbacks
+from .forms import ChannelForm
 
 
 class ChannelList(generic.ListView):
@@ -53,5 +54,55 @@ class ChannelViewAll(View):
             "channel_view.html",
             {
                 "post_list": queryset,
+            },
+        )
+
+
+class ChannelCreate(View):
+    
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        return render(
+            request,
+            "channel_form.html",
+            {
+                "channelsubmitted": False,
+                "channel_form": ChannelForm()
+            },
+        )
+
+
+    def post(self, request, *args, **kwargs):
+        channelsubmitted = False
+        messages = ()
+        
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        channel_form = ChannelForm(data=request.POST)
+        if channel_form.is_valid():
+
+            try:
+                channel = Channel.objects.get(topic=channel_form.instance.topic)
+                # Channel already exists so post back error
+                channel_form = ChannelForm()
+                messages = messages + ("Channel already exists",)
+            except Channel.DoesNotExist:
+                channel_form.instance.topic_url = slugify(channel_form.instance.topic)
+                channel_form.instance.author = request.user
+                channel_form.save()
+                channelsubmitted = True
+        else:
+            channel_form = ChannelForm()
+        
+        return render(
+            request,
+            "channel_form.html",
+            {
+                "channelsubmitted": channelsubmitted,
+                "channel_form": channel_form,
+                "messages": messages
             },
         )

@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 card mb-4  mt-3 ">
+            <div class="card-body">
+                <!-- For later -->          
+                {% if channelsubmitted %}
+                    <div class="alert alert-success" role="alert">
+                        Your channel is awaiting approval
+                    </div>   
+                {% else %}  
+                    <form method="post" style="margin-top: 1.3em;">
+                    <table>
+                        {{ channel_form  }}
+                        <tr>
+                        <button type="submit" class="btn btn-signup btn-lg">Submit</button>
+                        </tr>
+                    </table>
+                        {% csrf_token %} 
+                    </form>
+                    
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{%endblock%}
