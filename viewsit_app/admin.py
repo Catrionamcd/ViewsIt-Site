@@ -1,6 +1,29 @@
 from django.contrib import admin
-from .models import Channel
+from .models import Channel, ChannelPosts
 
-# Channel model
+# Admin for Channel and ChannelPosts models
 
-admin.site.register(Channel)
+
+@admin.register(Channel)
+class ChannelAdmin(admin.ModelAdmin):
+
+    prepopulated_fields = {'topic_url': ('topic',)}
+    list_filter = ('status', 'updated_on')
+    list_display = ('topic', 'topic_url', 'status', 'created_on', 'updated_on')
+    search_fields = ('topic', 'description')
+
+
+@admin.register(ChannelPosts)
+class ChannelPostsAdmin(admin.ModelAdmin):
+
+    prepopulated_fields = {'slug_url': ('title',)}
+    list_display = ('title', 'author', 'updated_on', 'created_on', 'status')
+    # list_filter = ('approved', 'created_on')
+    # search_fields = ('name', 'email', 'body')
+    # actions = ['approve_comments']
+
+    # def approve_comments(self, request, queryset):
+    #     queryset.update(approved=True)
+
+# admin.site.register(Channel)
+# admin.site.register(ChannelPosts)
