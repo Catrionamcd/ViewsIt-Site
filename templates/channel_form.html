@@ -5,7 +5,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4 card mb-4  mt-3 ">
+        <div class="col-md-4 card mb-4 mt-3 ">
             <div class="card-body">
                 <!-- For later -->          
                 {% if channelsubmitted %}
@@ -13,9 +13,12 @@
                         Your channel is awaiting approval
                     </div>   
                 {% else %}  
+                    <h3>Register New Channel</h3>
+                    <p>Channel Author : {{ user.username }}</p>
                     <form method="post" style="margin-top: 1.3em;">
                     <table>
                         {{ channel_form | crispy }}
+                        <tr></tr>
                         <tr>
                         <button type="submit" class="btn btn-signup btn-lg">Submit</button>
                         </tr>

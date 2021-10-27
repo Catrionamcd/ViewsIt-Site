@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+
+{% load crispy_forms_tags %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 card mb-4  mt-3 ">
+            <div class="card-body">
+                <!-- For later -->          
+                {% if postsubmitted %}
+                    <div class="alert alert-success" role="alert">
+                        Your post is awaiting approval
+                    </div>   
+                {% else %}            
+                    <form method="post"
+                        enctype="multipart/form-data">
+                    {{ backend_form | crispy }}
+                    <input type="submit" value="Submit Post">
+                    {% csrf_token %}
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{%endblock%}

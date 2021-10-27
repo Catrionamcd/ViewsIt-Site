@@ -1,16 +1,17 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.utils.text import slugify
+from django.utils import timezone
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Channel, ChannelPosts
 from cloudinary.forms import cl_init_js_callbacks
-from .forms import ChannelForm
+from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel
 
 
 class ChannelList(generic.ListView):
     model = Channel
     queryset = Channel.objects.filter(status=1).order_by("-created_on")
-    
+
     template_name = "channel_list.html"
 
 
@@ -104,6 +105,105 @@ class ChannelCreate(View):
             {
                 "channelsubmitted": channelsubmitted,
                 "channel_form": channel_form,
+                "messages": messages
+            },
+        )
+
+
+class ChannelPost(View):
+
+    def get(self, request, slug, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        return render(request, 'channel_post.html',
+            {
+                "backend_form": ChannelPostForm(),
+            },
+        )
+
+    def post(self, request, slug, *args, **kwargs):
+        messages = ()
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        try:
+            channel = Channel.objects.get(topic_url=slug)
+            # context = dict(backend_form = ChannelPostForm())
+
+            if channel.status == 0:
+                messages = messages + ("Channel not approved: Cannot post to this channel",)
+            else:
+                form = ChannelPostForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.instance.slug_url = slugify(form.instance.title + str(timezone.now()))
+                    channel_post = form.save(commit=False)
+                    channel_post.author = request.user
+                    channel_post.channel = channel
+                    channel_post.save()
+                    messages = messages + ("Post upload completed, it will need to be approved by the channel owner",)
+                    return render(request, 'channel_view.html',
+                        {
+                            "messages": messages
+                        },
+                    )
+                else:
+                    messages = messages + ("Error: Problem with data entered",)
+        except Channel.DoesNotExist:
+            messages = messages + ("Error posting to this channel",) 
+
+        return render(request, 'channel_post.html',
+            {
+                "backend_form": ChannelPostForm(),
+                "messages": messages
+            },
+        )
+
+class ChannelPostWithChannel(View):
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        return render(request, 'channel_post.html',
+            {
+                "backend_form": ChannelPostFormWithChannel(),
+            },
+        )
+
+    def post(self, request, *args, **kwargs):
+        messages = ()
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        # context = dict(backend_form = ChannelPostFormWithChannel())
+
+        form = ChannelPostFormWithChannel(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                channel = Channel.objects.get(id=form.instance.channel.id)
+                if channel.status == 0:
+                    messages = messages + ("Channel not approved: Cannot post to this channel",)
+                else:                      
+                    form.instance.slug_url = slugify(form.instance.title + str(timezone.now()))
+                    channel_post = form.save(commit=False)
+                    channel_post.author = request.user
+                    # channel_post.channel = channel
+                    channel_post.save()
+                    messages = messages + ("Post upload completed, it will need to be approved by the channel owner",)
+                    return render(request, 'channel_view.html',
+                        {
+                            "messages": messages
+                        },
+                    )
+            except Channel.DoesNotExist:
+                messages = messages + ("Error: Channel not found",) 
+        else:
+            messages = messages + ("Error: Problem with data entered",)
+
+        return render(request, 'channel_post.html',
+            {
+                "backend_form": ChannelPostFormWithChannel(),
                 "messages": messages
             },
         )

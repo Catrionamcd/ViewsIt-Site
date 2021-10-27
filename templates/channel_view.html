@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- List of Channels -->
-        <div class="col-sm-6 mt-3 offset-md-3">
+        <div class="col-12 col-sm-6 mt-3 offset-sm-3">
             <div class="row" >
                 {% if channel_topic_url %}    <!-- if not viewing for specific channel rather than all channels-->
                     <div class="row text-success">
@@ -19,9 +19,15 @@
                         {% endif %}
                         <div class="row"><h5 class="card-title text-muted">{{ post.title }}</h5></div>
                         <div class="col"><p class="card-text text-secondary">Posted by {{ post.author }} on {{ post.updated_on }}</p></div>
-                        <img src="{{ post.post_image.url }}">
-                        <div class="row"><p class="card-text">{{ post.channel_post }}</p></div>      
-                        <div class="row"><p class="card-text">{{ post.post_url }}</p></div>
+                        {% if post.post_image.url %}  
+                            <img src="{{ post.post_image.url }}">
+                        {% endif %}
+                        {% if post.channel_post %}
+                            <div class="row"><p class="card-text">{{ post.channel_post }}</p></div>
+                        {% endif %}
+                        {% if post.post_url %}     
+                            <div class="row"><p class="card-text nav-link">{{ post.post_url | urlize }}<a href="{{ post.post_url }}" target="_blank"></a></p></div>
+                        {% endif %}
                         <p class="card-text text-muted"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
                         
                     </div>

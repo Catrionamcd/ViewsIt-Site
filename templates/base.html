@@ -64,6 +64,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'channel_form' %}">Request New Channel</a>
                     </li>
+
+                    {% if user.is_authenticated and "channel_view" in request.path and channel_topic_url %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'channel_post' slug=channel_topic_url %}">Channel Post</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated and "channel_view" in request.path and not channel_topic_url %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'channel_post' %}">Channel Post</a>
+                    </li>
+                    {% endif %}
+
                 </ul>
 
                 <span class="navbar-nav ml-auto mr-auto">
