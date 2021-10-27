@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.utils.text import slugify
 from django.views import generic, View
+from django.http import HttpResponseRedirect
 from .models import Channel, ChannelPosts
 from cloudinary.forms import cl_init_js_callbacks
 from .forms import ChannelForm

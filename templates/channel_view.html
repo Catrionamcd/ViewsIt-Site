@@ -4,28 +4,26 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- <div class="col-3"></div> -->
         <!-- List of Channels -->
-        <div class="col-6 mt-3 offset-3">
+        <div class="col-sm-6 mt-3 offset-md-3">
             <div class="row" >
                 {% if channel_topic_url %}    <!-- if not viewing for specific channel rather than all channels-->
-                    <div class="row">
-                        <div class="col"><h4>Channel: {{ channel_topic }}</h4></div>
-                        <div class="col"><a>Description: {{ channel_description }}</a></div>
-                    <hr />
+                    <div class="row text-success">
+                        <h6>Channel: {{ channel_topic }}</h6>
+                    </div>
                 {% endif %}
                 {% for post in post_list %}
-                    <div class="row">  
+                    <div class="row border rounded shadow mt-3"> 
                         {% if not channel_topic_url %}   
                             <div class="col"><p class="card-text">{{ post.channel }}</p></div>
                         {% endif %}
-                        <div class="col"><p class="card-text">{{ post.updated_on }}</p></div>
-                        <div class="col"><p class="card-text">{{ post.author }}</p></div>
-                        <div class="col"><p class="card-text">{{ post.title }}</p></div>
+                        <div class="row"><h5 class="card-title text-muted">{{ post.title }}</h5></div>
+                        <div class="col"><p class="card-text text-secondary">Posted by {{ post.author }} on {{ post.updated_on }}</p></div>
                         <img src="{{ post.post_image.url }}">
-                        <div class="col"><p class="card-text">{{ post.channel_post }}</p></div>      
-                        <div class="col"><p class="card-text">{{ post.post_url }}</p></div>
-                        <hr />
+                        <div class="row"><p class="card-text">{{ post.channel_post }}</p></div>      
+                        <div class="row"><p class="card-text">{{ post.post_url }}</p></div>
+                        <p class="card-text text-muted"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
+                        
                     </div>
                 {% empty %}
                     <div><h4>There are no posts to view.</h4></div>
@@ -33,7 +31,6 @@
                 
             </div>
         </div>
-        <div class="col-3"></div>
     </div>
     {% if is_paginated %}
     <nav aria-label="Page navigation">
