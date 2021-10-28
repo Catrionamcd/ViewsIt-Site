@@ -1,5 +1,6 @@
 from .models import Channel, ChannelPosts
 from django import forms
+from django.forms import Textarea
 
 
 class ChannelForm(forms.ModelForm):
@@ -9,6 +10,10 @@ class ChannelForm(forms.ModelForm):
         labels = {
             'topic': '<strong>Channel Topic:</strong>',
             'description': '<strong>Channel Description:</strong>'
+        }
+
+        widgets={
+            'description':Textarea(attrs={'cols': 200, 'rows': 4})
         }
 
 
@@ -21,6 +26,10 @@ class ChannelPostForm(forms.ModelForm):
             'post_image': '<strong>Post Image:</strong>',
             'channel_post': '<strong>Post Text:</strong>',
             'post_url': '<strong>Post URL:</strong>'
+        }
+
+        widgets={
+            'channel_post': Textarea(attrs={'cols': 200, 'rows': 4})
         }
 
 

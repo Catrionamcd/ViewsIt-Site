@@ -1,6 +1,5 @@
 body {
     padding-top: 80px;
-    background-color: yellow;
 }
 
 #btn-back-to-top {
@@ -10,9 +9,7 @@ body {
     display: none;
 }
 
-.asteriskField {
-    display: none;
-}
+
 
 .brand {
     font-family: Lato, sans-serif;
@@ -39,12 +36,13 @@ body {
 
 .main-bg {
     background-color: #F9FAFC;
+  
 }
 
 .card {
     border: none;
     background-color: transparent;
-}
+} 
 
 .image-container {
     position: relative;

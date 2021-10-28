@@ -17,18 +17,18 @@
                         {% if not channel_topic_url %}   
                             <div class="col"><p class="card-text">{{ post.channel }}</p></div>
                         {% endif %}
-                        <div class="row"><h5 class="card-title text-muted">{{ post.title }}</h5></div>
-                        <div class="col"><p class="card-text text-secondary">Posted by {{ post.author }} on {{ post.updated_on }}</p></div>
+                        <div class="row mt-2"><h5 class="card-title text-muted">{{ post.title }}</h5></div>
+                        <div class="col card-text text-secondary">Posted by {{ post.author }} on {{ post.updated_on }}</div>
                         {% if post.post_image.url %}  
                             <img src="{{ post.post_image.url }}">
                         {% endif %}
                         {% if post.channel_post %}
-                            <div class="row"><p class="card-text">{{ post.channel_post }}</p></div>
+                            <div class="row card-text mt-2">{{ post.channel_post }}</div>
                         {% endif %}
                         {% if post.post_url %}     
-                            <div class="row"><p class="card-text nav-link">{{ post.post_url | urlize }}<a href="{{ post.post_url }}" target="_blank"></a></p></div>
+                            <div class="row card-text nav-link"><a href="{{ post.post_url }}" target="_blank">{{ post.post_url }}</a></div>
                         {% endif %}
-                        <p class="card-text text-muted"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
+                        <p class="card-text text-muted mb-2"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
                         
                     </div>
                 {% empty %}
