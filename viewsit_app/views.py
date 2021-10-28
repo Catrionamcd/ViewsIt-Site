@@ -61,7 +61,7 @@ class ChannelViewAll(View):
 
 
 class ChannelCreate(View):
-    
+
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('/home/')
@@ -98,7 +98,7 @@ class ChannelCreate(View):
                 channelsubmitted = True
         else:
             channel_form = ChannelForm()
-        
+
         return render(
             request,
             "channel_form.html",
@@ -197,7 +197,7 @@ class ChannelPostWithChannel(View):
                         },
                     )
             except Channel.DoesNotExist:
-                messages = messages + ("Error: Channel not found",) 
+                messages = messages + ("Error: Channel not found",)
         else:
             messages = messages + ("Error: Problem with data entered",)
 
