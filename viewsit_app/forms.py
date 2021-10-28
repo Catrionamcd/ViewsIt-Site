@@ -16,6 +16,12 @@ class ChannelPostForm(forms.ModelForm):
     class Meta:
         model = ChannelPosts
         fields = ('title', 'post_image', 'channel_post', 'post_url',)
+        labels = {
+            'title': '<strong>Post Title:</strong>',
+            'post_image': '<strong>Post Image:</strong>',
+            'channel_post': '<strong>Post Text:</strong>',
+            'post_url': '<strong>Post URL:</strong>'
+        }
 
 
 class ChannelPostFormWithChannel(forms.ModelForm):
@@ -27,3 +33,9 @@ class ChannelPostFormWithChannel(forms.ModelForm):
     class Meta:
         model = ChannelPosts
         fields = ('channel', 'title', 'post_image', 'channel_post', 'post_url',)
+        labels = {
+            'title': '<strong>Post Title:</strong>',
+            'post_image': '<strong>Post Image:</strong>',
+            'channel_post': '<strong>Post Text:</strong>',
+            'post_url': '<strong>Post URL:</strong>'
+        }

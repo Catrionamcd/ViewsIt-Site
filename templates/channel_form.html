@@ -7,13 +7,13 @@
     <div class="row">
         <div class="col-12 col-sm-6 mt-3 offset-sm-3">
             <div class="card-body">
-                <!-- For later -->          
+                       
                 {% if channelsubmitted %}
                     <div class="alert alert-success" role="alert">
                         Your channel is awaiting approval
                     </div>   
                 {% else %}  
-                    <h5 class="mt-3 text-success">Register New Channel</h5>
+                    <h5 class="mt-3 text-success">Request New Channel</h5>
                     <h6 class="mt-3 text-muted">Channel Author: {{ user.username }}</h6>
                     <p class="mt-3 text-muted">To register a new channel please enter the channel topic and a brief description of what the channel is about.</p>
                     <p class="text-muted">The channel will then await approval by the administrator before posts can be posted to it.</p>
@@ -26,7 +26,6 @@
                             {{ channel_form.description |as_crispy_field}}
                         </div>
 	                   
-                        <!-- {{ channel_form | crispy }} -->
                         <div class="mt-3">
                             <button type="submit" class="btn btn-signup btn-lg">Submit</button>
                         </div>  

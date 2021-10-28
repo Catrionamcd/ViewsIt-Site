@@ -129,7 +129,7 @@ class ChannelPost(View):
 
         try:
             channel = Channel.objects.get(topic_url=slug)
-            # context = dict(backend_form = ChannelPostForm())
+            context = dict(backend_form = ChannelPostForm())
 
             if channel.status == 0:
                 messages = messages + ("Channel not approved: Cannot post to this channel",)
@@ -176,7 +176,7 @@ class ChannelPostWithChannel(View):
         if not request.user.is_authenticated:
             return redirect('/home/')
 
-        # context = dict(backend_form = ChannelPostFormWithChannel())
+        context = dict(backend_form = ChannelPostFormWithChannel())
 
         form = ChannelPostFormWithChannel(request.POST, request.FILES)
         if form.is_valid():
