@@ -149,8 +149,7 @@ Press enter to create the local clone.
 ## Credits
 ### Content
 * Adventures of Alice in Wonderland by Lewis Carroll
-* Through the looking glass by Lewis Carroll
-* Disney movies - Alice in Wonderland 1951 & 2010
+*
 ### Code
 * [w3schools] - https://www.w3schools.com
 * [stackoverflow] - https://www.stackoverflow.com

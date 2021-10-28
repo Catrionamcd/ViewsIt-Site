@@ -6,6 +6,10 @@ class ChannelForm(forms.ModelForm):
     class Meta:
         model = Channel
         fields = ('topic', 'description',)
+        labels = {
+            'topic': '<strong>Channel Topic:</strong>',
+            'description': '<strong>Channel Description:</strong>'
+        }
 
 
 class ChannelPostForm(forms.ModelForm):
