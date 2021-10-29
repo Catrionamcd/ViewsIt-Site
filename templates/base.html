@@ -87,6 +87,10 @@
 
                 </ul>
 
+                {% if user.is_authenticated %}
+                    <p class="nav-item muted-text mt-3 me-2" id="navbarText"><i class="fas fa-user text-success"></i> {{ user }}</p>
+                {% endif %}
+
                 <span class="navbar-nav ml-auto mr-auto">
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
