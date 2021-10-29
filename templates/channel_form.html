@@ -12,8 +12,12 @@
                     <div class="alert alert-success" role="alert">
                         Your channel is awaiting approval
                     </div>   
-                {% else %}  
-                    <h5 class="mt-3 text-success">Request New Channel</h5>
+                {% else %} 
+                    {% if topic  %} 
+                        <h5 class="mt-3 text-success">Edit Channel</h5>
+                    {% else %}
+                        <h5 class="mt-3 text-success">Request New Channel</h5>
+                    {% endif %}
                     <h6 class="mt-3 text-muted">Channel Author: {{ user.username }}</h6>
                     <p class="mt-3 text-muted">To register a new channel please enter the channel topic and a brief description of what the channel is about.</p>
                     <p class="text-muted">The channel will then await approval by the administrator before posts can be posted to it.</p>
