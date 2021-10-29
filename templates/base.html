@@ -50,7 +50,7 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                        <a class="nav-link" href="{% url 'acc_signup1' %}">Register</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_login' %}">Login</a>
@@ -91,12 +91,43 @@
                     <p class="nav-item muted-text mt-3 me-2" id="navbarText"><i class="fas fa-user text-success"></i> {{ user }}</p>
                 {% endif %}
 
-                <span class="navbar-nav ml-auto mr-auto">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </span> 
+               
+                {% if search_place_holder and channel_topic_url %}
+                    <span class="navbar-nav ml-auto mr-auto">
+                        <form class="d-flex" action="{% url 'channel_view_search' slug=channel_topic_url %}" method="get">
+                            <input class="form-control me-2" type="search" placeholder={{ search_place_holder }} aria-label="Search" name="search_string">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                            {% csrf_token %}
+                        </form>
+                {% endif %}
+                {% if search_place_holder and not channel_topic_url %}
+                        <span class="navbar-nav ml-auto mr-auto">
+                            <form class="d-flex" action="{% url 'channel_view_search' %}" method="get">
+                                <input class="form-control me-2" type="search" placeholder={{ search_place_holder }} aria-label="Search" name="search_string">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                                {% csrf_token %}
+                            </form>
+                    </span>
+                {% endif %}
+
+                {% if not search_place_holder and channel_topic_url %}
+                    <span class="navbar-nav ml-auto mr-auto">
+                        <form class="d-flex" action="{% url 'channel_view_search' slug=channel_topic_url %}" method="get">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_string">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                            {% csrf_token %}
+                        </form>
+                    </span>
+                {% endif %}
+                {% if not search_place_holder and not channel_topic_url%}
+                    <span class="navbar-nav ml-auto mr-auto">
+                        <form class="d-flex" action="{% url 'channel_view_search' %}" method="get">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_string">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                            {% csrf_token %}
+                        </form>
+                    </span>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -125,9 +156,9 @@
     </button>
 
    <!-- Footer -->
-   <!-- <footer class="footer mt-auto py-3 dark-bg">
-        <p class="m-0 text-center text-white">Made by CMcD</p>
-        <p class="m-0 text-center text-white">Follow us: <i class="fab fa-facebook-square ms-3"></i>
+   <!-- <footer class="footer mt-auto py-3 bg-white">
+        <p class="m-0 text-center text-success"><i class="far fa-copyright"></i>McD's 2021</p>
+        <p class="m-0 text-center text-sucesss">Follow us: <i class="fab fa-facebook-square ms-3"></i>
             <i class="fab fa-twitter-square ms-3"></i>
             <i class="fab fa-instagram-square ms-3"></i>
             <i class="fab fa-youtube-square ms-3"></i></p>

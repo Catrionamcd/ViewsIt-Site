@@ -4,7 +4,42 @@ from django.utils import timezone
 from django.views import generic, View
 from cloudinary.forms import cl_init_js_callbacks
 from .models import Channel, ChannelPosts
-from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel
+from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel, NewUserForm
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.db.models import Q
+
+
+class Register(View):
+    model = User
+ 
+    def get(self, request, *args, **kwargs):
+     
+        return render(
+            request=request,
+            template_name="register.html",
+            context={"new_user_form": NewUserForm()}
+        )
+
+        # form = NewUserForm(request.POST)
+
+        # if form.is_valid():
+        #     user = form.save()
+        #     login(request, user)
+        #     messages.success(request, "Registration successful.")
+        #     return redirect("main:homepage")
+        # messages.error(request, "Unsuccessful registration. Invalid information.")
+        # form = NewUserForm()
+
+        # return render(
+        #     request,
+        #     "channel_form.html",
+        #     {
+        #         "channelsubmitted": channelsubmitted,
+        #         "channel_form": channel_form,
+        #         "messages": messages
+        #     },
+        # )
 
 
 class ChannelList(generic.ListView):
@@ -55,6 +90,67 @@ class ChannelViewAll(View):
             "channel_view.html",
             {
                 "post_list": queryset,
+            },
+        )
+
+
+class ChannelViewSearch(View):
+
+    def get(self, request, slug, *args, **kwargs):
+        search_string = request.GET.get('search_string', '')
+        if search_string.isspace():
+            search_string = ""
+        
+        messages = ()
+        channel_topic = ""
+        channel_topic_url = ""
+        channel_description = ""
+        queryset = ""
+        try:
+            channel = Channel.objects.get(topic_url=slug)
+            channel_topic = channel.topic
+            channel_topic_url = channel.topic_url
+            channel_description = channel.description
+            queryset = ChannelPosts.objects.filter(
+                Q(channel__exact=channel),
+                Q(status__exact=1),
+                Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                ).order_by("-updated_on")
+        except Channel.DoesNotExist:
+            messages = messages + (str("Error: Channel " + slug + " does not exist"),)        
+
+        return render(
+            request,
+            "channel_view.html",
+            {
+                "channel_topic": channel_topic,
+                "channel_topic_url": channel_topic_url,
+                "channel_description": channel_description,
+                "post_list": queryset,
+                "messages": messages,
+                "search_place_holder": search_string
+            },
+        )
+
+
+class ChannelViewSearchAll(View):
+
+    def get(self, request, *args, **kwargs):
+        search_string = request.GET.get('search_string', '')
+        if search_string.isspace():
+            search_string = ""
+
+        queryset = ChannelPosts.objects.filter(
+            Q(status__exact=1),
+            Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+            ).order_by("-updated_on")
+
+        return render(
+            request,
+            "channel_view.html",
+            {
+                "post_list": queryset,
+                "search_place_holder": search_string
             },
         )
 

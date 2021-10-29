@@ -1,6 +1,19 @@
-from .models import Channel, ChannelPosts
+from .models import User,Channel, ChannelPosts
 from django import forms
 from django.forms import Textarea
+from django.contrib.auth.forms import UserCreationForm
+
+
+class NewUserForm(UserCreationForm):
+	class Meta:
+		model = User
+		fields = ("username", "password1", "password2")
+
+	def save(self, commit=True):
+		user = super(NewUserForm, self).save(commit=False)
+		if commit:
+			user.save()
+		return user
 
 
 class ChannelForm(forms.ModelForm):
@@ -47,4 +60,8 @@ class ChannelPostFormWithChannel(forms.ModelForm):
             'post_image': '<strong>Post Image:</strong>',
             'channel_post': '<strong>Post Text:</strong>',
             'post_url': '<strong>Post URL:</strong>'
+        }
+
+        widgets = {
+            'channel_post': Textarea(attrs={'cols': 200, 'rows': 4})
         }
