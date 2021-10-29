@@ -1,10 +1,9 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.utils.text import slugify
 from django.utils import timezone
 from django.views import generic, View
-from django.http import HttpResponseRedirect
-from .models import Channel, ChannelPosts
 from cloudinary.forms import cl_init_js_callbacks
+from .models import Channel, ChannelPosts
 from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel
 
 
@@ -75,7 +74,6 @@ class ChannelCreate(View):
             },
         )
 
-
     def post(self, request, *args, **kwargs):
         channelsubmitted = False
         messages = ()
@@ -88,7 +86,6 @@ class ChannelCreate(View):
 
             try:
                 channel = Channel.objects.get(topic=channel_form.instance.topic)
-                # Channel already exists so post back error
                 channel_form = ChannelForm()
                 messages = messages + ("Channel already exists",)
             except Channel.DoesNotExist:
@@ -108,6 +105,116 @@ class ChannelCreate(View):
                 "messages": messages
             },
         )
+
+
+class ChannelEdit(View):
+
+    def get(self, request, slug, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        try:
+            channel = Channel.objects.get(topic_url=slug, author=request.user)
+        except Channel.DoesNotExist:
+            return redirect('/home/') 
+
+        return render(
+            request,
+            "channel_form.html",
+            {
+                "channelsubmitted": False,
+                "topic": channel.topic,
+                "channel_form": ChannelForm(initial={'topic': channel.topic, 'description': channel.description})
+            },
+        )
+
+    def post(self, request, slug, *args, **kwargs):
+        channelsubmitted = False
+        messages = ()
+
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        channel_form = ChannelForm(data=request.POST)
+        if channel_form.is_valid():
+
+            valid_update = False
+            try:
+                channel = Channel.objects.get(topic_url=slug)
+                if channel.author == request.user:
+                    if channel.topic == channel_form.instance.topic:
+                        valid_update = True
+                    else:
+                        try:
+                            Channel.objects.get(topic=channel_form.instance.topic)
+                            # channel_form.instance.topic = channel.topic
+                            messages = ("This channel name is already being used",)
+                        except Channel.DoesNotExist:
+                            valid_update = True
+                else:
+                    messages = ("You are not the owner of this channel",)               
+            except Channel.DoesNotExist:
+                messages = ("Channel does not exist",)
+
+            if valid_update:
+                channel.topic = channel_form.instance.topic
+                channel.topic_url = slugify(channel_form.instance.topic)
+                channel.description = channel_form.instance.description
+                channel.status = 0
+                channel.save()
+                channelsubmitted = True
+
+        
+        return render(
+            request,
+            "channel_form.html",
+            {
+                "channelsubmitted": channelsubmitted,
+                "channel_form": channel_form,
+                "messages": messages
+            },
+        )
+
+
+class ChannelManage(generic.ListView):
+
+    def get(self, request, *args, **kwargs):
+        queryset = Channel.objects.filter(author=request.user).order_by("-created_on")
+
+
+        return render(
+            request,
+            "channel_manage.html",
+            {
+                "channel_list": queryset,
+            },
+        )
+
+
+class ChannelDelete(View):
+
+    def post(self, request, slug, *args, **kwargs):
+        messages = ()
+        if not request.user.is_authenticated:
+            return redirect('/home/')
+
+        try:
+            channel = Channel.objects.get(topic_url=slug, author=request.user)
+            channel.delete()
+            messages = messages + ("Channel deleted successfully",)
+        except Channel.DoesNotExist:
+            messages = messages + ("Channel deletion failed",)
+
+        queryset = Channel.objects.filter(author=request.user).order_by("-created_on")
+
+        return render(
+            request,
+            "channel_manage.html",
+            {
+                "channel_list": queryset,
+                "messages": messages
+            },
+        )        
 
 
 class ChannelPost(View):

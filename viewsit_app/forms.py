@@ -12,8 +12,8 @@ class ChannelForm(forms.ModelForm):
             'description': '<strong>Channel Description:</strong>'
         }
 
-        widgets={
-            'description':Textarea(attrs={'cols': 200, 'rows': 4})
+        widgets = {
+            'description': Textarea(attrs={'cols': 200, 'rows': 4})
         }
 
 
@@ -28,7 +28,7 @@ class ChannelPostForm(forms.ModelForm):
             'post_url': '<strong>Post URL:</strong>'
         }
 
-        widgets={
+        widgets = {
             'channel_post': Textarea(attrs={'cols': 200, 'rows': 4})
         }
 

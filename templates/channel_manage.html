@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+ 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3"></div>
+        <!-- List of Channels -->
+        <div class="col-6 mt-3 left">
+            <div class="row" >
+                <div class="col"><h3>Channels managed by you</h3></div>
+                <hr />
+                {% for channel in channel_list %}
+                    <div class="row">
+                        <div class="col" ><form action="{% url 'channel_delete' slug=channel.topic_url %}" method="post">
+                            <button type="submit" name="your_name" value="your_value" >delete</button>
+                            {% csrf_token %}
+                        </form></div>
+                        <div class="col" ><a class="nav-link" href="{% url 'channel_form' slug=channel.topic_url %}"><p class="card-title">{{ channel.topic }}</p> </a>  </div>     
+                        <div class="col"><p class="card-text">{{ channel.description }}</p></div>
+                        <div class="col"><p class="card-text">{{ channel.created_on }}</p></div>
+                        {% if channel.status == 0 %}
+                        <div class="col"><p class="card-text">Draft</p></div>
+                        {% else %}
+                        <div class="col"><p class="card-text">Approved</p></div>
+                        {% endif %}
+                        <hr />
+                    </div>
+                {% empty %}
+                    <div><h4>You currently don't manage any channels.</h4></div>
+                {% endfor %}
+                
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+ 
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+ 
+{%endblock%}
+
