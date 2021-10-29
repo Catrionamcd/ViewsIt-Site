@@ -1,19 +1,29 @@
-from .models import User,Channel, ChannelPosts
+from .models import Channel, ChannelPosts
+from django.contrib.auth.models import User
 from django import forms
 from django.forms import Textarea
 from django.contrib.auth.forms import UserCreationForm
 
 
-class NewUserForm(UserCreationForm):
-	class Meta:
-		model = User
-		fields = ("username", "password1", "password2")
+class NewUserForm(UserCreationForm()):
+    class Meta:
+        model = User
+        fields = ('username', 'password1', 'password2',)
+        labels = {
+            'username': '<strong>Username:</strong>',
+            'password1': '<strong>Password:</strong>',
+            'password2': '<strong>Verify Password:</strong>'
+        }
 
-	def save(self, commit=True):
-		user = super(NewUserForm, self).save(commit=False)
-		if commit:
-			user.save()
-		return user
+        widgets = {
+            'username':  forms.TextInput(attrs={'size': 10})
+        }
+
+	# def save(self, commit=True):
+	# 	user = super(NewUserForm, self).save(commit=False)
+	# 	if commit:
+	# 		user.save()
+	# 	return user
 
 
 class ChannelForm(forms.ModelForm):

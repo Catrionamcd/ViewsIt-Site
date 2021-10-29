@@ -4,7 +4,8 @@ from django.urls import path
 urlpatterns = [
 
      path('', views.ChannelList.as_view(), name='home'),
-     path('acc_signup1/', views.Register.as_view(), name="acc_signup1"),
+     path('account_register/', views.Register.as_view(), name="account_register"),
+     # path('account_login/', views.Register.as_view(), name="account_login"),
      path('channel_view_all/', views.ChannelViewAll.as_view(), name='channel_view_all'),
      path('channel_list/', views.ChannelList.as_view(), name='channel_list'),
      path('channel_view/<slug>/', views.ChannelView.as_view(), name='channel_view'),
