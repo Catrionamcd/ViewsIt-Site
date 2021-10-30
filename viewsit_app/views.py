@@ -101,11 +101,20 @@ class ChannelView(View):
             channel_topic = channel.topic
             channel_topic_url = channel.topic_url
             channel_description = channel.description
-            queryset = ChannelPosts.objects.filter(
-                Q(channel__exact=channel),
-                Q(status__exact=1) | Q(author__exact=request.user),
-                Q(channel__status__exact=1),
-                ).order_by("-updated_on") 
+            
+            if request.user.is_authenticated:
+                queryset = ChannelPosts.objects.filter(
+                    Q(channel__exact=channel),
+                    Q(status__exact=1) | Q(author__exact=request.user),
+                    Q(channel__status__exact=1),
+                    ).order_by("-updated_on")
+            else:
+                queryset = ChannelPosts.objects.filter(
+                    Q(channel__exact=channel),
+                    Q(status__exact=1),
+                    Q(channel__status__exact=1),
+                    ).order_by("-updated_on") 
+
         except Channel.DoesNotExist:
             messages = messages + (str("Error: Channel " + slug + " does not exist"),)        
 
@@ -131,10 +140,16 @@ class ChannelViewAll(View):
         if message_string:
             messages = messages + (message_string, )
 
-        queryset = ChannelPosts.objects.filter(
-            Q(status__exact=1) | Q(author__exact=request.user),
-            Q(channel__status__exact=1),
-            ).order_by("-updated_on")
+        if request.user.is_authenticated:
+            queryset = ChannelPosts.objects.filter(
+                Q(status__exact=1) | Q(author__exact=request.user),
+                Q(channel__status__exact=1),
+                ).order_by("-updated_on")
+        else:
+            queryset = ChannelPosts.objects.filter(
+                Q(status__exact=1),
+                Q(channel__status__exact=1),
+                ).order_by("-updated_on")
 
         return render(
             request,
@@ -164,12 +179,20 @@ class ChannelViewSearch(View):
             channel_topic_url = channel.topic_url
             channel_description = channel.description
 
-            queryset = ChannelPosts.objects.filter(
-                Q(channel__exact=channel),
-                Q(status__exact=1) | Q(author__exact=request.user),
-                Q(channel__status__exact=1),
-                Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
-                ).order_by("-updated_on")
+            if request.user.is_authenticated:
+                queryset = ChannelPosts.objects.filter(
+                    Q(channel__exact=channel),
+                    Q(status__exact=1) | Q(author__exact=request.user),
+                    Q(channel__status__exact=1),
+                    Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                    ).order_by("-updated_on")
+            else:
+                queryset = ChannelPosts.objects.filter(
+                    Q(channel__exact=channel),
+                    Q(status__exact=1),
+                    Q(channel__status__exact=1),
+                    Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                    ).order_by("-updated_on")
            
         except Channel.DoesNotExist:
             messages = messages + (str("Error: Channel " + slug + " does not exist"),)        
@@ -195,11 +218,18 @@ class ChannelViewSearchAll(View):
         if search_string.isspace():
             search_string = ""
 
-        queryset = ChannelPosts.objects.filter(
-            Q(status__exact=1) | Q(author__exact=request.user),
-            Q(channel__status__exact=1),
-            Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
-            ).order_by("-updated_on")
+        if request.user.is_authenticated:
+            queryset = ChannelPosts.objects.filter(
+                Q(status__exact=1) | Q(author__exact=request.user),
+                Q(channel__status__exact=1),
+                Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                ).order_by("-updated_on")
+        else:
+            queryset = ChannelPosts.objects.filter(
+                Q(status__exact=1),
+                Q(channel__status__exact=1),
+                Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                ).order_by("-updated_on")
 
         return render(
             request,

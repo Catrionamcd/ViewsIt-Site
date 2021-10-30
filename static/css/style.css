@@ -10,6 +10,9 @@ body {
 }
 
 
+.unapproved-bg {
+    background-color: darkgrey;
+}
 
 .brand {
     font-family: Lato, sans-serif;

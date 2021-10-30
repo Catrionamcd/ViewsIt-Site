@@ -15,12 +15,12 @@
                 {% for post in post_list %}          
                 <div class="row">
                     {% if post.status == 0 %}
-                        <div class="row border rounded shadow mt-3" style="background-color:powderblue;">
+                        <div class="row border rounded shadow mt-3 unapproved-bg">
                     {% else %}
                         <div class="row border rounded shadow mt-3">
                     {% endif %}  
                         {% if not channel_topic_url %}   
-                            <div class="col"><p class="card-text">{{ post.channel }}</p></div>
+                            <div class="col"><p class="card-text text-success">{{ post.channel }}</p></div>
                         {% endif %}
                         <div class="row mt-2"><h5 class="card-title text-muted">{{ post.title }}</h5></div>
                         <div class="col card-text text-secondary">Posted by {{ post.author }} on {{ post.updated_on }}</div>
@@ -28,7 +28,7 @@
                             <img src="{{ post.post_image.url }}">
                         {% endif %}
                         {% if post.channel_post %}
-                            <div class="row card-text mt-2">{{ post.channel_post }}</div>
+                            <div class="col card-text mt-3">{{ post.channel_post }}</div>
                         {% endif %}
                         {% if post.post_url %}     
                             <div class="row card-text nav-link"><a href="{{ post.post_url }}" target="_blank">{{ post.post_url }}</a></div>
