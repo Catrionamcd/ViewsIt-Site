@@ -12,8 +12,13 @@
                         <h5>Channel: {{ channel_topic }}</h5>
                     </div>
                 {% endif %}
-                {% for post in post_list %}
-                    <div class="row border rounded shadow mt-3"> 
+                {% for post in post_list %}          
+                <div class="row">
+                    {% if post.status == 0 %}
+                        <div class="row border rounded shadow mt-3" style="background-color:powderblue;">
+                    {% else %}
+                        <div class="row border rounded shadow mt-3">
+                    {% endif %}  
                         {% if not channel_topic_url %}   
                             <div class="col"><p class="card-text">{{ post.channel }}</p></div>
                         {% endif %}
@@ -29,8 +34,11 @@
                             <div class="row card-text nav-link"><a href="{{ post.post_url }}" target="_blank">{{ post.post_url }}</a></div>
                         {% endif %}
                         <p class="card-text text-muted mb-2"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
-                        
+                        {% if post.status == 0 %}
+                            <div class="col"><p class="card-text"><b>Post not approved yet</b></p></div>
+                        {% endif %}
                     </div>
+                </div>
                 {% empty %}
                     <div><h4>There are no posts to view.</h4></div>
                 {% endfor %}

@@ -2,7 +2,7 @@ from .models import Channel, ChannelPosts
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import Textarea
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class NewUserForm(UserCreationForm):
@@ -11,9 +11,9 @@ class NewUserForm(UserCreationForm):
         fields = ('username', 'password1', 'password2')
 
 
-class UserLoginForm(forms.ModelForm):
+class LoginUserForm(AuthenticationForm):
     class Meta:
-       
+        model = User
         fields = ('username', 'password')
 
 

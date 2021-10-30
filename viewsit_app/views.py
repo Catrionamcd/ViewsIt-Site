@@ -4,11 +4,11 @@ from django.utils import timezone
 from django.views import generic, View
 from cloudinary.forms import cl_init_js_callbacks
 from .models import Channel, ChannelPosts
-from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel, NewUserForm
+from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel, NewUserForm, LoginUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class Register(View):
@@ -46,25 +46,37 @@ class Register(View):
 
 class LoginUser(View):
 
-        def post(self, request, *args, **kwargs):
+        def get(self, request, *args, **kwargs):
             messages = ()
-
-            user_login_form = UserLoginForm(data=request.POST)
-
-            user = authenticate(request, user_login_form.username, user_login_form.password)
-
-            if user is not None:
-                login(request, user)
-                return redirect(reverse('home')+"?messages=Login successful")
-            messages = ("Unsuccessful Login. Invalid information.",)
-            user_login_form = UserLoginForm()
-
             return render(
                 request,
                 "login_user.html",
                 {
-                "messages": messages,
-                "user_login_form": UserLoginForm()
+                 "login_user_form": LoginUserForm()
+                },
+            )
+            
+        def post(self, request, *args, **kwargs):
+
+            login_user_form = LoginUserForm(data=request.POST)
+            username = login_user_form.username
+            password = login_user_form.password
+            # equest.POST.get('login_user_form.username')
+            # password = request.POST.get('login_user_form.password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect(('home')+"?messages=Login successful")
+            messages = ("Unsuccessful Login. Invalid information.",)
+           
+            return render(
+                request,
+                "login_user.html",
+                {
+                 "messages": messages,
+                 "login_user_form": LoginUserForm()
                 },
             )
 
@@ -89,7 +101,11 @@ class ChannelView(View):
             channel_topic = channel.topic
             channel_topic_url = channel.topic_url
             channel_description = channel.description
-            queryset = ChannelPosts.objects.filter(channel=channel).filter(status=1).filter(channel__status__exact=1).order_by("-updated_on")
+            queryset = ChannelPosts.objects.filter(
+                Q(channel__exact=channel),
+                Q(status__exact=1) | Q(author__exact=request.user),
+                Q(channel__status__exact=1),
+                ).order_by("-updated_on") 
         except Channel.DoesNotExist:
             messages = messages + (str("Error: Channel " + slug + " does not exist"),)        
 
@@ -115,7 +131,10 @@ class ChannelViewAll(View):
         if message_string:
             messages = messages + (message_string, )
 
-        queryset = ChannelPosts.objects.filter(status=1).filter(channel__status__exact=1).order_by("-updated_on")
+        queryset = ChannelPosts.objects.filter(
+            Q(status__exact=1) | Q(author__exact=request.user),
+            Q(channel__status__exact=1),
+            ).order_by("-updated_on")
 
         return render(
             request,
@@ -144,12 +163,14 @@ class ChannelViewSearch(View):
             channel_topic = channel.topic
             channel_topic_url = channel.topic_url
             channel_description = channel.description
+
             queryset = ChannelPosts.objects.filter(
                 Q(channel__exact=channel),
-                Q(status__exact=1),
+                Q(status__exact=1) | Q(author__exact=request.user),
                 Q(channel__status__exact=1),
                 Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
                 ).order_by("-updated_on")
+           
         except Channel.DoesNotExist:
             messages = messages + (str("Error: Channel " + slug + " does not exist"),)        
 
@@ -175,7 +196,7 @@ class ChannelViewSearchAll(View):
             search_string = ""
 
         queryset = ChannelPosts.objects.filter(
-            Q(status__exact=1),
+            Q(status__exact=1) | Q(author__exact=request.user),
             Q(channel__status__exact=1),
             Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
             ).order_by("-updated_on")
