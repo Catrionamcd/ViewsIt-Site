@@ -148,8 +148,8 @@ Press enter to create the local clone.
 
 ## Credits
 ### Content
-* Adventures of Alice in Wonderland by Lewis Carroll
-*
+* Reddit Social Network Site - https://www.reddit.com
+* Facebook Social Networking Site - https://www.facebook.com 
 ### Code
 * [w3schools] - https://www.w3schools.com
 * [stackoverflow] - https://www.stackoverflow.com

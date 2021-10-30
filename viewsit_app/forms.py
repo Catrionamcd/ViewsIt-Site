@@ -5,19 +5,10 @@ from django.forms import Textarea
 from django.contrib.auth.forms import UserCreationForm
 
 
-class NewUserForm(UserCreationForm()):
+class NewUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2',)
-        labels = {
-            'username': '<strong>Username:</strong>',
-            'password1': '<strong>Password:</strong>',
-            'password2': '<strong>Verify Password:</strong>'
-        }
-
-        widgets = {
-            'username':  forms.TextInput(attrs={'size': 10})
-        }
+        fields = ('username', 'password1', 'password2')
 
 	# def save(self, commit=True):
 	# 	user = super(NewUserForm, self).save(commit=False)

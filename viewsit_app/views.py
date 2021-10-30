@@ -12,28 +12,36 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class Register(View):
-    model = User
-
+    
     def get(self, request, *args, **kwargs):
-     
+        messages = ()
         return render(
             request,
             "register.html",
             {
-                "new_user_form": NewUserForm()
+              "new_user_form": NewUserForm()
             },
         )
 
-        # form = NewUserForm(request.POST)
+    def post(self, request, *args, **kwargs):
 
-        # if form.is_valid():
-        #     user = form.save()
-        #     login(request, user)
-        #     messages.success(request, "Registration successful.")
-        #     return redirect("main:homepage")
-        # messages.error(request, "Unsuccessful registration. Invalid information.")
-        # form = NewUserForm()
+        messages = ()
 
+        form = NewUserForm(data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('home')+"?messages=Registration successful")
+        messages = ("Unsuccessful registration. Invalid information.",)
+        form = NewUserForm()
+
+        return render(
+            request,
+            "register.html",
+            {
+              "messages": messages
+            },
+        )
 
 class ChannelList(generic.ListView):
     model = Channel
@@ -75,6 +83,12 @@ class ChannelView(View):
 class ChannelViewAll(View):
 
     def get(self, request, *args, **kwargs):
+        messages = ()
+        
+        message_string = request.GET.get('messages', '')
+        if message_string:
+            if not message_string.isspace():
+                messages = messages + (message_string, )
 
         queryset = ChannelPosts.objects.filter(status=1).filter(channel__status__exact=1).order_by("-updated_on")
 
@@ -83,6 +97,7 @@ class ChannelViewAll(View):
             "channel_view.html",
             {
                 "post_list": queryset,
+                "messages": messages,
             },
         )
 
@@ -154,7 +169,7 @@ class ChannelCreate(View):
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         return render(
             request,
@@ -170,7 +185,7 @@ class ChannelCreate(View):
         messages = ()
         
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         channel_form = ChannelForm(data=request.POST)
         if channel_form.is_valid():
@@ -202,12 +217,12 @@ class ChannelEdit(View):
 
     def get(self, request, slug, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         try:
             channel = Channel.objects.get(topic_url=slug, author=request.user)
         except Channel.DoesNotExist:
-            return redirect('/home/') 
+            return redirect('home') 
 
         return render(
             request,
@@ -224,7 +239,7 @@ class ChannelEdit(View):
         messages = ()
 
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         channel_form = ChannelForm(data=request.POST)
         if channel_form.is_valid():
@@ -287,7 +302,7 @@ class ChannelDelete(View):
     def post(self, request, slug, *args, **kwargs):
         messages = ()
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         try:
             channel = Channel.objects.get(topic_url=slug, author=request.user)
@@ -312,7 +327,7 @@ class ChannelPost(View):
 
     def get(self, request, slug, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         return render(request, 'channel_post.html',
             {
@@ -323,7 +338,7 @@ class ChannelPost(View):
     def post(self, request, slug, *args, **kwargs):
         messages = ()
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         try:
             channel = Channel.objects.get(topic_url=slug)
@@ -361,7 +376,7 @@ class ChannelPostWithChannel(View):
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         return render(request, 'channel_post.html',
             {
@@ -372,7 +387,7 @@ class ChannelPostWithChannel(View):
     def post(self, request, *args, **kwargs):
         messages = ()
         if not request.user.is_authenticated:
-            return redirect('/home/')
+            return redirect('home')
 
         context = dict(backend_form = ChannelPostFormWithChannel())
 
