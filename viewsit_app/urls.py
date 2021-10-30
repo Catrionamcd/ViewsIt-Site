@@ -6,6 +6,7 @@ urlpatterns = [
      path('', views.ChannelViewAll.as_view(), name=''),
      path('home', views.ChannelViewAll.as_view(), name='home'),
      path('account_register/', views.Register.as_view(), name="account_register"),
+     path('user_login/', views.LoginUser.as_view(), name="user_login"),
      path('channel_view_all/', views.ChannelViewAll.as_view(), name='channel_view_all'),
      path('channel_list/', views.ChannelList.as_view(), name='channel_list'),
      path('channel_view/<slug>/', views.ChannelView.as_view(), name='channel_view'),

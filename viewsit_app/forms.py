@@ -10,11 +10,11 @@ class NewUserForm(UserCreationForm):
         model = User
         fields = ('username', 'password1', 'password2')
 
-	# def save(self, commit=True):
-	# 	user = super(NewUserForm, self).save(commit=False)
-	# 	if commit:
-	# 		user.save()
-	# 	return user
+
+class UserLoginForm(forms.ModelForm):
+    class Meta:
+       
+        fields = ('username', 'password')
 
 
 class ChannelForm(forms.ModelForm):

@@ -12,10 +12,9 @@
                 <hr />
                 {% for channel in channel_list %}
                     <div class="row">
-                        <div class="col" ><form action="{% url 'channel_delete' slug=channel.topic_url %}" method="post">
-                            <button type="submit" name="your_name" value="your_value" >delete</button>
-                            {% csrf_token %}
-                        </form></div>
+                        <!-- Delete Button here triggers modal below -->
+                        <div class="col"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModalDelete">delete</button></div>
+                       
                         <div class="col" ><a class="nav-link" href="{% url 'channel_form' slug=channel.topic_url %}"><p class="card-title">{{ channel.topic }}</p> </a>  </div>     
                         <div class="col"><p class="card-text">{{ channel.description }}</p></div>
                         <div class="col"><p class="card-text">{{ channel.created_on }}</p></div>
@@ -26,6 +25,31 @@
                         {% endif %}
                         <hr />
                     </div>
+
+                    <!-- Modal for Delete Button above-->
+                    <div class="modal fade" id="confirmModalDelete" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel">Channel Deletion</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            This action will permanently delete channel: {{ channel.topic }}
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form action="{% url 'channel_delete' slug=channel.topic_url %}" method="post">
+                                <button type="submit" class="btn btn-primary">Confirm Deletion</button>
+                                {% csrf_token %}
+                            </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
                 {% empty %}
                     <div><h4>You currently don't manage any channels.</h4></div>
                 {% endfor %}

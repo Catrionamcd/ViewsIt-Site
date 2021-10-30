@@ -5,7 +5,7 @@ from django.views import generic, View
 from cloudinary.forms import cl_init_js_callbacks
 from .models import Channel, ChannelPosts
 from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel, NewUserForm
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
@@ -27,21 +27,47 @@ class Register(View):
 
         messages = ()
 
-        form = NewUserForm(data=request.POST)
+        new_user_form = NewUserForm(data=request.POST)
 
-        if form.is_valid():
-            form.save()
+        if new_user_form.is_valid():
+            new_user_form.save()
             return redirect(reverse('home')+"?messages=Registration successful")
         messages = ("Unsuccessful registration. Invalid information.",)
-        form = NewUserForm()
+        new_user_form = NewUserForm()
 
         return render(
             request,
             "register.html",
             {
-              "messages": messages
+              "messages": messages,
+              "new_user_form": NewUserForm()
             },
         )
+
+class LoginUser(View):
+
+        def post(self, request, *args, **kwargs):
+            messages = ()
+
+            user_login_form = UserLoginForm(data=request.POST)
+
+            user = authenticate(request, user_login_form.username, user_login_form.password)
+
+            if user is not None:
+                login(request, user)
+                return redirect(reverse('home')+"?messages=Login successful")
+            messages = ("Unsuccessful Login. Invalid information.",)
+            user_login_form = UserLoginForm()
+
+            return render(
+                request,
+                "login_user.html",
+                {
+                "messages": messages,
+                "user_login_form": UserLoginForm()
+                },
+            )
+
 
 class ChannelList(generic.ListView):
     model = Channel
@@ -87,8 +113,7 @@ class ChannelViewAll(View):
         
         message_string = request.GET.get('messages', '')
         if message_string:
-            if not message_string.isspace():
-                messages = messages + (message_string, )
+            messages = messages + (message_string, )
 
         queryset = ChannelPosts.objects.filter(status=1).filter(channel__status__exact=1).order_by("-updated_on")
 
