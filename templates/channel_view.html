@@ -37,6 +37,19 @@
                         {% if post.status == 0 %}
                             <div class="col"><p class="card-text"><b>Post not approved yet</b></p></div>
                         {% endif %}
+
+                        {% if approval_type == "Approve" %}
+                        <div class="col" ><form action="{% url 'channel_post_approve' channel_slug=channel_topic_url post_slug=post.slug_url post_approval_type=approval_type %}" method="post">
+                            <button type="submit" name="your_name" value="your_value" >Approve</button>
+                            {% csrf_token %}
+                        </form></div>
+                        {% endif %}
+                        {% if approval_type == "Unapprove" %}
+                            <div class="col" ><form action="{% url 'channel_post_approve' channel_slug=channel_topic_url post_slug=post.slug_url post_approval_type=approval_type %}" method="post">
+                                <button type="submit" name="your_name" value="your_value" >Unapprove</button>
+                                {% csrf_token %}
+                            </form></div>
+                        {% endif %}
                     </div>
                 </div>
                 {% empty %}

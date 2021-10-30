@@ -7,7 +7,7 @@ from .models import Channel, ChannelPosts
 from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel, NewUserForm, LoginUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
@@ -361,8 +361,9 @@ class ChannelEdit(View):
 class ChannelManage(generic.ListView):
 
     def get(self, request, *args, **kwargs):
-        queryset = Channel.objects.filter(author=request.user).order_by("-created_on")
-
+        
+        num_unapproved = Count('channelposts', filter=Q(channelposts__status__lte=0))
+        queryset = Channel.objects.filter(author=request.user).order_by("-created_on").annotate(num_unapproved=num_unapproved)
 
         return render(
             request,
@@ -477,7 +478,6 @@ class ChannelPostWithChannel(View):
                     form.instance.slug_url = slugify(form.instance.title + str(timezone.now()))
                     channel_post = form.save(commit=False)
                     channel_post.author = request.user
-                    # channel_post.channel = channel
                     channel_post.save()
                     messages = messages + ("Post upload completed, it will need to be approved by the channel owner",)
                     return render(request, 'channel_view.html',
@@ -494,5 +494,103 @@ class ChannelPostWithChannel(View):
             {
                 "backend_form": ChannelPostFormWithChannel(),
                 "messages": messages
+            },
+        )
+
+
+class ChannelPostApprove(View):
+
+    def get(self, request, slug, post_approval_type, *args, **kwargs):
+        messages = ()
+        channel_topic = ""
+        channel_topic_url = ""
+        channel_description = ""
+        queryset = ""
+        approval_type = ""
+
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        try:
+            channel = Channel.objects.get(topic_url=slug)
+            if channel.author == request.user:
+                channel_topic = channel.topic
+                channel_topic_url = channel.topic_url
+                channel_description = channel.description
+                if post_approval_type == "Approve":
+                    queryset = ChannelPosts.objects.filter(channel=channel).filter(status=0).order_by("-updated_on")
+                else:
+                    queryset = ChannelPosts.objects.filter(channel=channel).filter(status=1).order_by("-updated_on")
+                approval_type = post_approval_type
+            else:
+                messages = messages + ("You are not the channel owner for this channel",)
+        except Channel.DoesNotExist:
+            messages = messages + (str("Error: Channel " + slug + " does not exist"),)
+
+        return render(
+            request,
+            "channel_view.html",
+            {
+                "channel_topic": channel_topic,
+                "channel_topic_url": channel_topic_url,
+                "channel_description": channel_description,
+                "post_list": queryset,
+                "messages": messages,
+                "approval_type": approval_type
+            },
+        )
+
+
+    def post(self, request, channel_slug, post_slug, post_approval_type, *args, **kwargs):
+        messages = ()
+        channel_topic = ""
+        channel_topic_url = ""
+        channel_description = ""
+        queryset = ""
+        approval_type = ""
+
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        try:
+            channel = Channel.objects.get(topic_url=channel_slug)
+            if channel.author == request.user:
+                channel_topic = channel.topic
+                channel_topic_url = channel.topic_url
+                channel_description = channel.description
+                approval_type = post_approval_type
+                try:
+                    channel_post = ChannelPosts.objects.get(slug_url=post_slug)
+                    if post_approval_type == "Approve":
+                        if channel_post.status == 0:
+                            channel_post.status = 1
+                            channel_post.save()
+                        else:
+                            messages = messages + ("Error: The post is already approved",)
+                        queryset = ChannelPosts.objects.filter(channel=channel).filter(status=0).order_by("-updated_on")
+                    else:
+                        if channel_post.status == 1:
+                            channel_post.status = 0
+                            channel_post.save()
+                        else:
+                            messages = messages + ("Error: The post is already in unapproved status",)
+                        queryset = ChannelPosts.objects.filter(channel=channel).filter(status=1).order_by("-updated_on")
+                except:
+                    messages = messages + ("Error: The post could not be retrieved for update",)
+            else:
+                messages = messages + ("You are not the channel owner for this channel",)
+        except Channel.DoesNotExist:
+            messages = messages + (str("Error: Channel " + channel_slug + " does not exist"),)
+
+        return render(
+            request,
+            "channel_view.html",
+            {
+                "channel_topic": channel_topic,
+                "channel_topic_url": channel_topic_url,
+                "channel_description": channel_description,
+                "post_list": queryset,
+                "messages": messages,
+                "approval_type": approval_type
             },
         )

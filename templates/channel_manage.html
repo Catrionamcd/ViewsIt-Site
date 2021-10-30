@@ -23,6 +23,13 @@
                         {% else %}
                         <div class="col"><p class="card-text">Approved</p></div>
                         {% endif %}
+
+                        <div class="col" ><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Unapprove' %}"><p class="card-title">Unapprove Posts</p></a></div>
+                        
+                        {% if channel.num_unapproved %}
+                        <div class="col"><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Approve' %}"><p class="card-text">{{ channel.num_unapproved }} posts to approve</p></a></div>
+                        {% endif %}
+
                         <hr />
                     </div>
 
