@@ -32,7 +32,7 @@
                     {% endif %}
 
                     {% if post.post_url %}     
-                        <div class="row card-text nav-link"><a href="{{ post.post_url }}" target="_blank">{{ post.post_url }}</a></div>
+                        <div class="row card-text nav-link"><a href="{{ post.post_url }}" target="_blank">More detail here</a></div>
                     {% endif %}
 
                     <p class="card-text text-muted mb-2"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
@@ -40,6 +40,24 @@
                     {% if post.status == 0 %}
                         <div class="col"><p class="card-text"><b>Post not approved yet</b></p></div>
                     {% endif %}
+
+                    {% if user.is_authenticated and current_user == post.author %}
+                        <div class="col" >
+                        {% if channel_topic_url %}
+                            <form action="{% url 'channel_post_edit' channel_slug=channel_topic_url post_slug=post.slug_url %}" method="get">
+                        {% else %}
+                            <form action="{% url 'channel_post_edit' post_slug=post.slug_url %}" method="get">
+                        {% endif %}
+                            <button type="submit" name="edit_post" value="edit_post" >Edit</button>
+                            {% csrf_token %}
+                            </form>
+                        </div>
+
+                        <!-- Delete Button trigger modal -->
+                        <div class="col"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModalDelete">delete</button></div>
+
+                    {% endif %}
+                    
 
                     {% if approval_type == "Approve" %}
                         <div class="col" >
@@ -59,6 +77,35 @@
                         </div>
                     {% endif %}
                 </div>
+
+                <!-- Modal for Delete Button above-->
+                <div class="modal fade" id="confirmModalDelete" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Post Deletion</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    This action will permanently delete the post
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    {% if channel_topic_url %}
+                    <form action="{% url 'channel_post_delete' channel_slug=channel_topic_url post_slug=post.slug_url %}" method="post">
+                    {% else %}
+                    <form action="{% url 'channel_post_delete' post_slug=post.slug_url %}" method="post">
+                    {% endif %}                               
+                        <button type="submit" class="btn btn-primary">Confirm Deletion</button>
+                        {% csrf_token %}
+                    </form>
+                    </div>
+                </div>
+                </div>
+            </div>                
+                
             
             {% empty %}
                 <div><h4>There are no posts to view.</h4></div>

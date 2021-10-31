@@ -10,20 +10,21 @@ class ChannelAdmin(admin.ModelAdmin):
     prepopulated_fields = {'topic_url': ('topic',)}
     list_filter = ('status', 'updated_on')
     list_display = ('topic', 'topic_url', 'status', 'created_on', 'updated_on')
-    search_fields = ('topic', 'description')
+    search_fields = ('topic', 'status')
+    actions = ['channel_publish']
+
+    def channel_publish(self, request, queryset):
+        queryset.update(status=1)
 
 
 @admin.register(ChannelPosts)
 class ChannelPostsAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {'slug_url': ('title',)}
-    list_display = ('title', 'author', 'channel_post', 'updated_on', 'status')
-    # list_filter = ('approved', 'created_on')
-    # search_fields = ('name', 'email', 'body')
-    # actions = ['approve_comments']
+    list_display = ('title', 'author', 'channel', 'channel_post', 'updated_on', 'status')
+    list_filter = ('status', 'author', 'updated_on')
+    search_fields = ('title', 'author', 'channel_post')
+    actions = ['posts_approve']
 
-    # def approve_comments(self, request, queryset):
-    #     queryset.update(approved=True)
-
-# admin.site.register(Channel)
-# admin.site.register(ChannelPosts)
+    def posts_approve(self, request, queryset):
+        queryset.update(status=1)

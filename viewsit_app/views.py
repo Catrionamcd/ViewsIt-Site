@@ -126,7 +126,8 @@ class ChannelView(View):
                 "channel_topic_url": channel_topic_url,
                 "channel_description": channel_description,
                 "post_list": queryset,
-                "messages": messages
+                "messages": messages,
+                "current_user": request.user
             },
         )
 
@@ -157,6 +158,7 @@ class ChannelViewAll(View):
             {
                 "post_list": queryset,
                 "messages": messages,
+                "current_user": request.user
             },
         )
 
@@ -206,7 +208,8 @@ class ChannelViewSearch(View):
                 "channel_description": channel_description,
                 "post_list": queryset,
                 "messages": messages,
-                "search_place_holder": search_string
+                "search_place_holder": search_string,
+                "current_user": request.user
             },
         )
 
@@ -236,7 +239,8 @@ class ChannelViewSearchAll(View):
             "channel_view.html",
             {
                 "post_list": queryset,
-                "search_place_holder": search_string
+                "search_place_holder": search_string,
+                "current_user": request.user
             },
         )
 
@@ -409,6 +413,7 @@ class ChannelPost(View):
         return render(request, 'channel_post.html',
             {
                 "backend_form": ChannelPostForm(),
+                "channel_topic": slug
             },
         )
 
@@ -445,7 +450,8 @@ class ChannelPost(View):
         return render(request, 'channel_post.html',
             {
                 "backend_form": ChannelPostForm(),
-                "messages": messages
+                "messages": messages,
+                "channel_topic": slug
             },
         )
 
@@ -594,3 +600,146 @@ class ChannelPostApprove(View):
                 "approval_type": approval_type
             },
         )
+
+
+class ChannelPostEdit(View):
+
+    def get(self, request, post_slug, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        try:
+            channel_post = ChannelPosts.objects.get(slug_url=post_slug, author=request.user)
+        except Channel.DoesNotExist:
+            return redirect('home')
+
+        return render(request, 'channel_post.html',
+            {
+                "backend_form": ChannelPostFormWithChannel(initial={'channel': channel_post.channel, 'title': channel_post.title, 'post_image': channel_post.post_image, 'channel_post': channel_post.channel_post, 'post_url': channel_post.post_url}),
+            },
+        )
+
+
+    def post(self, request, post_slug, *args, **kwargs):
+        messages = ()
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        try:
+            channel_post = ChannelPosts.objects.get(slug_url=post_slug)
+            if channel_post.author == request.user:
+                form = ChannelPostFormWithChannel(request.POST, request.FILES)
+                if form.is_valid():
+                    channel_post.channel = form.instance.channel
+                    channel_post.title = form.instance.title
+                    channel_post.slug_url = slugify(form.instance.title + str(timezone.now()))
+                    channel_post.post_image = form.instance.post_image
+                    channel_post.channel_post = form.instance.channel_post
+                    channel_post.post_url = form.instance.post_url
+                    channel_post.status = 0
+                    channel_post.save()
+                    return redirect(reverse('channel_view')+"?messages=Post update completed, it will need to be approved by the channel owner")
+                else:
+                    messages = messages + ("Error: Problem with data entered",)
+            else:
+                messages = messages + ("Cannot update post, you are not the owner",)
+        except ChannelPosts.DoesNotExist:
+            messages = messages + ("Error: Post could not be located for update",)
+
+        return render(request, 'channel_post.html',
+            {
+                "backend_form": ChannelPostFormWithChannel(initial={'channel': form.instance.channel, 'title': form.instance.title, 'post_image': form.instance.post_image, 'channel_post': form.instance.channel_post, 'post_url': form.instance.post_url}),
+                "messages": messages
+            },
+        )
+
+
+class ChannelPostEditWithChannel(View):
+
+    def get(self, request, channel_slug, post_slug, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        try:
+            channel_post = ChannelPosts.objects.get(slug_url=post_slug, author=request.user)
+        except Channel.DoesNotExist:
+            return redirect('home')
+
+        return render(request, 'channel_post.html',
+            {
+                "backend_form": ChannelPostFormWithChannel(initial={'channel': channel_post.channel, 'title': channel_post.title, 'post_image': channel_post.post_image, 'channel_post': channel_post.channel_post, 'post_url': channel_post.post_url}),
+            },
+        )
+
+
+    def post(self, request, channel_slug, post_slug, *args, **kwargs):
+        messages = ()
+        slug = channel_slug
+        if not request.user.is_authenticated:
+            return redirect('home')
+
+        try:
+            channel_post = ChannelPosts.objects.get(slug_url=post_slug)
+            if channel_post.author == request.user:
+                form = ChannelPostFormWithChannel(request.POST, request.FILES)
+                if form.is_valid():
+                    channel_post.channel = form.instance.channel
+                    channel_post.title = form.instance.title
+                    channel_post.slug_url = slugify(form.instance.title + str(timezone.now()))
+                    channel_post.post_image = form.instance.post_image
+                    channel_post.channel_post = form.instance.channel_post
+                    channel_post.post_url = form.instance.post_url
+                    channel_post.status = 0
+                    channel_post.save()
+                    return redirect(reverse('channel_view')+slug+"?messages=Post update completed, it will need to be approved by the channel owner")
+                else:
+                    messages = messages + ("Error: Problem with data entered",)
+            else:
+                messages = messages + ("Cannot update post, you are not the owner",)
+        except ChannelPosts.DoesNotExist:
+            messages = messages + ("Error: Post could not be located for update",)
+
+        return render(request, 'channel_post.html',
+            {
+                "backend_form": ChannelPostFormWithChannel(initial={'channel': form.instance.channel, 'title': form.instance.title, 'post_image': form.instance.post_image, 'channel_post': form.instance.channel_post, 'post_url': form.instance.post_url}),
+                "messages": messages
+            },
+        )
+
+
+class ChannelPostDelete(View):
+
+    def post(self, request, post_slug, *args, **kwargs):
+
+        if not request.user.is_authenticated:
+            return redirect('home')
+        try:
+            channel_post = ChannelPosts.objects.get(slug_url=post_slug)
+            if channel_post.author == request.user:
+                channel_post.delete()
+            else:
+                return redirect(reverse('channel_view')+"?messages=Cannot Delete: You are not the person who created this post")
+        except ChannelPosts.DoesNotExist:
+            return redirect(reverse('channel_view')+"?messages=Error: Post could not be located for deletion")
+
+        return redirect(reverse('channel_view'))
+
+
+class ChannelPostDeleteWithChannel(View):
+
+    def post(self, request, channel_slug, post_slug, *args, **kwargs):
+ 
+        slug = channel_slug
+
+        if not request.user.is_authenticated:
+            return redirect('home')
+        try:
+            channel_post = ChannelPosts.objects.get(slug_url=post_slug)
+            if channel_post.author == request.user:
+                channel_post.delete()
+            else:
+                return redirect(reverse('channel_view')+slug+"?messages=Cannot Delete: You are not the person who created this post")
+        except ChannelPosts.DoesNotExist:
+            return redirect(reverse('channel_view')+slug+"?messages=Error: Post could not be located for deletion")
+
+        return redirect(reverse('channel_view')+slug)

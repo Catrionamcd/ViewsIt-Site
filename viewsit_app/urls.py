@@ -24,5 +24,13 @@ urlpatterns = [
           name='channel_post_approve'),
      path('channel_post_approve/<channel_slug>/<post_slug>/<post_approval_type>/', views.ChannelPostApprove.as_view(), 
           name='channel_post_approve'),
+          path('channel_post_edit/<post_slug>/', views.ChannelPostEdit.as_view(), 
+          name='channel_post_edit'),
+     path('channel_post_edit/<channel_slug>/<post_slug>/<', views.ChannelPostEditWithChannel.as_view(), 
+          name='channel_post_edit'),
+     path('channel_post_delete/<post_slug>/', views.ChannelPostDelete.as_view(), 
+          name='channel_post_delete'),
+     path('channel_post_delete/<channel_slug>/<post_slug>/', views.ChannelPostDeleteWithChannel.as_view(), 
+          name='channel_post_delete'),
 
 ]
