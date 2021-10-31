@@ -185,14 +185,14 @@ class ChannelViewSearch(View):
                     Q(channel__exact=channel),
                     Q(status__exact=1) | Q(author__exact=request.user),
                     Q(channel__status__exact=1),
-                    Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                    Q(title__icontains=search_string) | Q(channel_post__icontains=search_string) | Q(author__username__icontains=search_string)
                     ).order_by("-updated_on")
             else:
                 queryset = ChannelPosts.objects.filter(
                     Q(channel__exact=channel),
                     Q(status__exact=1),
                     Q(channel__status__exact=1),
-                    Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                    Q(title__icontains=search_string) | Q(channel_post__icontains=search_string) | Q(author__username__icontains=search_string)
                     ).order_by("-updated_on")
 
         except Channel.DoesNotExist:
@@ -224,13 +224,13 @@ class ChannelViewSearchAll(View):
             queryset = ChannelPosts.objects.filter(
                 Q(status__exact=1) | Q(author__exact=request.user),
                 Q(channel__status__exact=1),
-                Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                Q(title__icontains=search_string) | Q(channel_post__icontains=search_string) | Q(author__username__icontains=search_string)
                 ).order_by("-updated_on")
         else:
             queryset = ChannelPosts.objects.filter(
                 Q(status__exact=1),
                 Q(channel__status__exact=1),
-                Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
+                Q(title__icontains=search_string) | Q(channel_post__icontains=search_string) | Q(author__username__icontains=search_string)
                 ).order_by("-updated_on")
 
         return render(
