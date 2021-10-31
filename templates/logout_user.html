@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %} 
+
+{% load crispy_forms_tags %}         
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6 mt-3 offset-sm-3">
+            <div class="card-body">
+                       
+                <h5 class="mt-3 text-success">Logout</h5>
+                <p class="mt-3 text-muted">{{ user }} are you sure you wish to Log out of the ViewsIt site?.</p>
+                    <form method="post" style="margin-top: 1.3em;">
+                        <div class="mt-3">
+                            <form class="d-inline" action="{% url 'logout_user' %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit"  class="btn btn-signup btn-lg">Logout</button>
+                                </form>
+                        </div> 
+                    </form>
+
+                    <div class="mt-3">
+                        <form class="d-inline" action="{% url 'channel_view' %}" method="get">
+                            {% csrf_token %}
+                            <button type="submit"  class="btn btn-signup btn-lg">Back to Site</button>
+                        </form>
+                    </div> 
+
+                    
+            </div>
+        </div>
+    </div>
+
+</div>
+ 
+{% endblock %}

@@ -10,6 +10,7 @@ urlpatterns = [
      path('account_register/', views.Register.as_view(),
           name="account_register"),
      path('user_login/', views.LoginUser.as_view(), name="user_login"),
+     path('logout_user/', views.LogoutUser.as_view(), name="logout_user"),
      path('channel_view_all/', views.ChannelViewAll.as_view(),
           name='channel_view_all'),
      path('channel_list/', views.ChannelList.as_view(), name='channel_list'),
@@ -47,8 +48,9 @@ urlpatterns = [
      path('channel_post_delete/<channel_slug>/<post_slug>/',
           views.ChannelPostDeleteWithChannel.as_view(),
           name='channel_post_delete'),
-     path('channel_post_like/<post_slug>/', views.ChannelPostLike.as_view(), name='channel_post_like'),
-     path('channel_post_like/<channel_slug>/<post_slug>/', views.ChannelPostLikeWithChannel.as_view(),
+     path('channel_post_like/<post_slug>/', views.ChannelPostLike.as_view(),
           name='channel_post_like'),
+     path('channel_post_like/<channel_slug>/<post_slug>/', 
+          views.ChannelPostLikeWithChannel.as_view(), name='channel_post_like'),
 
 ]

@@ -61,12 +61,8 @@ class LoginUser(View):
 
         login_user_form = LoginUserForm(data=request.POST)
         if login_user_form.is_valid():
-            # print("HERE")
             username = request.POST['username']
             password = request.POST['password']
-            # print(username1)
-            # username = login_user_form.instance.username
-            # password = login_user_form.instance.password
 
             user = authenticate(request, username=username, password=password)
 
@@ -84,6 +80,24 @@ class LoginUser(View):
                 "login_user_form": LoginUserForm()
             },
         )
+
+
+class LogoutUser(View):
+
+    def get(self, request, *args, **kwargs):
+
+        return render(
+            request,
+            "logout_user.html",
+            {
+                "user_name": request.user.username
+            },
+        )
+
+    def post(self, request, *args, **kwargs):
+
+        logout(request)
+        return redirect(reverse('channel_view')+"?messages=Logout successful")
 
 
 class ChannelList(generic.ListView):
@@ -339,7 +353,6 @@ class ChannelEdit(View):
                     else:
                         try:
                             Channel.objects.get(topic=channel_form.instance.topic)
-                            # channel_form.instance.topic = channel.topic
                             messages = ("This channel name is already being used",)
                         except Channel.DoesNotExist:
                             valid_update = True
