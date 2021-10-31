@@ -57,27 +57,33 @@ class LoginUser(View):
             },
         )
 
-        def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
 
-            login_user_form = LoginUserForm(data=request.POST)
-            username = login_user_form.username
-            password = login_user_form.password
+        login_user_form = LoginUserForm(data=request.POST)
+        if login_user_form.is_valid():
+            # print("HERE")
+            username = request.POST['username']
+            password = request.POST['password']
+            # print(username1)
+            # username = login_user_form.instance.username
+            # password = login_user_form.instance.password
 
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
                 login(request, user)
-                return redirect(('home')+"?messages=Login successful")
-            messages = ("Unsuccessful Login. Invalid information.",)
+                return redirect(reverse('channel_view')+"?messages=Login successful")
+        
+        messages = ("Unsuccessful Login. Invalid information.",)
 
-            return render(
-                request,
-                "login_user.html",
-                {
-                 "messages": messages,
-                 "login_user_form": LoginUserForm()
-                },
-            )
+        return render(
+            request,
+            "login_user.html",
+            {
+                "messages": messages,
+                "login_user_form": LoginUserForm()
+            },
+        )
 
 
 class ChannelList(generic.ListView):
