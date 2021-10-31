@@ -21,7 +21,8 @@ class ChannelAdmin(admin.ModelAdmin):
 class ChannelPostsAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {'slug_url': ('title',)}
-    list_display = ('title', 'author', 'channel', 'channel_post', 'updated_on', 'status')
+    list_display = ('title', 'author', 'channel', 'channel_post', 'updated_on',
+                    'status')
     list_filter = ('status', 'author', 'updated_on')
     search_fields = ('title', 'author', 'channel_post')
     actions = ['posts_approve']

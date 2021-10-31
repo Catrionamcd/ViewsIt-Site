@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, reverse, redirect
+from django.shortcuts import render, reverse, redirect
 from django.utils.text import slugify
 from django.utils import timezone
 from django.views import generic, View
@@ -8,11 +8,11 @@ from .forms import ChannelForm, ChannelPostForm, ChannelPostFormWithChannel, New
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.db.models import Q, Count
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class Register(View):
-    
+
     def get(self, request, *args, **kwargs):
         messages = ()
         return render(
@@ -44,25 +44,24 @@ class Register(View):
             },
         )
 
+
 class LoginUser(View):
 
-        def get(self, request, *args, **kwargs):
-            messages = ()
-            return render(
-                request,
-                "login_user.html",
-                {
-                 "login_user_form": LoginUserForm()
-                },
-            )
-            
+    def get(self, request, *args, **kwargs):
+        messages = ()
+        return render(
+            request,
+            "login_user.html",
+            {
+             "login_user_form": LoginUserForm()
+            },
+        )
+
         def post(self, request, *args, **kwargs):
 
             login_user_form = LoginUserForm(data=request.POST)
             username = login_user_form.username
             password = login_user_form.password
-            # equest.POST.get('login_user_form.username')
-            # password = request.POST.get('login_user_form.password')
 
             user = authenticate(request, username=username, password=password)
 
@@ -70,7 +69,7 @@ class LoginUser(View):
                 login(request, user)
                 return redirect(('home')+"?messages=Login successful")
             messages = ("Unsuccessful Login. Invalid information.",)
-           
+
             return render(
                 request,
                 "login_user.html",
@@ -101,7 +100,7 @@ class ChannelView(View):
             channel_topic = channel.topic
             channel_topic_url = channel.topic_url
             channel_description = channel.description
-            
+
             if request.user.is_authenticated:
                 queryset = ChannelPosts.objects.filter(
                     Q(channel__exact=channel),
@@ -136,7 +135,7 @@ class ChannelViewAll(View):
 
     def get(self, request, *args, **kwargs):
         messages = ()
-        
+
         message_string = request.GET.get('messages', '')
         if message_string:
             messages = messages + (message_string, )
@@ -169,7 +168,7 @@ class ChannelViewSearch(View):
         search_string = request.GET.get('search_string', '')
         if search_string.isspace():
             search_string = ""
-        
+
         messages = ()
         channel_topic = ""
         channel_topic_url = ""
@@ -195,7 +194,7 @@ class ChannelViewSearch(View):
                     Q(channel__status__exact=1),
                     Q(title__icontains=search_string) | Q(channel_post__icontains=search_string)
                     ).order_by("-updated_on")
-           
+
         except Channel.DoesNotExist:
             messages = messages + (str("Error: Channel " + slug + " does not exist"),)        
 
@@ -263,7 +262,7 @@ class ChannelCreate(View):
     def post(self, request, *args, **kwargs):
         channelsubmitted = False
         messages = ()
-        
+
         if not request.user.is_authenticated:
             return redirect('home')
 
@@ -302,7 +301,7 @@ class ChannelEdit(View):
         try:
             channel = Channel.objects.get(topic_url=slug, author=request.user)
         except Channel.DoesNotExist:
-            return redirect('home') 
+            return redirect('home')
 
         return render(
             request,
@@ -310,7 +309,8 @@ class ChannelEdit(View):
             {
                 "channelsubmitted": False,
                 "topic": channel.topic,
-                "channel_form": ChannelForm(initial={'topic': channel.topic, 'description': channel.description})
+                "channel_form": ChannelForm(initial={'topic': channel.topic,
+                                            'description': channel.description})
             },
         )
 
@@ -350,7 +350,6 @@ class ChannelEdit(View):
                 channel.save()
                 channelsubmitted = True
 
-        
         return render(
             request,
             "channel_form.html",
@@ -401,7 +400,7 @@ class ChannelDelete(View):
                 "channel_list": queryset,
                 "messages": messages
             },
-        )        
+        )
 
 
 class ChannelPost(View):
@@ -671,7 +670,6 @@ class ChannelPostEditWithChannel(View):
             },
         )
 
-
     def post(self, request, channel_slug, post_slug, *args, **kwargs):
         messages = ()
         slug = channel_slug
@@ -728,7 +726,7 @@ class ChannelPostDelete(View):
 class ChannelPostDeleteWithChannel(View):
 
     def post(self, request, channel_slug, post_slug, *args, **kwargs):
- 
+
         slug = channel_slug
 
         if not request.user.is_authenticated:
@@ -742,4 +740,57 @@ class ChannelPostDeleteWithChannel(View):
         except ChannelPosts.DoesNotExist:
             return redirect(reverse('channel_view')+slug+"?messages=Error: Post could not be located for deletion")
 
-        return redirect(reverse('channel_view')+slug)
+        return redirect(reverse('channel_view')+slug)  
+
+
+class ChannelPostLike(View):
+
+    def post(self, request, post_slug, *args, **kwargs):
+        messages = ()
+        if not request.user.is_authenticated:
+            return redirect('home')
+            
+        try:
+            channel_post = ChannelPosts.objects.get(slug_url=post_slug)
+            if channel_post.likes.filter(id=request.user.id).exists():
+                channel_post.likes.remove(request.user)
+            else:
+                channel_post.likes.add(request.user)
+            
+            return redirect(reverse('channel_view'))
+
+        except ChannelPosts.DoesNotExist():
+            messages = messages + ("Error: Could not locate post",)
+
+        return render(request, 'channel_view.html',
+            {
+                "messages": messages,
+                "current_user": request.user
+            },
+        )
+
+
+class ChannelPostLikeWithChannel(View):
+
+    def post(self, request, channel_slug, post_slug, *args, **kwargs):
+        messages = ()
+        if not request.user.is_authenticated:
+            return redirect('home')   
+        try:
+            channel_post = ChannelPosts.objects.get(slug_url=post_slug)
+            if channel_post.likes.filter(id=request.user.id).exists():
+                channel_post.likes.remove(request.user)
+            else:
+                channel_post.likes.add(request.user)
+            
+            return redirect(reverse('channel_view')+channel_slug)
+
+        except ChannelPosts.DoesNotExist():
+            messages = messages + ("Error: Could not locate post",)
+
+        return render(request, 'channel_view.html',
+            {
+                "messages": messages,
+                "current_user": request.user
+            },
+        )      

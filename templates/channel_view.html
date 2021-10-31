@@ -35,7 +35,30 @@
                         <div class="row card-text nav-link"><a href="{{ post.post_url }}" target="_blank">More detail here</a></div>
                     {% endif %}
 
-                    <p class="card-text text-muted mb-2"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
+                    <strong>
+                        {% if user.is_authenticated %}
+                            {% if channel_topic_url %}
+                            <form class="d-inline" action="{% url 'channel_post_like' channel_slug=channel_topic_url post_slug=post.slug_url %}" method="POST">
+                            {% else %}
+                            <form class="d-inline" action="{% url 'channel_post_like' post_slug=post.slug_url %}" method="POST">
+                            {% endif %}
+                            {% csrf_token %}
+                            {% if not post.number_of_likes == 0 %}
+                                <button type="submit" name="blog_post_id" value="{{post.slug_url}}" class="btn-like">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            {% else %}
+                                <button type="submit" name="blog_post_id" value="{{post.slug_url}}" class="btn-like">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            {% endif %}
+                            </form>
+                        {% else %}
+                            <span class="text_secondary"><i class="far fa-heart"></i></span>
+                        {% endif %}
+                        
+                        <span class="text_secondary">{{ post.number_of_likes }}</span>
+                    </strong>
 
                     {% if post.status == 0 %}
                         <div class="col"><p class="card-text"><b>Post not approved yet</b></p></div>
@@ -48,13 +71,15 @@
                         {% else %}
                             <form action="{% url 'channel_post_edit' post_slug=post.slug_url %}" method="get">
                         {% endif %}
-                            <button type="submit" name="edit_post" value="edit_post" >Edit</button>
+                            <button type="submit" class="btn btn-outline-primary" name="edit_post" value="edit_post" >Edit</button>
                             {% csrf_token %}
                             </form>
                         </div>
 
                         <!-- Delete Button trigger modal -->
-                        <div class="col"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModalDelete">delete</button></div>
+                        <div class="col mb-2">
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmModalDelete">delete</button>
+                        </div>
 
                     {% endif %}
                     
