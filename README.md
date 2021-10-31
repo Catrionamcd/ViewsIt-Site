@@ -11,19 +11,23 @@ The ViewsIt site is a social website. There are three different type of users fo
 
 ## Features/Functions
 
-Navigation Bar
+### Existing Features
+
+### Navigation Bar
+
 ![alt text](assets/images/ViewsIt-Navbar.png)
+
 * The navigation bar is located at the top of all pages on the site.
 * The options available dynamically change depending on the type of viewer and depending on the specific menu path chosen.
 
-Home button
+### Home button
 * Shows approved posts against all channels
 
-Channel List page
+### Channel List page
 * Lists all approved channels so the user can view approved posts again a specific channel
 * Visitors to the site (Unauthenticated login) can also view the approved channel list.
 
-Channel Manage page
+### Channel Manage page
 * One stop place for all channel management activity.
 * Activities that can be accessed via the Channel Management page are: Request New Channel, Delete a Channel, Edit a Channel, Un-approve Posts submitted by users, Approve posts submitted by users
 * Only channels created by the current logged in users are accessible on the page
@@ -34,7 +38,7 @@ Channel Manage page
 * The Channel Manager has the option also to Approve posts created by users of the channel. The link in the Channel Manager display the amount of un-approved posts in the channel as a link. This will link to the Posts page interface to allow this to happen (see below). The Posts page (when called from Channel Manage page) will only display posts with a status of Draft and only from the channel selected.
 
 
-View Posts page
+### View Posts page
 * Accessible via Home button or via Channel List page
 * Shows all approved posts
 * Will show all approved posts from all approved channels if invoked from the Home button. Will only show approved posts from a specific channel if invoked from the Channel List page.
@@ -44,14 +48,14 @@ View Posts page
 * The posts page also conditionally shows two other buttons for Channel Managers, the Approve button and the Un-approve button. These are only available if the page has been called from the Channel Manage page and will not be visible to users. They will also not be visible if the owner of the Channel visits the Posts page directly, only if invoked via the Channel Manage page. Refer to Channel Manage above.
 * The Posts page indicates via a solid heart icon if the Post has been 'liked' and also shows the amount of 'likes' the Post has received. 
 
-Create a Post
+### Create a Post
 * This option is available from the menu bar at the top of the site.
 * It is available to select by selecting either the Home button or by selecting a channel in the Channel List page.
 * A person creating a post can enter the following information: Channel, Title of the post, Selected image to associate with the post, Main post detail, and an associated URL that will be available to click when viewing the posts in the View Posts page. Not all fields are mandatory so the user can choose to skip some if not relevant to their post.
 *  Channel is only shown if selected via the Home button path, If posting from within a channel (viewing posts from the Channel List path) the channel will not be shown and will be recorded based on the channel the user currently viewing.
 * Images are uploaded and stored in Cloudinary as part of the post save process.
 
-Post Search
+### Post Search
 * This is accessible from the menu bar
 * Will search for phrase contained in either Post Tile, Post Content, or Post Author.
 * Entering a username into the search field allows a user to find all of their own posts (or others).
@@ -60,10 +64,6 @@ Post Search
 Views.py code
 * Code in the Views.py carry out various validation checks throughout. For example if code to delete a channel is initiated, then a check is first made that the user is the current channel owner before proceeding with the deletion. 
 
-
-### Existing Features
-
-* The user is presented with a 
 ![alt text]()
 
 
