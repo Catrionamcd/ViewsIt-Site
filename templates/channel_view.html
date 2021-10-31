@@ -24,7 +24,7 @@
                     <div class="col card-text text-secondary">Posted by {{ post.author }} on {{ post.updated_on }}</div>
 
                     {% if post.post_image.url %}  
-                        <img src="{{ post.post_image.url }}">
+                        <img src="{{ post.post_image.url }}" alt="Post Image">
                     {% endif %}
 
                     {% if post.channel_post %}
@@ -85,18 +85,18 @@
                     
 
                     {% if approval_type == "Approve" %}
-                        <div class="col" >
+                        <div class="col mb-2" >
                             <form action="{% url 'channel_post_approve' channel_slug=channel_topic_url post_slug=post.slug_url post_approval_type=approval_type %}"
-                             method="post"><button type="submit" name="your_name" value="your_value" >Approve</button>
+                             method="post"><button type="submit" class="btn btn-outline-success" name="your_name" value="your_value" >Approve</button>
                             {% csrf_token %}
                             </form>
                          </div>
                     {% endif %}
                          
                     {% if approval_type == "Unapprove" %}
-                        <div class="col" >
+                        <div class="col mb-2" >
                             <form action="{% url 'channel_post_approve' channel_slug=channel_topic_url post_slug=post.slug_url post_approval_type=approval_type %}" 
-                             method="post"><button type="submit" name="your_name" value="your_value" >Unapprove</button>
+                             method="post"><button type="submit" class="btn btn-outline-dark" name="your_name" value="your_value" >Unapprove</button>
                             {% csrf_token %}
                             </form>
                         </div>

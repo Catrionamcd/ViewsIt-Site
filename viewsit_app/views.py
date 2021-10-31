@@ -735,9 +735,11 @@ class ChannelPostDelete(View):
             if channel_post.author == request.user:
                 channel_post.delete()
             else:
-                return redirect(reverse('channel_view')+"?messages=Cannot Delete: You are not the person who created this post")
+                return redirect(reverse('channel_view')+"?messages=Cannot\
+                    Delete: You are not the person who created this post")
         except ChannelPosts.DoesNotExist:
-            return redirect(reverse('channel_view')+"?messages=Error: Post could not be located for deletion")
+            return redirect(reverse('channel_view')+"?messages=Error: Post\
+                    could not be located for deletion")
 
         return redirect(reverse('channel_view'))
 
@@ -775,7 +777,7 @@ class ChannelPostLike(View):
                 channel_post.likes.remove(request.user)
             else:
                 channel_post.likes.add(request.user)
-            
+
             return redirect(reverse('channel_view'))
 
         except ChannelPosts.DoesNotExist():
@@ -801,15 +803,15 @@ class ChannelPostLikeWithChannel(View):
                 channel_post.likes.remove(request.user)
             else:
                 channel_post.likes.add(request.user)
-            
+
             return redirect(reverse('channel_view')+channel_slug)
 
         except ChannelPosts.DoesNotExist():
             messages = messages + ("Error: Could not locate post",)
 
         return render(request, 'channel_view.html',
-            {
-                "messages": messages,
-                "current_user": request.user
-            },
-        )      
+                      {
+                        "messages": messages,
+                        "current_user": request.user
+                       },
+                    )

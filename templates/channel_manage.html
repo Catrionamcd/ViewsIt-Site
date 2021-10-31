@@ -12,30 +12,32 @@
                 <div class="row border rounded shadow mt-3">
 
                     <!-- Delete Button here triggers modal below -->
-                    <div class="col mt-2 mb-2">
+                    <div class="col-3 mt-2 mb-2">
                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmModalDelete">delete</button>
                     </div>
                     
                     <div class="col mt-2 mb-2 text-left" ><a class="nav-link" href="{% url 'channel_form' slug=channel.topic_url %}">
                         <p class="card-text">{{ channel.topic }}</p></a> 
-                    </div>     
-
-                    {% if channel.status == 0 %}
-                        <div class="col mt-2 mb-2 text-left">Draft</div>
-                    {% else %}
-                        <div class="col mt-2 mb-2 text-success text-left">Approved</div>
-                    {% endif %}
-
-                    <div class="col mt-2 mb-2 text-left" ><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Unapprove' %}">
-                        Unapprove Posts</a>
-                    </div>
+                    </div>    
                     
-                    {% if channel.num_unapproved %}
-                    <div class="col mt-2 mb-2 text-left"><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Approve' %}">
-                        {{ channel.num_unapproved }} posts to approve</a></div>
-                    {% else %}
-                    <div class="col mt-2 mb-2 text-left">No posts to approve</div>
-                    {% endif %}
+                    <div class="row">
+                        {% if channel.status == 0 %}
+                            <div class="col mt-2 mb-2 text-left">Draft</div>
+                        {% else %}
+                            <div class="col mt-2 mb-2 text-success text-left">Approved</div>
+                        {% endif %}
+
+                        <div class="col mt-2 mb-2 text-left" ><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Unapprove' %}">
+                            Unapprove Posts</a>
+                        </div>
+                        
+                        {% if channel.num_unapproved %}
+                        <div class="col mt-2 mb-2 text-left"><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Approve' %}">
+                            {{ channel.num_unapproved }} posts to approve</a></div>
+                        {% else %}
+                        <div class="col mt-2 mb-2 text-left">No posts to approve</div>
+                        {% endif %}
+                    </div>
 
                 </div>
 
