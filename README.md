@@ -1,6 +1,6 @@
 # ViewsIt Site
 
-The ViewsIt site is a discussion website. Users can login to view posts. Users can also sign up to create channels of interest. Users can also comment on other channel posts.
+The ViewsIt site is a social website. There are three different type of users for the site, a super user or administrator, a visitor to the site who chooses not to create a profile on the site and a vistor to the site who creates a user profile so they can contribute to the site. A visitor to the site can view all of the posts and channels on the site. Users can create a new channel or create posts to their own channel or another users channel. Once a channel is created it has to be approved by the administrator before a post can be posted to it. A post has to be approved by the channel owner before it can be viewd by all visitors to the site.
 
 ## Multi Screen mock-up of the site
 ![alt text]()
@@ -10,6 +10,8 @@ The ViewsIt site is a discussion website. Users can login to view posts. Users c
 ![alt text]()
 
 ## Features/Functions
+* As a visitor to the site you can view a approved list of channels on the site
+* View posts on Channel
 ### Existing Features
 
 * The user is presented with a 

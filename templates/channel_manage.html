@@ -4,66 +4,71 @@
  
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3"></div>
-        <!-- List of Channels -->
-        <div class="col-6 mt-3 left">
-            <div class="row" >
-                <div class="col"><h3>Channels managed by you</h3></div>
-                <hr />
-                {% for channel in channel_list %}
-                    <div class="row">
-                        <!-- Delete Button here triggers modal below -->
-                        <div class="col"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModalDelete">delete</button></div>
-                       
-                        <div class="col" ><a class="nav-link" href="{% url 'channel_form' slug=channel.topic_url %}"><p class="card-title">{{ channel.topic }}</p> </a>  </div>     
-                        <div class="col"><p class="card-text">{{ channel.description }}</p></div>
-                        <div class="col"><p class="card-text">{{ channel.created_on }}</p></div>
-                        {% if channel.status == 0 %}
-                        <div class="col"><p class="card-text">Draft</p></div>
-                        {% else %}
-                        <div class="col"><p class="card-text">Approved</p></div>
-                        {% endif %}
+        <!-- List of Channels To Manage -->
+       
+        <div class="col-sm-6 mt-3 offset-md-3">
+            <h5 class="mt-3 text-success">Channels Managed by you</h5>
+            {% for channel in channel_list %}
+                <div class="row border rounded shadow mt-3">
 
-                        <div class="col" ><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Unapprove' %}"><p class="card-title">Unapprove Posts</p></a></div>
-                        
-                        {% if channel.num_unapproved %}
-                        <div class="col"><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Approve' %}"><p class="card-text">{{ channel.num_unapproved }} posts to approve</p></a></div>
-                        {% endif %}
-
-                        <hr />
+                    <!-- Delete Button here triggers modal below -->
+                    <div class="col mt-2 mb-2">
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmModalDelete">delete</button>
                     </div>
+                    
+                    <div class="col mt-2 mb-2" ><a class="nav-link" href="{% url 'channel_form' slug=channel.topic_url %}">
+                        <p class="card-text">{{ channel.topic }}</p></a> 
+                    </div>     
 
-                    <!-- Modal for Delete Button above-->
-                    <div class="modal fade" id="confirmModalDelete" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                        <div class="modal-content ">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="confirmModalLabel">Channel Deletion</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                            This action will permanently delete channel {{ channel.topic }} & all associated posts
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form action="{% url 'channel_delete' slug=channel.topic_url %}" method="post">
-                                <button type="submit" class="btn btn-primary">Confirm Deletion</button>
-                                {% csrf_token %}
-                            </form>
-                            </div>
+                    <div class="col mt-2 mb-2">{{ channel.created_on }}</div>
+                    
+                    {% if channel.status == 0 %}
+                        <div class="col mt-2 mb-2">Draft</div>
+                    {% else %}
+                        <div class="col mt-2 mb-2">Approved</div>
+                    {% endif %}
+
+                    <div class="col mt-2 mb-2" ><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Unapprove' %}">
+                        Unapprove Posts</a>
+                    </div>
+                    
+                    {% if channel.num_unapproved %}
+                    <div class="col mt-2 mb-2"><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Approve' %}">
+                        {{ channel.num_unapproved }} posts to approve</a></div>
+                    {% else %}
+                    <div class="col mt-2 mb-2">All posts approved</div>
+                    {% endif %}
+
+                </div>
+
+                <!-- Modal for Delete Button above-->
+                <div class="modal fade" id="confirmModalDelete" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="confirmModalLabel">Channel Deletion</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         </div>
+                        <div class="modal-body">
+                        This action will permanently delete channel {{ channel.topic }} & all associated posts
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form action="{% url 'channel_delete' slug=channel.topic_url %}" method="post">
+                            <button type="submit" class="btn btn-primary">Confirm Deletion</button>
+                            {% csrf_token %}
+                        </form>
                         </div>
                     </div>
+                    </div>
+                </div>
 
-                {% empty %}
-                    <div><h4>You currently don't manage any channels.</h4></div>
-                {% endfor %}
-                
-            </div>
+            {% empty %}
+                <div><h4>You currently don't manage any channels.</h4></div>
+            {% endfor %}
         </div>
-        <div class="col-3"></div>
     </div>
     {% if is_paginated %}
     <nav aria-label="Page navigation">

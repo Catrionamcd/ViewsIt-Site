@@ -4,59 +4,65 @@
 
 <div class="container-fluid">
     <div class="row">
-        <!-- List of Channels -->
-        <div class="col-12 col-sm-6 mt-3 offset-sm-3">
-            <div class="row" >
-                {% if channel_topic_url %}    <!-- if not viewing for specific channel rather than all channels-->
-                    <div class="row text-success">
-                        <h5>Channel: {{ channel_topic }}</h5>
-                    </div>
-                {% endif %}
-                {% for post in post_list %}          
-                <div class="row">
-                    {% if post.status == 0 %}
-                        <div class="row border rounded shadow mt-3 unapproved-bg">
-                    {% else %}
-                        <div class="row border rounded shadow mt-3">
-                    {% endif %}  
-                        {% if not channel_topic_url %}   
-                            <div class="col"><p class="card-text text-success">{{ post.channel }}</p></div>
-                        {% endif %}
-                        <div class="row mt-2"><h5 class="card-title text-muted">{{ post.title }}</h5></div>
-                        <div class="col card-text text-secondary">Posted by {{ post.author }} on {{ post.updated_on }}</div>
-                        {% if post.post_image.url %}  
-                            <img src="{{ post.post_image.url }}">
-                        {% endif %}
-                        {% if post.channel_post %}
-                            <div class="col card-text mt-3">{{ post.channel_post }}</div>
-                        {% endif %}
-                        {% if post.post_url %}     
-                            <div class="row card-text nav-link"><a href="{{ post.post_url }}" target="_blank">{{ post.post_url }}</a></div>
-                        {% endif %}
-                        <p class="card-text text-muted mb-2"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
-                        {% if post.status == 0 %}
-                            <div class="col"><p class="card-text"><b>Post not approved yet</b></p></div>
-                        {% endif %}
+        <!-- Channel View -->
+        <div class="col-sm-6 mt-3 offset-md-3">
+        <!-- <div class="col-12 col-sm-6 mt-3 offset-sm-3"> -->
+            {% if channel_topic_url %}    <!-- if not viewing for specific channel rather than all channels-->
+                <h5 class="mt-3 text-success">Channel: {{ channel_topic }}</h5>
+            {% endif %}
+            {% for post in post_list %}          
+            
+            {% if post.status == 0 %}
+                <div class="row border rounded shadow mt-3 unapproved-bg">
+            {% else %}
+                <div class="row border rounded shadow mt-3">
+            {% endif %}  
+                    {% if not channel_topic_url %}   
+                        <div class="col"><p class="card-text text-success">{{ post.channel }}</p></div>
+                    {% endif %}
+                    <div class="row mt-2"><h5 class="card-title text-muted">{{ post.title }}</h5></div>
+                    <div class="col card-text text-secondary">Posted by {{ post.author }} on {{ post.updated_on }}</div>
 
-                        {% if approval_type == "Approve" %}
-                        <div class="col" ><form action="{% url 'channel_post_approve' channel_slug=channel_topic_url post_slug=post.slug_url post_approval_type=approval_type %}" method="post">
-                            <button type="submit" name="your_name" value="your_value" >Approve</button>
+                    {% if post.post_image.url %}  
+                        <img src="{{ post.post_image.url }}">
+                    {% endif %}
+
+                    {% if post.channel_post %}
+                        <div class="col card-text mt-3">{{ post.channel_post }}</div>
+                    {% endif %}
+
+                    {% if post.post_url %}     
+                        <div class="row card-text nav-link"><a href="{{ post.post_url }}" target="_blank">{{ post.post_url }}</a></div>
+                    {% endif %}
+
+                    <p class="card-text text-muted mb-2"><i class="far fa-heart"></i> {{ post.number_of_likes }} </p>
+
+                    {% if post.status == 0 %}
+                        <div class="col"><p class="card-text"><b>Post not approved yet</b></p></div>
+                    {% endif %}
+
+                    {% if approval_type == "Approve" %}
+                        <div class="col" >
+                            <form action="{% url 'channel_post_approve' channel_slug=channel_topic_url post_slug=post.slug_url post_approval_type=approval_type %}"
+                             method="post"><button type="submit" name="your_name" value="your_value" >Approve</button>
                             {% csrf_token %}
-                        </form></div>
-                        {% endif %}
-                        {% if approval_type == "Unapprove" %}
-                            <div class="col" ><form action="{% url 'channel_post_approve' channel_slug=channel_topic_url post_slug=post.slug_url post_approval_type=approval_type %}" method="post">
-                                <button type="submit" name="your_name" value="your_value" >Unapprove</button>
-                                {% csrf_token %}
-                            </form></div>
-                        {% endif %}
-                    </div>
+                            </form>
+                         </div>
+                    {% endif %}
+                         
+                    {% if approval_type == "Unapprove" %}
+                        <div class="col" >
+                            <form action="{% url 'channel_post_approve' channel_slug=channel_topic_url post_slug=post.slug_url post_approval_type=approval_type %}" 
+                             method="post"><button type="submit" name="your_name" value="your_value" >Unapprove</button>
+                            {% csrf_token %}
+                            </form>
+                        </div>
+                    {% endif %}
                 </div>
-                {% empty %}
-                    <div><h4>There are no posts to view.</h4></div>
-                {% endfor %}
-                
-            </div>
+            
+            {% empty %}
+                <div><h4>There are no posts to view.</h4></div>
+            {% endfor %}
         </div>
     </div>
     {% if is_paginated %}
