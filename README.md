@@ -162,7 +162,7 @@ Set up API to access the data in the Google Sheets
 
 ## HTML
 [Nu Html Checker Validator](https://validator.w3.org/)
-![alt text](assets/images/#.png)
+![alt text](assets/images/ViewsIt-HTML-Validator.png)
 
 ## Javascript
 [W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator)

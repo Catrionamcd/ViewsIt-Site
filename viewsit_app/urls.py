@@ -1,4 +1,4 @@
-# These are the paths for the ViewIt site"""
+'''  These are the paths for the ViewIt site  '''
 
 from django.urls import path
 from . import views
