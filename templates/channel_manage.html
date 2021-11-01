@@ -13,7 +13,7 @@
 
                     <!-- Delete Button here triggers modal below -->
                     <div class="col-3 mt-2 mb-2">
-                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmManageDelete">delete</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmManageDelete{{ forloop.counter }}">Delete</button>
                     </div>
                     
                     <div class="col mt-2 mb-2 text-left" ><a class="nav-link" href="{% url 'channel_form' slug=channel.topic_url %}">
@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- Modal for Delete Button above-->
-                <div class="modal fade" id="confirmManageDelete" tabindex="-1" role="dialog" aria-labelledby="confirmManageLabel" aria-hidden="true">
+                <div class="modal fade" id="confirmManageDelete{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="confirmManageLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content ">
                             <div class="modal-header">

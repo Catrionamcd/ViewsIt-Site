@@ -92,41 +92,41 @@
 
                
                 {% if search_place_holder and channel_topic_url %}
-                    <span class="navbar-nav ml-auto mr-auto">
+                    <div class="navbar-nav ml-auto mr-auto">
                         <form class="d-flex" action="{% url 'channel_view_search' slug=channel_topic_url %}" method="get">
-                            <input class="form-control me-2" type="search" placeholder={{ search_place_holder }} aria-label="Search" name="search_string">
+                            <input class="form-control me-2" type="search" placeholder="{{ search_place_holder }}"" aria-label="Search" name="search_string">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                             {% csrf_token %}
                         </form>
-                    </span>
+                    </div>
                 {% endif %}
                 {% if search_place_holder and not channel_topic_url %}
-                        <span class="navbar-nav ml-auto mr-auto">
-                            <form class="d-flex" action="{% url 'channel_view_search' %}" method="get">
-                                <input class="form-control me-2" type="search" placeholder={{ search_place_holder }} aria-label="Search" name="search_string">
-                                <button class="btn btn-outline-success" type="submit">Search</button>
-                                {% csrf_token %}
-                            </form>
-                    </span>
+                    <div class="navbar-nav ml-auto mr-auto">
+                        <form class="d-flex" action="{% url 'channel_view_search' %}" method="get">
+                            <input class="form-control me-2" type="search" placeholder="{{ search_place_holder }}"" aria-label="Search" name="search_string">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                            {% csrf_token %}
+                        </form>
+                    </div>
                 {% endif %}
 
                 {% if not search_place_holder and channel_topic_url %}
-                    <span class="navbar-nav ml-auto mr-auto">
+                    <div class="navbar-nav ml-auto mr-auto">
                         <form class="d-flex" action="{% url 'channel_view_search' slug=channel_topic_url %}" method="get">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_string">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                             {% csrf_token %}
                         </form>
-                    </span>
+                    </div>
                 {% endif %}
                 {% if not search_place_holder and not channel_topic_url%}
-                    <span class="navbar-nav ml-auto mr-auto">
+                    <div class="navbar-nav ml-auto mr-auto">
                         <form class="d-flex" action="{% url 'channel_view_search' %}" method="get">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_string">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                             {% csrf_token %}
                         </form>
-                    </span>
+                    </div>
                 {% endif %}
             </div>
         </div>

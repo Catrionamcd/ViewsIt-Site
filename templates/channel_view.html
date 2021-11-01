@@ -78,7 +78,7 @@
 
                         <!-- Delete Button trigger modal -->
                         <div class="col mb-2">
-                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmPostDelete">delete</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmPostDelete{{ forloop.counter }}">Delete</button>
                         </div>
 
                     {% endif %}
@@ -104,7 +104,7 @@
                 </div>
 
                 <!-- Modal for Delete Button above-->
-                <div class="modal fade" id="confirmPostDelete" tabindex="-1" role="dialog" aria-labelledby="confirmPostLabel" aria-hidden="true">
+                <div class="modal fade" id="confirmPostDelete{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="confirmPostLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content ">
                     <div class="modal-header">
