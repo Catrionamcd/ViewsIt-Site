@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
 
      path('', views.ChannelViewAll.as_view(), name=''),
-     path('home', views.ChannelViewAll.as_view(), name='home'),
+     path('home/', views.ChannelViewAll.as_view(), name='home'),
      path('account_register/', views.Register.as_view(),
           name="account_register"),
      path('user_login/', views.LoginUser.as_view(), name="user_login"),

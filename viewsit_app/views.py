@@ -383,7 +383,9 @@ class ChannelEdit(View):
 class ChannelManage(generic.ListView):
 
     def get(self, request, *args, **kwargs):
-        
+        if not request.user.is_authenticated:
+            return redirect('home')
+                    
         num_unapproved = Count('channelposts', filter=Q(channelposts__status__lte=0))
         queryset = Channel.objects.filter(author=request.user).order_by("-created_on").annotate(num_unapproved=num_unapproved)
 

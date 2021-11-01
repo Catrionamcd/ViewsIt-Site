@@ -61,6 +61,7 @@ The ViewsIt site is a social website. There are three different type of users fo
 * Entering a username into the search field allows a user to find all of their own posts (or others).
 * Results will appear in the View Posts page. Only posts matching the criteria will be displayed.
 
+## Functions
 Views.py code
 * Code in the Views.py carry out various validation checks throughout. For example if code to delete a channel is initiated, then a check is first made that the user is the current channel owner before proceeding with the deletion. 
 
@@ -78,7 +79,6 @@ Views.py code
 
 ### Development of Data Model
 
-When I first approached this project 
 
 ## Technology
 ### Language Used
