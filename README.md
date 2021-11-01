@@ -156,6 +156,14 @@ Set up API to access the data in the Google Sheets
 
 ### Validator Testing
 
+## CSS
+[W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator)
+![alt text](assets/images/ViewsIt-CSS-Validator.png)
+
+## HTML
+[W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator)
+![alt text](assets/images/ViewsIt-CSS-Validator.png)
+
 PEP8 online check
 http://pep8online.com
 ![alt text](assets/images/PEP8-Checker.png)

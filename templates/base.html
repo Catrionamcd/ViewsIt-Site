@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html class="h-100">
+<html class="h-100" lang="en">
 
 <head>
     <title>ViewsIt</title>
@@ -98,6 +98,7 @@
                             <button class="btn btn-outline-success" type="submit">Search</button>
                             {% csrf_token %}
                         </form>
+                    </span>
                 {% endif %}
                 {% if search_place_holder and not channel_topic_url %}
                         <span class="navbar-nav ml-auto mr-auto">
