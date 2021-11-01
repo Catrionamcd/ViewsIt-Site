@@ -50,7 +50,8 @@ urlpatterns = [
           name='channel_post_delete'),
      path('channel_post_like/<post_slug>/', views.ChannelPostLike.as_view(),
           name='channel_post_like'),
-     path('channel_post_like/<channel_slug>/<post_slug>/', 
-          views.ChannelPostLikeWithChannel.as_view(), name='channel_post_like'),
+     path('channel_post_like/<channel_slug>/<post_slug>/',
+          views.ChannelPostLikeWithChannel.as_view(),
+          name='channel_post_like'),
 
 ]

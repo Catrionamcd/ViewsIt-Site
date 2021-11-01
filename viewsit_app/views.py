@@ -505,12 +505,7 @@ class ChannelPostWithChannel(View):
                     channel_post = form.save(commit=False)
                     channel_post.author = request.user
                     channel_post.save()
-                    messages = messages + ("Post upload completed, it will need to be approved by the channel owner",)
-                    return render(request, 'channel_view.html',
-                        {
-                            "messages": messages
-                        },
-                    )
+                    return redirect(reverse('channel_view')+"?messages=Post upload completed, it will need to be approved by the channel owner")
             except Channel.DoesNotExist:
                 messages = messages + ("Error: Channel not found",)
         else:
@@ -736,6 +731,8 @@ class ChannelPostDelete(View):
             channel_post = ChannelPosts.objects.get(slug_url=post_slug)
             if channel_post.author == request.user:
                 channel_post.delete()
+                return redirect(reverse('channel_view')+"?messages=Post\
+                    successfully deleted")
             else:
                 return redirect(reverse('channel_view')+"?messages=Cannot\
                     Delete: You are not the person who created this post")
@@ -758,6 +755,8 @@ class ChannelPostDeleteWithChannel(View):
             channel_post = ChannelPosts.objects.get(slug_url=post_slug)
             if channel_post.author == request.user:
                 channel_post.delete()
+                return redirect(reverse('channel_view')+"?messages=Post\
+                    successfully deleted")
             else:
                 return redirect(reverse('channel_view')+slug+"?messages=Cannot Delete: You are not the person who created this post")
         except ChannelPosts.DoesNotExist:
