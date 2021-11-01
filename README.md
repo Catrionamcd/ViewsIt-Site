@@ -57,6 +57,8 @@ The ViewsIt site is a social website. There are three different type of users fo
 
 ### Post Search
 * This is accessible from the menu bar
+![alt text](assets/images/ViewsIt-Navbar-Search.png)
+
 * Will search for phrase contained in either Post Tile, Post Content, or Post Author.
 * Entering a username into the search field allows a user to find all of their own posts (or others).
 * Results will appear in the View Posts page. Only posts matching the criteria will be displayed.
@@ -84,16 +86,26 @@ Views.py code
 ### Language Used
 
 * [Python](https://www.python.org) - Python is an interpreted high-level general-purpose programming language. I used Python to access the data in Google Sheets and run the game.
+* [Django](https://www.) - Django is a Python-based free and open-source web framework that follows the model–template–views architectural pattern.
+* [CSS](https://) - Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language such as HTML. 
+* [HTML](https://) - The HyperText Markup Language, or HTML is the standard markup language for documents designed to be displayed in a web browser.
+* [JavaScript](https://) - JavaScript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive.
+### Databases 
+* [SQLite3] - SQLite is a relational database management system which was used as a test database while developing my webite in GitPod
+* [PostgreS] - PostgreS is a relational database management system which is used on my deployed site in Heroku.
 
 ### Other Technologies and Libraries
 
+* [Django](https://www.) - Django is a Python-based free and open-source web framework that follows the model–template–views architectural pattern.
 * [GitPod](https://gitpod.io) - Gitpod is an online cloud based IDE. I developed and tested my project using Gitpod. I added and commited changes with messages and pushed to GitHub.
 * [GitHub](https://github.com) - GitHub is a provider of Internet hosting for software development and version control using Git.
 * [Heroku](https://heroku.com) - Heroku is a cloud platform as a service supporting several programming languages. I used Heroku to deploy and run the project.
-* [Google Chrome Browser](https://www.google.com/intl/en_ie/chrome/) - was used to view the game.
-* [Google Cloud Platform](https://cloud.google.com) - was used to set up the API's for the project.
-* [Google Sheets](https://www.google.com/sheets/about/) - used to store the story flow, the story content, story prompts and the next steps for the game. 
+* [Cloudinary](https://cloudinary.com) - is used to store the images that areposted to on the channel posts.
+* [Google Sheets](https://www.google.com/sheets/about/) - used to plan the data moddels story flow, the story content, story prompts and the next steps for the game. 
 * [Diagrams](https://wwww.diagrams.net) - used to create the flowchart for the project.
+* [Bootstrap v5.1](https://getbootstrap.com/) - used for the styling and the reposnive design site.
+* [Balsamiq](https://balsamiq.com/) - used for creating the wireframes while planning the look of the site. Not all the wireframes are exactly like the end product.
+* 
 ## API
 Set up API to access the data in the Google Sheets
 
@@ -201,13 +213,14 @@ Press enter to create the local clone.
 ### Content
 * Reddit Social Network Site - https://www.reddit.com
 * Facebook Social Networking Site - https://www.facebook.com 
+
 ### Code
-* [w3schools] - https://www.w3schools.com
-* [stackoverflow] - https://www.stackoverflow.com
-* [pythontutorials] - https://www.pythontutorial.net
-* [analyticsvidhya] - https://www.analyticsvidhya.com
-* [geeksforgeeks] - https://www.geekforgeek.org
-* [python] - https://docs.python.org
+* Code Institute - https://codeinstitute.net/.com
+* w3schools - https://www.w3schools.com
+* stackoverflow - https://www.stackoverflow.com
+* pythontutorials - https://www.pythontutorial.net
+* geeksforgeeks - https://www.geekforgeek.org
+* python - https://docs.python.org
 
 * I would like to credit
 
