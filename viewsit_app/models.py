@@ -1,12 +1,14 @@
+''' Model for the Channel and Channel Posts '''
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
-# Channel Model
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
+
 class Channel(models.Model):
+    ''' Channel Model '''
     topic = models.CharField(max_length=50)
     topic_url = models.SlugField(max_length=50, unique=True)
     description = models.CharField(max_length=200)
@@ -24,6 +26,7 @@ class Channel(models.Model):
 
 
 class ChannelPosts(models.Model):
+    ''' Channel Posts Model '''
     title = models.CharField(max_length=200)
     slug_url = models.SlugField(max_length=250, unique=True)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE,

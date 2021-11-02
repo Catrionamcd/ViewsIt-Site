@@ -3,6 +3,13 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 
+ <!-- This code handles the navigation menu bar at the top of the 
+      ViewsIt site and the footer with the social icons. The nav bar
+      has numerous options for the user, a home icon, login/logout and
+      registraion options. If a user is logged in their username will be
+      displayed.  -->
+
+
 <head>
     <title>ViewsIt</title>
 
@@ -86,15 +93,18 @@
 
                 </ul>
 
+                <!-- Displays the user name -->
+
                 {% if user.is_authenticated %}
                     <p class="nav-item muted-text mt-3 me-2" id="navbarText"><i class="fas fa-user text-success"></i> {{ user }}</p>
                 {% endif %}
 
-               
+               <!-- Searches for channels, post and author -->
+
                 {% if search_place_holder and channel_topic_url %}
                     <div class="navbar-nav ml-auto mr-auto">
                         <form class="d-flex" action="{% url 'channel_view_search' slug=channel_topic_url %}" method="get">
-                            <input class="form-control me-2" type="search" placeholder="{{ search_place_holder }}"" aria-label="Search" name="search_string">
+                            <input class="form-control me-2" type="search" placeholder="{{ search_place_holder }}" aria-label="Search" name="search_string">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                             {% csrf_token %}
                         </form>
@@ -103,7 +113,7 @@
                 {% if search_place_holder and not channel_topic_url %}
                     <div class="navbar-nav ml-auto mr-auto">
                         <form class="d-flex" action="{% url 'channel_view_search' %}" method="get">
-                            <input class="form-control me-2" type="search" placeholder="{{ search_place_holder }}"" aria-label="Search" name="search_string">
+                            <input class="form-control me-2" type="search" placeholder="{{ search_place_holder }}" aria-label="Search" name="search_string">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                             {% csrf_token %}
                         </form>
@@ -131,6 +141,8 @@
             </div>
         </div>
     </nav>
+
+    <!-- Messaging to alert user  -->
 
     <div class="container">
         <div class="row"> 
@@ -167,11 +179,19 @@
     </footer>
 
     <script>
+
+        //   This section of javascript code was taken from the Code Institute.
+        
         setTimeout(function() {
             let messages = document.getElementById("msg");
             let alert = new bootstrap.Alert(messages);
             alert.close();
         }, 3000);
+
+        
+        //   This section of javascript code was taken from  MdBootstrap,
+        //   https://mdbootstrap.com/docs/standard/extended/back-to-top/
+  
 
         //Get the button
         let mybutton = document.getElementById("btn-back-to-top");

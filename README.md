@@ -6,8 +6,20 @@ The ViewsIt site is a social website. There are three different type of users fo
 ![alt text]()
 
 ## Design of the site
-### Flowchart
-![alt text]()
+### Wireframes
+When designing the look and feel of the site I looked to Reddit and Facebook and tried to simulate some of the layout on these sites. 
+![All Channels Desktop](assets/images/ViewsIt-AllChannels-DeskTop.png)
+![All Channels Mobile](assets/images/ViewsIt-AllChannels-Mobile.png)
+![Channel Post Desktop](assets/images/ViewsIt-Post-DeskTop.png)
+![Channel Post Mobile](assets/images/ViewsIt-Post-Mobile.png)
+
+
+### Database Models
+There are two database models, the Channel model and the Channel Posts model. The Channel model will store all the details on the channel, the channel topic, description, author, date created, date updated and an approved field, status, which will be set to 0(draft) or 1(published). It will hold a unique key which is a prepopulated slug field, channel topic url.
+
+The Channel Posts model will store all of the details on the post attached to a channel, the post title, post description, post image, post url/link for more information on the post, author, date created, updated date and an approve field. It will hold a unique key which is comprised of the post title and the current date/time. It also holds the channel topic and has on delete cascade so that when a channel is deleted by the channel author all of the posts attached to this chanel will also be deleted automatically.
+
+![Data Model](assets/images/ViewsIt-Data-Model.png)
 
 ## Features/Functions
 
@@ -86,7 +98,6 @@ Views.py code
 ### Language Used
 
 * [Python](https://www.python.org) - Python is an interpreted high-level general-purpose programming language. I used Python to access the data in Google Sheets and run the game.
-* [Django](https://www.) - Django is a Python-based free and open-source web framework that follows the model–template–views architectural pattern.
 * [CSS](https://) - Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language such as HTML. 
 * [HTML](https://) - The HyperText Markup Language, or HTML is the standard markup language for documents designed to be displayed in a web browser.
 * [JavaScript](https://) - JavaScript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive.
@@ -165,16 +176,15 @@ Set up API to access the data in the Google Sheets
 ![alt text](assets/images/ViewsIt-HTML-Validator.png)
 
 ## Javascript
-[W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator)
-![alt text](assets/images/#.png)
+[JShint](https://jshint.com/)
+There is some Javascript code within the base.html file. The code was taken from the Code Institute for the message timeout function and MdBootstrap,
+https://mdbootstrap.com/docs/standard/extended/back-to-top/ for the back to the top bottom at the end of the screen.
 
 ## Python
-PEP8 online check
-http://pep8online.com
-![alt text](assets/images/#.png)
-
-* No errors were found in the code 
-
+ 
+I ran the admin.py, forms.py, models.py and urls.py through [PEP8](http://pep8online.com) online checker and all now have no errors.
+There are however still some 501 errors, lines too long, on the views.py file. There is over 800 lines of code in this file and I corrected as many as I thought safe to do so without causing problems with the code.
+There are also a few 501 errors, line too long in the settings.py file but again I thought it better to leave them as they are. 
 
 ## Bug Fixes
 
@@ -228,14 +238,17 @@ Press enter to create the local clone.
 * Facebook Social Networking Site - https://www.facebook.com 
 
 ### Code
+* Mastering Django by Nigel George
 * Code Institute - https://codeinstitute.net/.com
+* Bootstrap - https://getbootstrap.com/docs
 * w3schools - https://www.w3schools.com
 * stackoverflow - https://www.stackoverflow.com
 * pythontutorials - https://www.pythontutorial.net
 * geeksforgeeks - https://www.geekforgeek.org
 * python - https://docs.python.org
-* Mastering Django by Nigel George
+* OrdinaryCoders - https://www.ordinarycoders.com
 
-* I would like to credit
+I would like to credit my family for helping me with the content, the ideas and logic of this project. 
+I would like to thank my mentor for be very understanding, helpful and very generous with her time. I would also like to thank our cohort facilitator, Kasia Bogucka, for always going above and beyond to help us.
 
 

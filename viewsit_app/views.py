@@ -1,3 +1,5 @@
+''' doc string '''
+
 from django.shortcuts import render, reverse, redirect
 from django.utils.text import slugify
 from django.utils import timezone
@@ -23,7 +25,6 @@ class Register(View):
         )
 
     def post(self, request, *args, **kwargs):
-        ''' doc string '''
 
         messages = ()
 
@@ -47,7 +48,7 @@ class Register(View):
 
 
 class LoginUser(View):
-    ''' doc string '''
+    ''' User Login '''
 
     def get(self, request, *args, **kwargs):
         ''' doc string '''
@@ -60,7 +61,6 @@ class LoginUser(View):
         )
 
     def post(self, request, *args, **kwargs):
-        ''' doc string '''
 
         login_user_form = LoginUserForm(data=request.POST)
         if login_user_form.is_valid():
@@ -87,10 +87,9 @@ class LoginUser(View):
 
 
 class LogoutUser(View):
-    ''' doc string '''
+    ''' User Logout '''
 
     def get(self, request, *args, **kwargs):
-        ''' doc string '''
 
         return render(
             request,
@@ -101,14 +100,13 @@ class LogoutUser(View):
         )
 
     def post(self, request, *args, **kwargs):
-        ''' doc string '''
 
         logout(request)
         return redirect(reverse('channel_view')+"?messages=Logout successful")
 
 
 class ChannelList(generic.ListView):
-    ''' doc string '''
+    ''' List Approved Channels '''
     model = Channel
     queryset = Channel.objects.filter(status=1).order_by("-created_on")
 
@@ -116,7 +114,7 @@ class ChannelList(generic.ListView):
 
 
 class ChannelView(View):
-    ''' doc string '''
+    ''' View the posts of a channel '''
 
     def get(self, request, slug, *args, **kwargs):
         ''' doc string '''
@@ -163,7 +161,7 @@ class ChannelView(View):
 
 
 class ChannelViewAll(View):
-    ''' doc string '''
+    ''' View All Channel and all Posts '''
 
     def get(self, request, *args, **kwargs):
         messages = ()
@@ -195,7 +193,9 @@ class ChannelViewAll(View):
 
 
 class ChannelViewSearch(View):
-    ''' doc string '''
+    ''' Searches can be made by channel topic, post or user/author
+        when a user is wihtin a channel
+    '''
 
     def get(self, request, slug, *args, **kwargs):
         search_string = request.GET.get('search_string', '')
@@ -251,7 +251,7 @@ class ChannelViewSearch(View):
 
 
 class ChannelViewSearchAll(View):
-    ''' doc string '''
+    ''' Searches can be made by channel topic, post, or user/author '''
 
     def get(self, request, *args, **kwargs):
         search_string = request.GET.get('search_string', '')
@@ -287,7 +287,7 @@ class ChannelViewSearchAll(View):
 
 
 class ChannelCreate(View):
-    ''' doc string '''
+    ''' Create a new channel. Only registered user can do this '''
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -336,7 +336,10 @@ class ChannelCreate(View):
 
 
 class ChannelEdit(View):
-    ''' doc string '''
+    '''
+        Edit a Channel. Only the owner of the channel can do this. If
+        a channel is edited, it has to be re-approved by the super user
+    '''
 
     def get(self, request, slug, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -405,7 +408,11 @@ class ChannelEdit(View):
 
 
 class ChannelManage(generic.ListView):
-    ''' doc string '''
+    '''
+        Channel manage will show the number of posts to
+        be approved. The channel owner can delete the channel
+        and also unapprove posts
+    '''
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -425,7 +432,10 @@ class ChannelManage(generic.ListView):
 
 
 class ChannelDelete(View):
-    ''' doc string '''
+    '''
+        Channel Delete. Once a channel is deleted all the posts
+        associated with the channel will be deleted
+    '''
 
     def post(self, request, slug, *args, **kwargs):
         messages = ()
@@ -452,7 +462,10 @@ class ChannelDelete(View):
 
 
 class ChannelPost(View):
-    ''' doc string '''
+    '''
+        Attach a post to a channel. An image and a link can be attached
+        or just a post decsription along with post title
+    '''
 
     def get(self, request, slug, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -509,7 +522,11 @@ class ChannelPost(View):
 
 
 class ChannelPostWithChannel(View):
-    ''' doc string '''
+    '''
+        Attach a post to a channel. The channel can be selected from a 
+        list of channel in a drop down menu. An image and a link can be
+        attached or just a post decsription
+    '''
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -552,7 +569,7 @@ class ChannelPostWithChannel(View):
 
 
 class ChannelPostApprove(View):
-    ''' doc string '''
+    ''' Approve a channel post. Only the author of the channel can do this '''
 
     def get(self, request, slug, post_approval_type, *args, **kwargs):
         messages = ()
@@ -656,7 +673,9 @@ class ChannelPostApprove(View):
 
 
 class ChannelPostEdit(View):
-    ''' doc string '''
+    '''
+        Edit a channel post.
+    '''
 
     def get(self, request, post_slug, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -710,7 +729,7 @@ class ChannelPostEdit(View):
 
 
 class ChannelPostEditWithChannel(View):
-    ''' doc string '''
+    ''' Edit a channel post '''
 
     def get(self, request, channel_slug, post_slug, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -764,7 +783,7 @@ class ChannelPostEditWithChannel(View):
 
 
 class ChannelPostDelete(View):
-    ''' docs string '''
+    ''' Delete a channel post '''
 
     def post(self, request, post_slug, *args, **kwargs):
 
@@ -787,7 +806,7 @@ class ChannelPostDelete(View):
 
 
 class ChannelPostDeleteWithChannel(View):
-    ''' docs string '''
+    ''' Delete a channel post '''
 
     def post(self, request, channel_slug, post_slug, *args, **kwargs):
 
@@ -812,7 +831,7 @@ class ChannelPostDeleteWithChannel(View):
 
 
 class ChannelPostLike(View):
-    ''' doc string '''
+    ''' To like a channel post '''
 
     def post(self, request, post_slug, *args, **kwargs):
         messages = ()
@@ -840,7 +859,7 @@ class ChannelPostLike(View):
 
 
 class ChannelPostLikeWithChannel(View):
-    ''' doc string '''
+    ''' To like a channel post '''
 
     def post(self, request, channel_slug, post_slug, *args, **kwargs):
         messages = ()
