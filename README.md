@@ -102,9 +102,6 @@ The Channel Posts model will store all of the details on the post attached to a 
 Views.py code
 * Code in the Views.py carry out various validation checks throughout. For example if code to delete a channel is initiated, then a check is first made that the user is the current channel owner before proceeding with the deletion. 
 
-![alt text]()
-
-
 ### Future Features 
 * The site could be extended to send notifications of new channels to the super user for approval
 * Send notifications of new post to the channel owner for approval.
@@ -120,8 +117,8 @@ Views.py code
 * [HTML](https://) - The HyperText Markup Language, or HTML is the standard markup language for documents designed to be displayed in a web browser.
 * [JavaScript](https://) - JavaScript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive.
 ### Databases 
-* [SQLite3] - SQLite is a relational database management system which was used as a test database while developing my webite in GitPod
-* [PostgreS] - PostgreS is a relational database management system which is used on my deployed site in Heroku.
+* SQLite3 - SQLite is a relational database management system which was used as a test database while developing my webite in GitPod
+* PostgreS - PostgreS is a relational database management system which is used on my deployed site in Heroku.
 
 ### Other Technologies and Libraries
 
@@ -156,7 +153,7 @@ Views.py code
 
 ## HTML
 [Nu Html Checker Validator](https://validator.w3.org/)
-![alt text](assets/images/ViewsIt-HTML-Validator.png)
+![alt text](assets/images/ViewsIt-HTML-Validator.png)cl
 
 ## Javascript
 [JShint](https://jshint.com/)
@@ -169,9 +166,6 @@ I ran the admin.py, forms.py, models.py and urls.py through [PEP8](http://pep8on
 There are however still some 501 errors, lines too long, on the views.py file. There is over 800 lines of code in this file and I corrected as many as I thought safe to do so without causing problems with the code.
 There are also a few 501 errors, line too long in the settings.py file but again I thought it better to leave them as they are. 
 
-## Bug Fixes
-
-* 
 
 ## Deployment
 
