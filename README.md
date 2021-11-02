@@ -2,8 +2,9 @@
 
 The ViewsIt site is a social website. There are three different type of users for the site, a super user or administrator, a visitor to the site who chooses not to create a profile on the site and a vistor to the site who creates a user profile so they can contribute to the site. A visitor to the site can view all of the posts and channels on the site. Users can create a new channel or create posts to their own channel or another users channel. Once a channel is created it has to be approved by the administrator before a post can be posted to it. A post has to be approved by the channel owner before it can be viewd by all visitors to the site.
 
-## Multi Screen mock-up of the site
-![alt text]()
+## Multi Screen of the site
+ViewsIt - https://views-it.herokuapp.com/
+![ViewsIt](assets/images/ViewsIt-Multi-Device.png)
 
 ## Design of the site
 ### Wireframes
@@ -14,16 +15,35 @@ When designing the look and feel of the site I looked to Reddit and Facebook and
 ![Channel Post Mobile](assets/images/ViewsIt-Post-Mobile.png)
 
 
-### Database Models
+### Data Models
 There are two database models, the Channel model and the Channel Posts model. The Channel model will store all the details on the channel, the channel topic, description, author, date created, date updated and an approved field, status, which will be set to 0(draft) or 1(published). It will hold a unique key which is a prepopulated slug field, channel topic url.
 
 The Channel Posts model will store all of the details on the post attached to a channel, the post title, post description, post image, post url/link for more information on the post, author, date created, updated date and an approve field. It will hold a unique key which is comprised of the post title and the current date/time. It also holds the channel topic and has on delete cascade so that when a channel is deleted by the channel author all of the posts attached to this chanel will also be deleted automatically.
 
 ![Data Model](assets/images/ViewsIt-Data-Model.png)
+## User Stories
+* Site visitor to view list of approved channels.
+* Site visitor to view posts in channels
+* Site visitor to view stats for a channel, posts and likes.
+* Site visitor to view stats for a post, see how many likes there are.
+* Site visitor to use search for author, channel topic or post title.
+* Account Registration for site vistor.
+* Set up a new channel as a registered user of the site.
+* As a super user/administrator add, edit and delete posts.
+* As a registered user of the site add, edit and delete posts.
+* As an owner of a channel th ability to approve channel posts.
+* As a user to like/unlike posts and comments
+* Ad a super user/ administrator the ability to approve a new channel
+* Add an image to channel posts
+* Add a url within a channel posts
+
 
 ## Features/Functions
 
-### Existing Features
+## Existing Features
+
+### Registration/Login Forms
+* I created a new layout to the registration of a user to the site. I also created a new layout to the forms for the login and logout screens.
 
 ### Navigation Bar
 
@@ -36,10 +56,13 @@ The Channel Posts model will store all of the details on the post attached to a 
 * Shows approved posts against all channels
 
 ### Channel List page
+
+![alt text](assets/images/ViewsIt-Desktop.png)
 * Lists all approved channels so the user can view approved posts again a specific channel
 * Visitors to the site (Unauthenticated login) can also view the approved channel list.
 
 ### Channel Manage page
+
 * One stop place for all channel management activity.
 * Activities that can be accessed via the Channel Management page are: Request New Channel, Delete a Channel, Edit a Channel, Un-approve Posts submitted by users, Approve posts submitted by users
 * Only channels created by the current logged in users are accessible on the page
@@ -83,15 +106,10 @@ Views.py code
 
 
 ### Future Features 
-* The site could be extended to 
-
-## Data Model
-
-
-![alt text]()
-
-
-### Development of Data Model
+* The site could be extended to send notifications of new channels to the super user for approval
+* Send notifications of new post to the channel owner for approval.
+* Add an image to channel information to make it more appealing
+* Extend the site to enable users to add comments to the posts that are attached to each channel.
 
 
 ## Technology
@@ -117,53 +135,18 @@ Views.py code
 * [Bootstrap v5.1](https://getbootstrap.com/) - used for the styling and the reposnive design site.
 * [Balsamiq](https://balsamiq.com/) - used for creating the wireframes while planning the look of the site. Not all the wireframes are exactly like the end product.
 * 
-## API
-Set up API to access the data in the Google Sheets
-
-* Go to the [Google Cloud Platform](https://cloud.google.com) page.
-* Click on 'Select a Project' button.
-* Select 'New Project' and enter project name, 'AdventuresOfAlice' and click 'Create'
-* Select project to bring you to the project page.
-* Select the 'APIs & Services' option from the side menu.
-* Select 'Library' to enable two APIs, Google Drive to get credentials to access the Google files and the second API will be to Google Sheets.
-* In the search bar enter 'Google Drive' and select it from the list.
-* Click the 'Enable' button.
-* From the "Which API are you using?" choose Google Drive API.
-* For the "What data will you be accessing?" select Application Data.
-* For the "Are you planning to use this API with Compute Engine, Kubernetes Engine, App Engine, or Cloud Functions?" select No, I'm not using them.
-* Click Next
-* Enter Service Account details, 'AdventuresOfAlice' and click 'Create.
-* For Role click 'Editor' and click 'Continue'.
-* On the next page click on the Service Account that was created.
-* On the next page click on 'KEYS' tab.
-* Click on 'Add' key and 'Create New Key'
-* Select 'JSON' and click 'Create'
-* To select the Google Sheets API, go back to the 'Library' and search for 'Google Sheets'.
-* Select 'Google Sheets API' and click 'Enable'.
-
-## CREDS.JSON
-
-* Copy the credentials file created into my gitpod repository and rename it to 'creds.json'
-* Ensure the 'creds.json' file is added to the 'gitigore' file as it should not be pushed to GitHub.
-* Take a copy the email address generated from the creds.json file.
-* In the Google Sheets click 'Share' button and paste in the email address.
-* Select 'Editor' and untick 'Notify People, then click 'Share'.
-
 
 ## Testing
 ### Manual Testing
-* Ensure that API is working and that my code is able to access the data in the google sheets. I initially tested this by putting two rows of data in the google sheet and printing the data to screen.
-* Test the validation of a player name entered. If the player name is not entered, an error message should appear and the user will be prompted for a name again.
-* Test validation against the reponses in the data model. If a response is entered by the player other than the responses in the google sheet an error message should display and the player is prompted again with the same question.
-* Test that the correct story content and prompt is appearing for the current step of the game.
-* Make sure that the correct value in the next step is moved into the current step when the player has entered a valid response for that step.
-* If there is data in the output column ensure that the correct output content is printing.
-* If the next step is a 'Win' or 'Lose' step make sure that the correct ouptut is printed to the screen. Also test that the correct accummulated tallies of wins and losses are printed.
-* Ensure that the player is promted to play again if the next step is 'Win' or 'Lose'.
-* If the data in the data structure is not setup properly, ensure that an informative error message should appear with the current step of the game printed on screen.
-* Test that the flow of the story makes sense, that for each step the next step is a valid, realistic move.
-* Used the Google Sheets data as a checklist to test that all of the next steps and outputs were correct and the flow of the game was correct.
-
+* Unfortunately, I had planned to create a spreadsheet with all of the manual testing carried out and it was extensive but I have run out of time. Each feature was tested.
+* New Registration Page
+* New Login/Logout Page
+* Create Channel
+* Approve Channel
+* Create Posts
+* Edit Channel/posts
+* Delete Channel/post
+* Numerous searches
 
 ### Validator Testing
 
@@ -201,12 +184,20 @@ The application uses Heroku for deployement
 3. Create an account by entering your email address and a password
 4. Activate the account through the authentication email sent to your email account
 5. Click the new button and select create a new app from the dropdown menu
-6. Enter a name for the application which must be unique, in this case the app name is adventures-of-alice
+6. Enter a name for the application which must be unique, in this case the app name is called views-it.
 7. Select a region, in this case Europe
 8. Click create app
+## Attach the POstgreSQL databae
+1. Click on the resources tab on the horizontal menu bar to add a database
+2. In the add-ons box search for Postgres
+3. Add Heroku Postgres to the project
 ## Heroku settings
 1. From the horizontal menu bar select 'Settings'.
-2. In the buildpacks section, where further necessary dependencies are installed, click 'add buildpack'. Select 'Python' first and click 'save changes'. Next click 'node.js' and then click 'save changes' again. The 'Python' buildpack must be above the 'node.js' buildpack'. They can be clicked on and dragged to change the order if necessary.
+2. Click on Reveal Config Vars,  this gives us our database url, the connection to our database.
+3. Make sure you have your secret key added
+4. Make sure the Cloudinary Url is added
+5. Tke out any temporary environment variables, such as DISABLE_COLLECT_STATIC.
+
 ### Deployment
 1. In the top menu bar select 'Deploy'.
 2. In the 'Deployment method' section select 'Github' and click the connect to Github button to confirm.
