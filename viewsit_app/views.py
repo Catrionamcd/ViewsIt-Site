@@ -16,7 +16,6 @@ class Register(View):
     """ Registration for ViewsIt site """
 
     def get(self, request, *args, **kwargs):
-        ''' doc string '''
         return render(
             request,
             "register.html",
@@ -52,7 +51,6 @@ class LoginUser(View):
     """ User Login """
 
     def get(self, request, *args, **kwargs):
-        ''' doc string '''
         return render(
             request,
             "login_user.html",
@@ -118,7 +116,6 @@ class ChannelView(View):
     """ View the posts of a channel """
 
     def get(self, request, slug, *args, **kwargs):
-        ''' doc string '''
         messages = ()
         channel_topic = ""
         channel_topic_url = ""
@@ -133,7 +130,9 @@ class ChannelView(View):
             if request.user.is_authenticated:
                 queryset = ChannelPosts.objects.filter(
                     Q(channel__exact=channel),
-                    Q(status__exact=1) | Q(author__exact=request.user) | Q(channel__author__exact=request.user),
+                    Q(status__exact=1) |
+                    Q(author__exact=request.user) |
+                    Q(channel__author__exact=request.user),
                     Q(channel__status__exact=1),
                     ).order_by("-updated_on")
             else:
@@ -173,7 +172,9 @@ class ChannelViewAll(View):
 
         if request.user.is_authenticated:
             queryset = ChannelPosts.objects.filter(
-                Q(status__exact=1) | Q(author__exact=request.user) | Q(channel__author__exact=request.user),
+                Q(status__exact=1) |
+                Q(author__exact=request.user) |
+                Q(channel__author__exact=request.user),
                 Q(channel__status__exact=1),
                 ).order_by("-updated_on")
         else:
@@ -433,7 +434,8 @@ class ChannelManage(generic.ListView):
         num_unapproved = Count('channelposts',
                                filter=Q(channelposts__status__lte=0))
         queryset = Channel.objects.filter(author=request.user).order_by(
-            "-created_on").annotate(num_unapproved=num_unapproved).annotate(posts_count=Count('channelposts'))
+            "-created_on").annotate(num_unapproved=num_unapproved).annotate(
+                posts_count=Count('channelposts'))
 
         return render(
             request,

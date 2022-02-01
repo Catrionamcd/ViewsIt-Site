@@ -131,9 +131,11 @@ Views.py code
 * [Diagrams](https://wwww.diagrams.net) - used to create the flowchart for the project.
 * [Bootstrap v5.1](https://getbootstrap.com/) - used for the styling and the reposnive design site.
 * [Balsamiq](https://balsamiq.com/) - used for creating the wireframes while planning the look of the site. Not all the wireframes are exactly like the end product.
-* 
+
 
 ## Testing
+
+Code Validation and Manual Testing can be viewed [here](TEST.md)
 ### Manual Testing
 * Unfortunately, I had planned to create a spreadsheet with all of the manual testing carried out and it was extensive but I have run out of time. Each feature was tested.
 * New Registration Page
@@ -145,31 +147,9 @@ Views.py code
 * Delete Channel/post
 * Numerous searches
 
-### Validator Testing
-
-## CSS
-[W3C CSS Validator](https://jigsaw.w3.org/css-validator/validator)
-![alt text](assets/images/ViewsIt-CSS-Validator.png)
-
-## HTML
-[Nu Html Checker Validator](https://validator.w3.org/)
-![alt text](assets/images/ViewsIt-HTML-Validator.png)cl
-
-## Javascript
-[JShint](https://jshint.com/)
-There is some Javascript code within the base.html file. The code was taken from the Code Institute for the message timeout function and MdBootstrap,
-https://mdbootstrap.com/docs/standard/extended/back-to-top/ for the back to the top bottom at the end of the screen.
-
-## Python
- 
-I ran the admin.py, forms.py, models.py and urls.py through [PEP8](http://pep8online.com) online checker and all now have no errors.
-There are however still some 501 errors, lines too long, on the views.py file. There is over 800 lines of code in this file and I corrected as many as I thought safe to do so without causing problems with the code.
-There are also a few 501 errors, line too long in the settings.py file but again I thought it better to leave them as they are. 
-
-
 ## Deployment
 
-The application uses Heroku for deployement
+The application uses Heroku for deployment:
 
 ### Create the application
 1. Create the requirements file the Heroku will use to import the dependencies required for deployment: type pip3 freeze > requirements.txt. 

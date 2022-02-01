@@ -1,4 +1,6 @@
-''' Forms for Registrations, New Channels & Channels Posts '''
+"""
+    Forms for Registrations, New Channels & Channels Posts
+"""
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import Textarea
@@ -7,7 +9,7 @@ from .models import Channel, ChannelPosts
 
 
 class NewUserForm(UserCreationForm):
-    ''' Registraion Form for a New User to the site '''
+    """ Registraion Form for a New User to the site """
 
     class Meta:
         model = User
@@ -15,7 +17,7 @@ class NewUserForm(UserCreationForm):
 
 
 class LoginUserForm(AuthenticationForm):
-    ''' A login form for a user of the site '''
+    """ A login form for a user of the site """
 
     class Meta:
         model = User
@@ -23,7 +25,7 @@ class LoginUserForm(AuthenticationForm):
 
 
 class ChannelForm(forms.ModelForm):
-    ''' A form to set up a new channel '''
+    """ A form to set up a new channel """
 
     class Meta:
         model = Channel
@@ -39,7 +41,7 @@ class ChannelForm(forms.ModelForm):
 
 
 class ChannelPostForm(forms.ModelForm):
-    ''' A form to attach a post to a channel '''
+    """ A form to attach a post to a channel """
 
     class Meta:
         model = ChannelPosts
@@ -57,11 +59,11 @@ class ChannelPostForm(forms.ModelForm):
 
 
 class ChannelPostFormWithChannel(forms.ModelForm):
-    '''
+    """
         A form to attach a post to a channel. The
         channel is selected from a drop down menu of
         approved channels.
-    '''
+    """
 
     def __init__(self, *args, **kwargs):
         super(ChannelPostFormWithChannel, self).__init__(*args, **kwargs)

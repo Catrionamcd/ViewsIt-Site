@@ -1,4 +1,6 @@
-''' Admin for Channel and Channel Post models '''
+"""
+    Admin for Channel and Channel Post models
+"""
 
 from django.contrib import admin
 from .models import Channel, ChannelPosts
@@ -6,7 +8,9 @@ from .models import Channel, ChannelPosts
 
 @admin.register(Channel)
 class ChannelAdmin(admin.ModelAdmin):
-    ''' Prepopulate url field for Channel model & set up displays '''
+    """
+        Prepopulate url field for Channel model & set up displays
+    """
 
     prepopulated_fields = {'topic_url': ('topic',)}
     list_filter = ('status', 'updated_on')
@@ -20,7 +24,9 @@ class ChannelAdmin(admin.ModelAdmin):
 
 @admin.register(ChannelPosts)
 class ChannelPostsAdmin(admin.ModelAdmin):
-    ''' Prepopulate url field for Channel model & set up displays '''
+    """
+        Prepopulate url field for Channel model & set up displays
+    """
 
     prepopulated_fields = {'slug_url': ('title',)}
     list_display = ('title', 'author', 'channel', 'channel_post', 'updated_on',
