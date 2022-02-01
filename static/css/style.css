@@ -104,4 +104,9 @@ body {
     border: none;
 }
 
-
+.img-size {
+    object-fit: cover;
+    overflow: hidden;
+    width: 100%;
+    max-height: 600px;
+}

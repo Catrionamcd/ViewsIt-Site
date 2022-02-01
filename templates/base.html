@@ -67,27 +67,27 @@
                         <a class="nav-link" href="{% url 'channel_list' %}">Channel List</a>
                     </li>
 
-                    {% if user.is_authenticated and not "channel_manage" in request.path %}
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'channel_manage' %}">Channel Manage</a>
                     </li>
                     {% endif %}
 
-                    {% if user.is_authenticated and "channel_manage" in request.path %}
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'channel_form' %}">Request New Channel</a>
+                        <a class="nav-link" href="{% url 'channel_form' %}">New Channel</a>
                     </li>
                     {% endif %}
 
-                    {% if user.is_authenticated and "channel_view" in request.path and channel_topic_url %}
+                    {% if user.is_authenticated and channel_topic_url %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'channel_post' slug=channel_topic_url %}">Channel Post</a>
+                        <a class="nav-link" href="{% url 'channel_post' slug=channel_topic_url %}">Post</a>
                     </li>
                     {% endif %}
 
-                    {% if user.is_authenticated and "channel_view" in request.path and not channel_topic_url %}
+                    {% if user.is_authenticated and not channel_topic_url %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'channel_post' %}">Channel Post</a>
+                        <a class="nav-link" href="{% url 'channel_post' %}">Post</a>
                     </li>
                     {% endif %}
 

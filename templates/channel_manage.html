@@ -11,39 +11,57 @@ to view posts on the channel, a link to approve or unapprove posts. -->
     <div class="row">
         <!-- List of Channels To Manage -->
        
-        <div class="col-sm-6 mt-3 offset-md-3">
+        <div class="col-sm-6 mt-3 offset-sm-3">
             <h5 class="mt-3 text-success">Channels Managed by you</h5>
             {% for channel in channel_list %}
                 <div class="row border rounded shadow mt-3">
 
-                    <!-- Delete Button here triggers modal below -->
-                    <div class="col-3 mt-2 mb-2">
-                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmManageDelete{{ forloop.counter }}">Delete</button>
-                    </div>
-                    
-                    <div class="col mt-2 mb-2 text-left" ><a class="nav-link" href="{% url 'channel_form' slug=channel.topic_url %}">
-                        <p class="card-text">{{ channel.topic }}</p></a> 
-                    </div>    
-                    
-                    <div class="row">
+                    <div class="col-12 mt-2 mb-2 text-left" >
+                        <p class="card-title fw-bold">{{ channel.topic }}</p>
+                    </div>   
+
+                    <div class="col-md-6" style="margin-top: -1.0rem !important;">
+                        <p class="card-text" style="float:left">Status: </p>
+
                         {% if channel.status == 0 %}
-                            <div class="col mt-2 mb-2 text-left">Draft</div>
+                            <p class="card-text text-warning" >Draft</p>
                         {% else %}
-                            <div class="col mt-2 mb-2 text-success text-left">Approved</div>
-                        {% endif %}
-
-                        <div class="col mt-2 mb-2 text-left" ><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Unapprove' %}">
-                            Unapprove Posts</a>
-                        </div>
-                        
-                        {% if channel.num_unapproved %}
-                        <div class="col mt-2 mb-2 text-left"><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Approve' %}">
-                            {{ channel.num_unapproved }} posts to approve</a></div>
-                        {% else %}
-                        <div class="col mt-2 mb-2 text-left">No posts to approve</div>
+                            <p class="card-text text-success">Approved</p>
                         {% endif %}
                     </div>
+                    <div class="col-md-6" style="margin-top: -1.0rem !important;">
+                        <p class="card-text">Total Posts: {{ channel.posts_count }}</p>
+                    </div>
+                    
+                    <hr>
 
+                    <div class="col-12" >
+                        <p class="text-muted"><u>Actions</u></p>
+                    </div>
+
+                    <!-- Delete Button here triggers modal below -->
+                    <div class="col-12 col-md-6 ">
+                        <button type="button text-right" style="border:none" class="btn btn-outline-danger" 
+                        data-bs-toggle="modal" data-bs-target="#confirmManageDelete{{ forloop.counter }}">Delete Channel</button>
+                    </div>
+                    
+                    <div class="col-12 col-md-6 text-left" ><a class="nav-link" href="{% url 'channel_form' slug=channel.topic_url %}"> 
+                        <p class="card-text">Edit Channel</p></a> 
+                    </div>    
+
+                    <div class="col-12 col-md-6 text-left" ><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Unapprove' %}">
+                        Unapprove Posts</a>
+                    </div>
+                    
+                    {% if channel.num_unapproved %}
+                    <div class="col-12 col-md-6 text-right"><a class="nav-link" href="{% url 'channel_post_approve' slug=channel.topic_url post_approval_type='Approve' %}">
+                        Approve Posts ({{ channel.num_unapproved }})</a></div>
+                    {% else %}
+                    <div class="col-12 col-md-6 text-right"><a class="nav-link" >
+                        Approve Posts ({{ channel.num_unapproved }})</a></div>
+
+                    {% endif %}
+                    
                 </div>
 
                 <!-- Modal for Delete Button above-->
