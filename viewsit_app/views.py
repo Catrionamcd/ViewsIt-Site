@@ -133,7 +133,7 @@ class ChannelView(View):
             if request.user.is_authenticated:
                 queryset = ChannelPosts.objects.filter(
                     Q(channel__exact=channel),
-                    Q(status__exact=1) | Q(author__exact=request.user),
+                    Q(status__exact=1) | Q(author__exact=request.user) | Q(channel__author__exact=request.user),
                     Q(channel__status__exact=1),
                     ).order_by("-updated_on")
             else:
@@ -173,7 +173,7 @@ class ChannelViewAll(View):
 
         if request.user.is_authenticated:
             queryset = ChannelPosts.objects.filter(
-                Q(status__exact=1) | Q(author__exact=request.user),
+                Q(status__exact=1) | Q(author__exact=request.user) | Q(channel__author__exact=request.user),
                 Q(channel__status__exact=1),
                 ).order_by("-updated_on")
         else:
