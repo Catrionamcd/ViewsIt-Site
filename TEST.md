@@ -23,20 +23,26 @@ https://mdbootstrap.com/docs/standard/extended/back-to-top/ for the back to the 
 
 ## Python
 * Admin.py
+
 ![alt text](assets/images/ViewsIt-AdminPy-Validation.png)
 
 * Apps.py
+
 ![alt text](assets/images/ViewsIt-AppsPy-Validation.png)
 
 * Forms.py
+
 ![alt text](assets/images/ViewsIt-FormsPy-Validation.png)
 
 * Models.py
+
 ![alt text](assets/images/ViewsIt-ModelsPy-Validation.png)
 
-* Urls.py
+* Urls.
+
 ![alt text](assets/images/ViewsIt-UrlsPy-Validation.png)
 
 * Views.py
+
 ![alt text](assets/images/ViewsIt-ViewsPy-Validation.png)
 

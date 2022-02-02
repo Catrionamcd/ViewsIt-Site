@@ -1,6 +1,6 @@
 # ViewsIt Site
 
-The ViewsIt site is a social website. There are three different type of users for the site, a super user or administrator, a visitor to the site who chooses not to create a profile on the site and a vistor to the site who creates a user profile so they can contribute to the site. A visitor to the site can view all of the posts and channels on the site. Users can create a new channel or create posts to their own channel or another users channel. Once a channel is created it has to be approved by the administrator before a post can be posted to it. A post has to be approved by the channel owner before it can be viewd by all visitors to the site.
+The ViewsIt site is a social website. There are three different type of users for the site, a super user or administrator, a visitor to the site who chooses not to create a profile on the site and a visitor to the site who creates a user profile so they can contribute to the site. A visitor to the site can view all of the posts and channels on the site. Users can create a new channel or create posts to their own channel or another users channel. Once a channel is created it has to be approved by the administrator before a post can be posted to it. A post has to be approved by the channel owner before it can be viewd by all visitors to the site.
 
 ## Multi Screen of the site
 ViewsIt - https://views-it.herokuapp.com/
@@ -24,53 +24,102 @@ The Channel Posts model will store all of the details on the post attached to a 
 ## User Stories
 * Site visitor to view list of approved channels.
 * Site visitor to view posts in channels
-* Site visitor to view stats for a channel, posts and likes.
 * Site visitor to view stats for a post, see how many likes there are.
 * Site visitor to use search for author, channel topic or post title.
 * Account Registration for site vistor.
 * Set up a new channel as a registered user of the site.
 * As a super user/administrator add, edit and delete posts.
 * As a registered user of the site add, edit and delete posts.
-* As an owner of a channel th ability to approve channel posts.
+* As an owner of a channel the ability to approve channel posts.
 * As a user to like/unlike posts and comments
-* Ad a super user/ administrator the ability to approve a new channel
-* Add an image to channel posts
-* Add a url within a channel posts
-
+* As a super user/administrator the ability to approve a new channel.
+* Add an image to channel posts.
+* Add a url within a channel posts.
 
 ## Features/Functions
 
 ## Existing Features
 
 ### Registration/Login Forms
-* I created a new layout to the registration of a user to the site. I also created a new layout to the forms for the login and logout screens.
+* I created a new layout for user registration on the site. I also created a new layout to the forms for the login and logout screens.
+
+![alt text](assets/images/Register-User-Screen.png)
+
+![alt text](assets/images/ViewsIt-Login-Screen.png)
+
+![alt text](assets/images/User-Logout-Screen.png)
+
+* Messages will appear on screen to alert the user that their login or logout was successful.
+* Alternatively, error mesages will appear if the user has entered invalid data while trying to login or register.
+
+![alt text](assets/images/Login-Message-Screen.png)
+
+* These messages are timed to only appear for a few seconds but can be closed down by clicking the X on the top right hand corner of the message window.
+
 
 ### Navigation Bar
 
-![alt text](assets/images/ViewsIt-Navbar.png)
+A visitor to the site does not have to be registered to see the approved channels and approved posts on the ViewsIt site.
+
+* A visitor will be presented with a navigation bar that includes the site logo, a home button, a register or login option and an option to view a list of the approved channels on the site. 
+
+![alt text](assets/images/Navbar-No-Login.png)
+
+* They may also search for a particular author or post by entering it in the search field on the navigation bar.
+
+* Approved posts will be displayed for the site user to view and read.
+
+![alt text](assets/images/Search-By-Author.png)
+
+* If logged in as a registered user there will be more options available on the navigation bar : 
+
+1. Channel manage - look at all the posts against the channel created by you.
+2. New Channel - functionality to create a new channel.
+3. Post - functionality to creaet a post against any channel on the ViewsIt site.
+
+![alt text](assets/images/Register-User-NavBar.png)
 
 * The navigation bar is located at the top of all pages on the site.
-* The options available dynamically change depending on the type of viewer and depending on the specific menu path chosen.
+* The logo also acts as a home button.
 
-### Home button
-* Shows approved posts against all channels
+![alt text](assets/images/ViewsIt-Logo.png)
 
-### Channel List page
+### Channel List
 
-![alt text](assets/images/ViewsIt-Desktop.png)
-* Lists all approved channels so the user can view approved posts again a specific channel
+* Lists all approved channels so the user can view approved posts within a specific channel
+
+![alt text](assets/images/ViewsIt-Channel-List.png)
+
 * Visitors to the site (Unauthenticated login) can also view the approved channel list.
+
+* Author of a channel will also see unapproved posts for the channel that they have created.
+
+![alt text](assets/images/Unapproved-Post.png)
+
+* An unapproved post will be have a shaded background and will have a message 'Post not approved yet' attached to the post.
+* The channel author will also have the option to edit or delete the post.
 
 ### Channel Manage page
 
 * One stop place for all channel management activity.
-* Activities that can be accessed via the Channel Management page are: Request New Channel, Delete a Channel, Edit a Channel, Un-approve Posts submitted by users, Approve posts submitted by users
+* Activities that can be accessed via the Channel Management page are: 
+1. Request New Channel
+2. Delete a Channel 
+3. Edit a Channel 
+4. Un-approve Posts submitted by users 
+5. Approve posts submitted by users
+
+![alt text](assets/images/Channel-Manage-Screen.png)
+
 * Only channels created by the current logged in users are accessible on the page
-* If a logged in User requests a new channel, this will be visible on their page with a status of Draft and no other user will be able to see or post to the channel. The new channel request must be approved by the site Administrator before the Channel changes to status of Approved and it will then be possible for users to create posts under this channel.
-* If the Channel Manager presses the Delete Channel button a modal confirmation dialog will be displayed. Deleting a channel also removes any posts created under the channel.
-* The Channel Manager (person who creates the channel) can also edit the channel detail. Doing so will put the channel back into a status of Draft requiring site Administrator approval again, which means that any posts created under the channel will be hidden from users until the channel has been re-approved.
-* The Channel Manager also has the option to Un-Approve posts created by users of the channel. This will link to the Posts page interface to allow this to happen (see below). The Posts page (when called from Channel Manage page) will only display posts with a status of Approved and only from the channel selected. 
-* The Channel Manager has the option also to Approve posts created by users of the channel. The link in the Channel Manager display the amount of un-approved posts in the channel as a link. This will link to the Posts page interface to allow this to happen (see below). The Posts page (when called from Channel Manage page) will only display posts with a status of Draft and only from the channel selected.
+* If a logged in user requests a new channel, this will be visible on their page with a status of Draft and no other user will be able to see or post to the channel. 
+* The new channel request must be approved by the site super user/administrator before the channel changes to status of approved.
+* Once the channel is approved it will then be possible for users to create posts under this channel.
+* If the channel author presses the Delete Channel button a modal confirmation dialog will be displayed.
+* Deleting a channel also removes any posts created under the channel.
+* The channel author (person who creates the channel) can also edit the channel detail. Doing so will put the channel back into a status of 'Draft' requiring the super user/administrator's approval again, which means that any posts created under the channel will be hidden from users until the channel has been re-approved.
+* The channel author also has the option to Un-Approve posts created by users of the channel. This will link to the Posts page interface to allow this to happen (see below). The Posts page (when called from Channel Manage page) will only display posts with a status of Approved and only from the channel selected. 
+* The channel author has the option also to Approve posts created by users of the channel. The link in the Channel Manager display the amount of un-approved posts in the channel as a link. This will link to the Posts page interface to allow this to happen (see below). The Posts page (when called from Channel Manage page) will only display posts with a status of Draft and only from the channel selected.
 
 
 ### View Posts page
