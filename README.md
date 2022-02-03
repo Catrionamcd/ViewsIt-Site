@@ -23,6 +23,9 @@ There are two database models, the Channel model and the Channel Posts model. Th
 The Channel Posts model will store all of the details on the post attached to a channel, the post title, post description, post image, post url/link for more information on the post, author, date created, updated date and an approve field. It will hold a unique key which is comprised of the post title and the current date/time. It also holds the channel topic and has on delete cascade so that when a channel is deleted by the channel author all of the posts attached to this chanel will also be deleted automatically.
 
 ![Data Model](assets/images/ViewsIt-Data-Model.png)
+
+![Data Model](assets/images/ViewsIt-Database.png)
+
 ## User Stories
 * Site visitor to view list of approved channels.
 * Site visitor to view posts in channels.

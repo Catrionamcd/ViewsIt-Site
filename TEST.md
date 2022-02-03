@@ -6,6 +6,7 @@
 * Site visitor to view posts in channels.
 * Site visitor to view stats for a post, see how many likes there areagainst that post.
 
+*Steps Taken*
 1. Check that once the site is initiated a list of approved posts should appear on the screen for the vistors perusal.
 2. The navigation bar should only have the home, register/login, channel list and search options.
 3. The functionality to create a channel, a post or a like should not be available to an unauthenticated vistor to the site.
@@ -23,6 +24,9 @@
 
 *User Story*
 * Site visitor to use search for author, channel topic or post title.
+
+*Steps Taken*
+
 1. Enter an author to search for posts made by this author. I entered 'DavyH' in the search field for this test.
 
 ![alt text](assets/test-images/Test-Search-Author.png)
@@ -39,6 +43,9 @@
 
 *User Story*
 * Account Registration for site vistor.
+
+*Steps Taken*
+
 1. If a user wants to contribute to the site and post some of their views or even set up their own channel of interest they must register with the site. To test this I created a new user, 'MaryOD'.
 
 ![alt text](assets/test-images/Test-Reg.png)
@@ -71,6 +78,7 @@
 * Set up a new channel as a registered user of the site.
 * As a super user/administrator the ability to approve a new channel.
 
+*Steps Taken*
 
 1. Test the set up of new channel.
 2. Ensure that, if not all the information required is entered, an error message should appear to alert the user. 
@@ -108,9 +116,11 @@
 
 * As a user or super user/administrator edit a channels details. This is done throught the Channel Manage option.
 
+*Steps Taken*
+
 ![alt text](assets/test-images/Test-Channel-Manage.png)
 
-* Once the channel details are changed ensure that the channel status is changed to 'Draft' and needs approval again from the super user/administrator.
+1. Once the channel details are changed ensure that the channel status is changed to 'Draft' and needs approval again from the super user/administrator.
 
 ![alt text](assets/test-images/Test-Channel-Edit.png)
 
@@ -118,36 +128,78 @@
 
 ![alt text](assets/test-images/Test-Channel-Draft-Again.png)
 
-* Ensure only a channel author/owner can update or edit the channel details.
-* As a user or super user/administrator delete a channel.
+2. Ensure only a channel author/owner can update or edit the channel details.
+3. As a user or super user/administrator delete a channel.
 
 ![alt text](assets/test-images/Test-Delete-Channel.png)
 
-* Ensure a modal window will appear for delete a channel to ask the user if they are sure that they wish to go ahead with the action.
+4.  Ensure a modal window will appear for delete a channel to ask the user if they are sure that they wish to go ahead with the action.
 
 ![alt text](assets/test-images/Test-Delete-Channel-Message.png)
 
-* Ensure only a channel author/owner can delete their own channel.
+5. Ensure only a channel author/owner can delete their own channel.
 
 ![alt text](assets/test-images/Channel-Delete-Message.png)
 
-* Once a channel is deleted, ensure all posts attached are deleted too.
-* Channel 'Arts & Crafts' had 2 posts attached, when the channel was deleted the 2 posts were also deleted and they no longer showed on the posts screen. 
+6. Once a channel is deleted, ensure all posts attached are deleted too.
+7.  Channel 'Arts & Crafts' had 2 posts attached, when the channel was deleted the 2 posts were also deleted and they no longer showed on the posts screen. 
 
 *Pass/Fail:* **Pass**
 
 *User Stories*
 * As a user or super user/administrator add posts.
 
+*Steps Taken*
 
+1. Choose Posts from the navigation bar.
+2. Ensure all approved channels are in drop down options for channels.
+
+![alt text](assets/test-images/Test-Channel-Select.png)
+
+3. Enter data in all fields.
+
+![alt text](assets/test-images/Test-New-Post-Navbar.png)
+
+4. Ensure the correct message is displayed with needing approval form channel owner.
+5. Ensure all information added is on the post.
+6. Ensure that the post has a shaded background colour.
+
+![alt text](assets/test-images/Test-New-Post-Message.png)
+
+*Pass/Fail:* **Pass**
+
+*User Story*
+* As an owner of a channel the ability to approve channel posts.
+
+*Steps Taken*
+1. Choose Channel Manage option from navigation bar.
+
+![alt text](assets/test-images/Test-Channel-Manage.png)
+
+2. Click approve posts
+3. The posts awaiting approval should be displayed.
+4. Click the approve button.
+
+![alt text](assets/test-images/Test-Post-Approve-Button.png)
+
+5. Click home button to view the post displayed with all other approved post. The background colour should now be white.
+6. If the user logged in is the author of the post an Edit and Delete button should appear on the post to enable the author to change or delete the post. 
+
+![alt text](assets/test-images/Test-Post-Channel-Owner.png)
+
+7. If the user logged in os not the author of the post the Edit and Delete buttons should not be displayed.
+
+![alt text](assets/test-images/Test-Approve-Colour.png)
+
+
+*Pass/Fail:* **Pass**
 
 * As a user or super user/administrator edit posts.
 * As a user or super user/administrator delete posts.
 
 * Add an image to channel posts.
 * Add a url within a channel posts.
-*User Story*
-* As an owner of a channel the ability to approve channel posts.
+
 *User Story*
 * As a user to like/unlike posts and comments.
 
