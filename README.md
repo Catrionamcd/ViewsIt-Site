@@ -1,6 +1,6 @@
 # ViewsIt Site
 
-The ViewsIt site is a social website. There are three different type of users for the site, a super user or administrator, a visitor to the site who chooses not to create a profile on the site and a visitor to the site who creates a user profile so they can contribute to the site. A visitor to the site can view all of the posts and channels on the site. Users can create a new channel or create posts to their own channel or another users channel. Once a channel is created it has to be approved by the administrator before a post can be posted to it. A post has to be approved by the channel owner before it can be viewed by all visitors to the site.
+The ViewsIt site is a social website. There are three different type of users for the site, a super user or administrator, a visitor to the site who chooses not to create a profile on the site and a visitor to the site who creates a user profile so they can contribute to the site. A visitor to the site can view all of the approved posts and channels on the site. Users with a profile on the site can create a new channel or create posts to their own channel or another users channel. Once a channel is created it has to be approved by the administrator before a post can be posted to it. A post has to be approved by the channel owner before it can be viewed by all visitors to the site.
 
 ## Multi Screen of the site
 Click on [ViewsIt](https://views-it.herokuapp.com/) to see the site.
@@ -25,7 +25,7 @@ The Channel Posts model will store all of the details on the post attached to a 
 ![Data Model](assets/images/ViewsIt-Data-Model.png)
 ## User Stories
 * Site visitor to view list of approved channels.
-* Site visitor to view posts in channels
+* Site visitor to view posts in channels.
 * Site visitor to view stats for a post, see how many likes there are.
 * Site visitor to use search for author, channel topic or post title.
 * Account Registration for site vistor.
@@ -33,7 +33,7 @@ The Channel Posts model will store all of the details on the post attached to a 
 * As a super user/administrator add, edit and delete posts.
 * As a registered user of the site add, edit and delete posts.
 * As an owner of a channel the ability to approve channel posts.
-* As a user to like/unlike posts and comments
+* As a user to like/unlike posts and comments.
 * As a super user/administrator the ability to approve a new channel.
 * Add an image to channel posts.
 * Add a url within a channel posts.
@@ -64,16 +64,16 @@ The Channel Posts model will store all of the details on the post attached to a 
 A visitor to the site does not have to be registered to see the approved channels and approved posts on the ViewsIt site.
 
 * A visitor will be presented with a navigation bar that includes :
-1. The site logo
-2. A home button
-3. Register or login option
+1. The site logo.
+2. A home button.
+3. Register or login options.
 4. View a list of the approved channels on the site. 
-5. Search field
+5. Search field.
 
 ![alt text](assets/images/Navbar-No-Login.png)
 
-* The site visitor may search for phrase contained in either Post Title, Post Content, or Post Author.
-* Entering a username into the search field allows a user to find all of their own posts (or others).
+* The site visitor may search for a phrase contained in either Post Title, Post Content, or Post Author.
+* Entering a username into the search field allows a user to find all of the posts contributed by that author name.
 * Approved posts will be displayed for the site user to view and read.
 
 ![alt text](assets/images/Search-By-Author.png)
@@ -93,7 +93,7 @@ A visitor to the site does not have to be registered to see the approved channel
 
 ### Channel List
 
-* Lists all approved channels so the user can view approved posts within a specific channel
+* Lists all approved channels so the user can view approved posts within a specific channel.
 
 ![alt text](assets/images/ViewsIt-Channel-List.png)
 
@@ -104,7 +104,7 @@ A visitor to the site does not have to be registered to see the approved channel
 ![alt text](assets/images/Unapproved-Post.png)
 
 * An unapproved post will be have a shaded background and will have a message 'Post not approved yet' attached to the post.
-* The channel author will also have the option to edit or delete the post.
+* The channel author will also have the option to edit or delete this post.
 
 ### Channel Manage
 
@@ -118,13 +118,13 @@ A visitor to the site does not have to be registered to see the approved channel
 
 ![alt text](assets/images/Channel-Manage-Screen.png)
 
-* Only channels created by the current user logged in are accessible on the page
-* If a logged in user requests a new channel this will be visible on their page with a status of 'Draft' and no other user will be able to see or post to the channel. 
+* Only channels created by the current user logged in are accessible on this page
+* If a logged in user has created a new channel, this will be visible on their page with a status of 'Draft'. No other user will be able to see or post to this channel until it has been approved by the super user/administrator of the site.
 
 ![alt text](assets/images/Draft-Channel-Screen.png)
 
 * The new channel requested must be approved by the site super user/administrator before the channel changes to status of approved.
-* The channel will be approved by the supreuser/administrator in the django dashboard.
+* The channel will be approved by the super user/administrator in the Django dashboard.
 
 ![alt text](assets/images/Publish-Channel-Dashboard.png)
 
@@ -135,7 +135,7 @@ A visitor to the site does not have to be registered to see the approved channel
 
 * Deleting a channel also removes any posts created under the channel.
 * The channel author (person who creates the channel) can also edit the channel detail. Doing so will put the channel back into a status of 'Draft' requiring the super user/administrator's approval again, which means that any posts created under the channel will be hidden from users until the channel has been re-approved.
-* The channel author also has the option to un-approve posts created by users of the channel. This will link to the Posts page interface to allow this to happen (see below). The Posts page (when called from Channel Manage page) will only display posts with a status of approved and only from the channel selected. 
+* The channel author also has the option to un-approve posts that have been created by users of the channel. This will link to the Posts page interface to allow this to happen (see below). The Posts page (when called from Channel Manage page) will only display posts with a status of approved and only from the channel selected. 
 
 ![alt text](assets/images/Unapprove-Posts-Screen.png)
 
@@ -143,10 +143,14 @@ A visitor to the site does not have to be registered to see the approved channel
 
 ![alt text](assets/images/Approve-Post-Screen.png)
 
-* Any posts created by the current logged in user will also show an Edit button to re-edit the post, and a Delete button to delete the post. A modal confim window is presented if the user presses the Delete button. If the user re-edits a post and saves it, the Status of the post will be reset back to Draft which means that no other logged in users or visitors will be able to see the post.
+* Any posts created by the current logged in user will also show an Edit button to re-edit the post, and a Delete button to delete the post. A modal confirm window is presented if the user presses the Delete button.
+* If the user re-edits a post and saves it, the status of that post will be reset back to 'Draft'. This means that no other logged in users or visitors will be able to see the post.
 * The posts page also conditionally shows two other buttons for Channel Managers, the Approve button and the Un-approve button. These are only available if the page has been called from the Channel Manage page and will not be visible to users. They will also not be visible if the owner of the Channel visits the Posts page directly, only if invoked via the Channel Manage page. Refer to Channel Manage above.
 * The Posts page indicates via a solid heart icon if the Post has been 'liked' and also shows the amount of 'likes' the Post has received. 
-* Any authenticated user can 'like' a post.
+
+![alt text](assets/images/Solid-Like-Icon.png)
+
+* Any authenticated user can 'like' an approved post.
 ### Create a channel
 * This option is available to authorised users.
 
@@ -155,9 +159,10 @@ A visitor to the site does not have to be registered to see the approved channel
 * The channel author/owner can enter the channel topic and a short description of what the channel is about.
 * The new channel will have a status of 'Draft' until the super user/administrator approves it.
 * The channel will ony be visible to the channel author/owner until it is approved.
+* Once the channel is approved by the super user/administrator all authenticated users may create posts under this channel.
 
 ### Create a Post
-* This option is available from the menu bar at the top of the site.
+* This option is available from the menu bar at the top of the site for authenicated users.
 * A person creating a post can enter the following information: 
 1. A channel
 2. A title for the post
@@ -169,12 +174,15 @@ A visitor to the site does not have to be registered to see the approved channel
 ![alt text](assets/images/New-Post-Channel-Select.png)
 
 *  Channel is only shown if selected via the Home button path. 
-*  If posting from within a channel (viewing posts from the Channel List path) the channel will not be shown and will be recorded based on the channel the user currently viewing.
+*  If posting from within a channel (viewing posts from the Channel List path) the channel will not be shown and will be recorded based on the channel the user is currently viewing.
 * Images are uploaded and stored in Cloudinary as part of the post save process.
 * Once a post is submitted a message is displayed to inform the user that the post has to be approved by the channel author/owner.
 
 ![alt text](assets/images/New-Post-Detail.png)
 
+* The new post will be displayed with a shaded background until it is approved by the channel author/owner and will only be visible to them until it is approved. 
+
+![alt text](assets/images/Draft-New-Post.png)
 
 
 ## Functions
@@ -182,9 +190,10 @@ Views.py code
 * Code in the Views.py carry out various validation checks throughout. For example if code to delete a channel is initiated, then a check is first made that the user is the current channel owner before proceeding with the deletion. 
 
 ### Future Features 
-* The site could be extended to send notifications of new channels to the super user for approval
+* The site could be extended to send notifications of new channels to the super user for approval.
 * Send notifications of new post to the channel owner for approval.
-* Add an image to channel information to make it more appealing
+* Add an image to channel information to make it more appealing.
+* Display a thumbnail of the image chosen as the channel or post is being created or edited.
 * Extend the site to enable users to add comments to the posts that are attached to each channel.
 
 
@@ -215,16 +224,6 @@ Views.py code
 ## Testing
 
 Code Validation and Manual Testing can be viewed [here](TEST.md)
-### Manual Testing
-
-* New Registration Page
-* New Login/Logout Page
-* Create Channel
-* Approve Channel
-* Create Posts
-* Edit Channel/posts
-* Delete Channel/post
-* Numerous searches
 
 ## Deployment
 
