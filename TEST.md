@@ -2,9 +2,9 @@
 
 ### Testing for User Stories
 *User Stories*
-* Site visitor to view list of approved channels.
-* Site visitor to view posts in channels.
-* Site visitor to view stats for a post, see how many likes there areagainst that post.
+* Site visitor(unauthenticated user) to view list of approved channels.
+* Site visitor(unauthenticated user) to view posts in channels.
+* Site visitor(unauthenticated user) to view stats for a post, see how many likes there are for that post.
 
 *Steps Taken*
 1. Check that once the site is initiated a list of approved posts should appear on the screen for the vistors perusal.
@@ -23,7 +23,7 @@
 *Pass/Fail:* **Pass**
 
 *User Story*
-* Site visitor to use search for author, channel topic or post title.
+* All users of the site to use the search field for author, channel topic or post title.This will help filter the posts for what the users wants to see.
 
 *Steps Taken*
 
@@ -50,12 +50,12 @@
 
 ![alt text](assets/test-images/Test-Reg.png)
 
-2. Test both passwords entered are the same.
+2. Entered different passwords to force an error message.
 
 ![alt text](assets/test-images/Test-Unsuccess-Reg.png)
 
-2. Checked to see if the user was set up and that a successful message appears.
-3. Checked if x clicked on message, the message will disappear.
+3. Checked to see if the user was set up and that a successful message appears.
+4. Checked if x clicked on message, the message will disappear.
 
 ![alt text](assets/test-images/Test-Success-Reg.png)
 
@@ -112,9 +112,9 @@
 
 *Pass/Fail:* **Pass**
 
-*User Stories*
+*User Story*
 
-* As a user or super user/administrator edit a channels details. This is done throught the Channel Manage option.
+* As a channel author/owner or super user/administrator edit a channels details. This is done through the Channel Manage option.
 
 *Steps Taken*
 
@@ -129,7 +129,7 @@
 ![alt text](assets/test-images/Test-Channel-Draft-Again.png)
 
 2. Ensure only a channel author/owner can update or edit the channel details.
-3. As a user or super user/administrator delete a channel.
+3. As a channel author/owner or super user/administrator delete a channel.
 
 ![alt text](assets/test-images/Test-Delete-Channel.png)
 
@@ -146,8 +146,8 @@
 
 *Pass/Fail:* **Pass**
 
-*User Stories*
-* As a user or super user/administrator add posts.
+*User Story*
+* As a registered user or super user/administrator add posts.
 
 *Steps Taken*
 
@@ -160,7 +160,7 @@
 
 ![alt text](assets/test-images/Test-New-Post-Navbar.png)
 
-4. Ensure the correct message is displayed with needing approval form channel owner.
+4. Ensure the correct message is displayed with needing approval form channel author/owner.
 5. Ensure all information added is on the post.
 6. Ensure that the post has a shaded background colour.
 
@@ -187,15 +187,34 @@
 
 ![alt text](assets/test-images/Test-Post-Channel-Owner.png)
 
-7. If the user logged in os not the author of the post the Edit and Delete buttons should not be displayed.
+7. If the user logged in is not the author of the post the Edit and Delete buttons should not be displayed.
 
 ![alt text](assets/test-images/Test-Approve-Colour.png)
 
 
 *Pass/Fail:* **Pass**
 
-* As a user or super user/administrator edit posts.
-* As a user or super user/administrator delete posts.
+*User Story*
+
+* As a post author or super user/administrator edit posts.
+
+*Steps Taken*
+
+![alt text](assets/test-images/Test-Post-Edit.png)
+
+*User Story*
+
+* As a post author or super user/administrator delete posts.
+
+*Steps Taken*
+1. Both approved and un-approved posts may be deleted.
+
+![alt text](assets/test-images/Test-Post-Delete.png)
+
+![alt text](assets/test-images/Test-Post-Delete-Approve.png)
+
+
+*User Stories*
 
 * Add an image to channel posts.
 * Add a url within a channel posts.
