@@ -350,7 +350,6 @@ class ChannelEdit(View):
         a channel is edited, it has to be re-approved by the super user
     """
     def get(self, request, slug, *args, **kwargs):
-        print("IN GET")
         if not request.user.is_authenticated:
             return redirect('home')
 
@@ -746,7 +745,8 @@ class ChannelPostEdit(View):
                     channel_post.title = form.instance.title
                     channel_post.slug_url = slugify(
                         form.instance.title + str(timezone.now()))
-                    channel_post.post_image = form.instance.post_image
+                    if form.instance.post_image:
+                        channel_post.post_image = form.instance.post_image
                     channel_post.channel_post = form.instance.channel_post
                     channel_post.post_url = form.instance.post_url
                     channel_post.status = 0
@@ -815,7 +815,8 @@ class ChannelPostEditWithChannel(View):
                     channel_post.title = form.instance.title
                     channel_post.slug_url = slugify(
                         form.instance.title + str(timezone.now()))
-                    channel_post.post_image = form.instance.post_image
+                    if form.instance.post_image:
+                        channel_post.post_image = form.instance.post_image
                     channel_post.channel_post = form.instance.channel_post
                     channel_post.post_url = form.instance.post_url
                     channel_post.status = 0

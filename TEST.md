@@ -4,7 +4,7 @@
 *User Stories*
 * Site visitor to view list of approved channels.
 * Site visitor to view posts in channels.
-* Site visitor to view stats for a post, see how many likes there are.
+* Site visitor to view stats for a post, see how many likes there areagainst that post.
 
 1. Check that once the site is initiated a list of approved posts should appear on the screen for the vistors perusal.
 2. The navigation bar should only have the home, register/login, channel list and search options.
@@ -31,7 +31,7 @@
 
 ![alt text](assets/test-images/Test-Search-Title.png)
 
-3. Enter a word to search for posts with this in the post title or description. I entered 'Surf' in the search field for this test.
+3. Enter a word to search for posts with this word in the post title or description. I entered 'Surf' in the search field for this test.
 
 ![alt text](assets/test-images/Test-Search-Desc.png)
 
@@ -39,7 +39,7 @@
 
 *User Story*
 * Account Registration for site vistor.
-1. If a user wants to contribute to the site and posts some of their views or even set up their own channel of interest they must register with the site. To test this I created a new user, 'MaryOD'.
+1. If a user wants to contribute to the site and post some of their views or even set up their own channel of interest they must register with the site. To test this I created a new user, 'MaryOD'.
 
 ![alt text](assets/test-images/Test-Reg.png)
 
@@ -48,45 +48,108 @@
 ![alt text](assets/test-images/Test-Unsuccess-Reg.png)
 
 2. Checked to see if the user was set up and that a successful message appears.
+3. Checked if x clicked on message, the message will disappear.
 
 ![alt text](assets/test-images/Test-Success-Reg.png)
 
-3. Try login as the user.
+4. Try login as the user.
+5. Enter invalid data to ensure only valid users can login.
+6. If a authenicated user is logged in ensure that the following extra options appear on the navigation bar to enable extra functionality for a registered user.
+    - Channel Manage
+    - New Channel
+    - Post 
 
-![alt text](assets/test-images/Test-Success-Login.png)
+![alt text](assets/test-images/Test-NavBar-User-Extras.png)
 
-
-4. Enter invalid data to ensure only valid users can login.
-5. Test logging out or choosing to stay logged in and going back to site.
+7. Test logging out or choosing to stay logged in and going back to site.
 
 ![alt text](assets/test-images/Test-Success-Logout.png)
+
+*Pass/Fail:* **Pass**
+
+*User Stories*
+* Set up a new channel as a registered user of the site.
+* As a super user/administrator the ability to approve a new channel.
+
+
+1. Test the set up of new channel.
+2. Ensure that, if not all the information required is entered, an error message should appear to alert the user. 
+
+![alt text](assets/test-images/Test-New-Channel-Data.png)
+
+3. Ensure a message appears to the user to say that the channel has to be approved once the relevant information is entered and the channel is submitted.
+
+![alt text](assets/test-images/Test-New-Channel.png)
+
+![alt text](assets/test-images/Channel-Setup-Message.png)
+
+
+4. Ensure that the channel does not appear on the list of channels until it is approved.
+
+![alt text](assets/test-images/Test-Approved-Channels.png)
+
+5. As a super user/administrator update the new channel status to 'published' in the django dashboard.
+
+![alt text](assets/test-images/Test-DashBoard-Channels.png)
+
+![alt text](assets/test-images/Test-Channel-Publish.png)
+
+![alt text](assets/test-images/Test-Channel-Publish-Success.png)
+
+
+6. Ensure that the new channel now appears in the list of channels.
+
+![alt text](assets/test-images/Test-New-Channel-List.png)
 
 
 *Pass/Fail:* **Pass**
 
-*User Story*
-* Set up a new channel as a registered user of the site.
-*User Story*
-* As a super user/administrator add, edit and delete posts.
-*User Story*
-* As a registered user of the site add, edit and delete posts.
+*User Stories*
+
+* As a user or super user/administrator edit a channels details. This is done throught the Channel Manage option.
+
+![alt text](assets/test-images/Test-Channel-Manage.png)
+
+* Once the channel details are changed ensure that the channel status is changed to 'Draft' and needs approval again from the super user/administrator.
+
+![alt text](assets/test-images/Test-Channel-Edit.png)
+
+![alt text](assets/test-images/Test-Channel-Approve-Again.png)
+
+![alt text](assets/test-images/Test-Channel-Draft-Again.png)
+
+* Ensure only a channel author/owner can update or edit the channel details.
+* As a user or super user/administrator delete a channel.
+
+![alt text](assets/test-images/Test-Delete-Channel.png)
+
+* Ensure a modal window will appear for delete a channel to ask the user if they are sure that they wish to go ahead with the action.
+
+![alt text](assets/test-images/Test-Delete-Channel-Message.png)
+
+* Ensure only a channel author/owner can delete their own channel.
+
+![alt text](assets/test-images/Channel-Delete-Message.png)
+
+* Once a channel is deleted, ensure all posts attached are deleted too.
+* Channel 'Arts & Crafts' had 2 posts attached, when the channel was deleted the 2 posts were also deleted and they no longer showed on the posts screen. 
+
+*Pass/Fail:* **Pass**
+
+*User Stories*
+* As a user or super user/administrator add posts.
+
+
+
+* As a user or super user/administrator edit posts.
+* As a user or super user/administrator delete posts.
+
+* Add an image to channel posts.
+* Add a url within a channel posts.
 *User Story*
 * As an owner of a channel the ability to approve channel posts.
 *User Story*
 * As a user to like/unlike posts and comments.
-*User Story*
-* As a super user/administrator the ability to approve a new channel.
-*User Story*
-* Add an image to channel posts.
-*User Story*
-* Add a url within a channel posts.
-
-* Create Channel
-* Approve Channel
-* Create Posts
-* Edit Channel/posts
-* Delete Channel/post
-* Numerous searches
 
 
 ### Validator Testing

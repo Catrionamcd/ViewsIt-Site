@@ -145,10 +145,10 @@ A visitor to the site does not have to be registered to see the approved channel
 
 * Any posts created by the current logged in user will also show an Edit button to re-edit the post, and a Delete button to delete the post. A modal confirm window is presented if the user presses the Delete button.
 * If the user re-edits a post and saves it, the status of that post will be reset back to 'Draft'. This means that no other logged in users or visitors will be able to see the post.
-* The posts page also conditionally shows two other buttons for Channel Managers, the Approve button and the Un-approve button. These are only available if the page has been called from the Channel Manage page and will not be visible to users. They will also not be visible if the owner of the Channel visits the Posts page directly, only if invoked via the Channel Manage page. Refer to Channel Manage above.
-* The Posts page indicates via a solid heart icon if the Post has been 'liked' and also shows the amount of 'likes' the Post has received. 
+* The posts page also conditionally shows two other buttons for Channel Managers, the Approve button and the Un-approve button. These are only available if the page has been called from the channel manage page and will not be visible to other users. They will also not be visible if the owner of the channel visits the posts page directly, only if invoked via the channel manage page. Refer to channel manage above.
+* The posts page indicates via a solid heart icon if the post has been 'liked' and also shows the amount of 'likes' that post has received. 
 
-![alt text](assets/images/Solid-Like-Icon.png)
+![alt text](assets/images/Approve-Post-Screen.png)
 
 * Any authenticated user can 'like' an approved post.
 ### Create a channel
@@ -164,7 +164,7 @@ A visitor to the site does not have to be registered to see the approved channel
 ### Create a Post
 * This option is available from the menu bar at the top of the site for authenicated users.
 * A person creating a post can enter the following information: 
-1. A channel
+1. A channel (only shown if selected by home button)
 2. A title for the post
 3. The post details
 4. An image
@@ -180,7 +180,7 @@ A visitor to the site does not have to be registered to see the approved channel
 
 ![alt text](assets/images/New-Post-Detail.png)
 
-* The new post will be displayed with a shaded background until it is approved by the channel author/owner and will only be visible to them until it is approved. 
+* The new post will be displayed with a shaded background until it is approved by the channel author/owner and will only be visible to post author and channel owner until it is approved. 
 
 ![alt text](assets/images/Draft-New-Post.png)
 
@@ -190,17 +190,17 @@ Views.py code
 * Code in the Views.py carry out various validation checks throughout. For example if code to delete a channel is initiated, then a check is first made that the user is the current channel owner before proceeding with the deletion. 
 
 ### Future Features 
-* The site could be extended to send notifications of new channels to the super user for approval.
+* The site could be extended to send notifications of new channels to the super user/administrator for approval. At the moment the administrator has no way of knowing how many new channels are awaiting approval other than looking in the dashboard to see how many have a status of draft. 
 * Send notifications of new post to the channel owner for approval.
 * Add an image to channel information to make it more appealing.
-* Display a thumbnail of the image chosen as the channel or post is being created or edited.
+* Display a thumbnail of the image chosen for a new channel or post as they are created or edited.
 * Extend the site to enable users to add comments to the posts that are attached to each channel.
 
 
 ## Technology
 ### Language Used
 
-* [Python](https://www.python.org) - Python is an interpreted high-level general-purpose programming language. I used Python to access the data in Google Sheets and run the game.
+* [Python](https://www.python.org) - Python is an interpreted high-level general-purpose programming language. 
 * [CSS](https://) - Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language such as HTML. 
 * [HTML](https://) - The HyperText Markup Language, or HTML is the standard markup language for documents designed to be displayed in a web browser.
 * [JavaScript](https://) - JavaScript is a text-based programming language used both on the client-side and server-side that allows you to make web pages interactive.
@@ -239,7 +239,7 @@ The application uses Heroku for deployment:
 6. Enter a name for the application which must be unique, in this case the app name is called views-it.
 7. Select a region, in this case Europe
 8. Click create app
-## Attach the POstgreSQL databae
+## Attach the PostgreSQL database
 1. Click on the resources tab on the horizontal menu bar to add a database
 2. In the add-ons box search for Postgres
 3. Add Heroku Postgres to the project
@@ -292,6 +292,6 @@ Press enter to create the local clone.
 * OrdinaryCoders - https://www.ordinarycoders.com
 
 I would like to credit my family for helping me with the content, the ideas and logic of this project. 
-I would like to thank my mentor for be very understanding, helpful and very generous with her time. I would also like to thank our cohort facilitator, Kasia Bogucka, for always going above and beyond to help us.
+I would like to thank my mentor for being very understanding, helpful and very generous with her time. I would also like to thank our cohort facilitator, Kasia Bogucka, for always going above and beyond to help us.
 
 
