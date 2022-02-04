@@ -210,7 +210,7 @@
 
 9. Click the 'Unapprove' button to ensure the post is no longer approved.
 
-10. Click on Channel list, choose the channel and the post should not display with a shaded background and a message to say the post is not yet approved.
+10. Click on Channel list, choose the channel and the post should now display with a shaded background and a message to say the post is not yet approved.
 
 ![alt text](assets/test-images/Test-UnApproved.png)
 
