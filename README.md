@@ -151,7 +151,7 @@ A visitor to the site does not have to be registered to see the approved channel
 * The posts page also conditionally shows two other buttons for Channel Managers, the Approve button and the Un-approve button. These are only available if the page has been called from the channel manage page and will not be visible to other users. They will also not be visible if the owner of the channel visits the posts page directly, only if invoked via the channel manage page. Refer to channel manage above.
 * The posts page indicates via a solid heart icon if the post has been 'liked' and also shows the amount of 'likes' that post has received. 
 
-![alt text](assets/images/Approve-Post-Screen.png)
+![alt text](assets/images/ViewsIt-Post-Likes.png)
 
 * Any authenticated user can 'like' an approved post.
 ### Create a channel

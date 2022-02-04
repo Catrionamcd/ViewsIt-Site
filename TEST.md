@@ -117,32 +117,45 @@
 * As a channel author/owner or super user/administrator edit a channels details. This is done through the Channel Manage option.
 
 *Steps Taken*
-
+1. Choose the Channel Manage option from the navigation bar. 
+2. Ensure only the channels owned by the logged in user are available.
 ![alt text](assets/test-images/Test-Channel-Manage.png)
 
-1. Once the channel details are changed ensure that the channel status is changed to 'Draft' and needs approval again from the super user/administrator.
+3. Once the channel details are changed ensure that the channel status is changed to 'Draft' and needs approval again from the super user/administrator.
 
 ![alt text](assets/test-images/Test-Channel-Edit.png)
 
+4. This message will appear to the user.
+
 ![alt text](assets/test-images/Test-Channel-Approve-Again.png)
+
+5. Check in Django dashboard to see that the channel has beem set back to 'Draft'.
 
 ![alt text](assets/test-images/Test-Channel-Draft-Again.png)
 
-2. Ensure only a channel author/owner can update or edit the channel details.
-3. As a channel author/owner or super user/administrator delete a channel.
+
+*Pass/Fail:* **Pass**
+
+*User Story*
+
+* As a channel author/owner or super user/administrator the functionality to delete a channel.
+
+*Steps Taken*
+
+1. Choose Channel Manage option from the navigation bar. Ensure only the channels attached to the user logged in are available for deletion.
 
 ![alt text](assets/test-images/Test-Delete-Channel.png)
 
-4.  Ensure a modal window will appear for delete a channel to ask the user if they are sure that they wish to go ahead with the action.
+2.  Ensure a modal window will appear for delete a channel to ask the user if they are sure that they wish to go ahead with the action.
 
 ![alt text](assets/test-images/Test-Delete-Channel-Message.png)
 
-5. Ensure only a channel author/owner can delete their own channel.
+3. Ensure only a channel author/owner can delete their own channel.
 
 ![alt text](assets/test-images/Channel-Delete-Message.png)
 
-6. Once a channel is deleted, ensure all posts attached are deleted too.
-7.  Channel 'Arts & Crafts' had 2 posts attached, when the channel was deleted the 2 posts were also deleted and they no longer showed on the posts screen. 
+4. Once a channel is deleted, ensure all posts attached are deleted too.
+5.  Channel 'Arts & Crafts' had 2 posts attached, when the channel was deleted the 2 posts were also deleted and they no longer showed on the posts screen. 
 
 *Pass/Fail:* **Pass**
 
@@ -160,9 +173,9 @@
 
 ![alt text](assets/test-images/Test-New-Post-Navbar.png)
 
-4. Ensure the correct message is displayed with needing approval form channel author/owner.
+4. Ensure the correct message is displayed - needing approval from the channel author/owner.
 5. Ensure all information added is on the post.
-6. Ensure that the post has a shaded background colour.
+6. Ensure that the post has a shaded background colour until it is approved by the channel author/owner.
 
 ![alt text](assets/test-images/Test-New-Post-Message.png)
 
@@ -199,29 +212,52 @@
 * As a post author or super user/administrator edit posts.
 
 *Steps Taken*
+1. A post may only be edited by the author of the post.
+2. Ensure an Edit button appears for all posts created by the author logged in.
+3. When the Edit button is clicked all fields in that post can be changed. In this case I changed the post text to add 'Click on the link for a free pattern'.
 
 ![alt text](assets/test-images/Test-Post-Edit.png)
+
+4. When the submit button is clicked to update the changes to the post a message should appear to inform the user that the changes are updated but the post needs aprroval from the channel owner again.
+
+![alt text](assets/test-images/Test-Post-Change-Message.png)
+
+5. The background is shaded again and a message letting the user know that the post needs approval appears on the post.
+
+*Pass/Fail:* **Pass**
 
 *User Story*
 
 * As a post author or super user/administrator delete posts.
 
 *Steps Taken*
-1. Both approved and un-approved posts may be deleted.
+
+1. A post may only be deleted by the post author. Ensure the Delete button only appears on the posts created by the user logged in.
+2. Both approved and un-approved posts may be deleted.
 
 ![alt text](assets/test-images/Test-Post-Delete.png)
 
 ![alt text](assets/test-images/Test-Post-Delete-Approve.png)
 
-
-*User Stories*
-
-* Add an image to channel posts.
-* Add a url within a channel posts.
+*Pass/Fail:* **Pass**
 
 *User Story*
+
 * As a user to like/unlike posts and comments.
 
+*Steps Taken*
+
+1. A registered user of the site can 'like' any post.
+
+2. Click on the heart at the end of the post.
+
+3. Ensure the heart turns to a solid red and the number of likes increases by one.
+
+4. If the same user clicks the heart again, the number of likes should decrease by one. 
+
+![alt text](assets/test-images/Test-Post-Likes.png)
+
+*Pass/Fail:* **Pass**
 
 ### Validator Testing
 
