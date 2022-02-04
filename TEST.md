@@ -182,7 +182,7 @@
 *Pass/Fail:* **Pass**
 
 *User Story*
-* As an owner of a channel the ability to approve channel posts.
+* As an owner of a channel the ability to approve/unapprove channel posts.
 
 *Steps Taken*
 1. Choose Channel Manage option from navigation bar.
@@ -204,6 +204,15 @@
 
 ![alt text](assets/test-images/Test-Approve-Colour.png)
 
+8. The channel author can also un-approve posts. Within Channel Manage click the 'Unapprove Posts' link. This will display all the posts for that channel with an 'Unapprove' button. 
+
+![alt text](assets/test-images/Test-UnApprove-Post.png)
+
+9. Click the 'Unapprove' button to ensure the post is no longer approved.
+
+10. Click on Channel list, choose the channel and the post should not display with a shaded background and a message to say the post is not yet approved.
+
+![alt text](assets/test-images/Test-UnApproved.png)
 
 *Pass/Fail:* **Pass**
 
